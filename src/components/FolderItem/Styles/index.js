@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
         height:70,
         borderRadius:5,
         padding:10,
+        marginBottom:10,
+        marginTop:10,
     },
     nameFolder:{
         fontSize:18,

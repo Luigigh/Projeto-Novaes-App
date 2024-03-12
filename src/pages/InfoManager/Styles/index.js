@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         paddingBottom: 70
     },
     fotoperfil: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: 'green'
     },
     imagem_perfil: {
         width: 150,

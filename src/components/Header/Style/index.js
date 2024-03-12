@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         backgroundColor:colors.primary,
         height:70,
         padding:10,
-
     },
     image:{
         width:50,

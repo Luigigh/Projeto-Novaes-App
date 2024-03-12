@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
         justifyContent:'space-between',
       },
       folderItem: {
@@ -16,6 +15,10 @@ const styles = StyleSheet.create({
         borderColor: 'blue',
         marginBottom: 5,
         padding: 10
+      },
+      main:{
+        paddingLeft:15,
+        paddingRight:15
       }
   
 });

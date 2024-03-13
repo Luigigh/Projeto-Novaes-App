@@ -18,6 +18,7 @@ import Icon_Trash from "react-native-vector-icons/Entypo";
 import Icon_Date from "react-native-vector-icons/Fontisto";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ModalStage from "../../components/Modal";
 
 
 export default function TimeLineScreen() {
@@ -29,7 +30,10 @@ export default function TimeLineScreen() {
   const [etapas, setEtapas] = useState([]);
   const [etapaSelecionada, setEtapaSelecionada] = useState(null);
   const [indiceEtapaEditando, setIndiceEtapaEditando] = useState(null);
-  const [corIconeClock, setCorIconeClock] = useState("#FFF");
+  const [mostrarBotaoVoltar, setMostrarBotaoVoltar] = useState(false);
+  const [mostrarModalConfirmacao, setMostrarModalConfirmacao] = useState(false);
+  const [corBotao, setCorBotao] = useState("#007B8F"); // Estado para controlar a cor do botão
+
   const route = useRoute();
 
   const adicionarEtapa = () => {
@@ -59,6 +63,9 @@ export default function TimeLineScreen() {
       setDescricao(etapas[etapaSelecionada].descricao);
       setDataHora(etapas[etapaSelecionada].dataHora);
 
+      // Exibe o botão de voltar no modal
+      setMostrarBotaoVoltar(true);
+
       // Abre o modal
       setModalVisible(true);
     }
@@ -82,6 +89,76 @@ export default function TimeLineScreen() {
       <Header />
       <ScrollView style={styles.ScrollView}>
 
+        <Modal
+          style={styles.Modal}
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setEtapaSelecionada(null);
+            setModalVisible(false);
+          }}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.titulo}>
+              {etapaSelecionada !== null
+                ? "Editar Etapa"
+                : "Adicionar Nova Etapa"}
+            </Text>
+            <View style={styles.modalContent}>
+              <TextInput
+                style={styles.inputTitulo}
+                value={titulo}
+                onChangeText={(text) => setTitulo(text)}
+                placeholder="Título"
+                placeholderTextColor="grey"
+                maxLength={40}
+              />
+              <TextInput
+                style={styles.inputDescricao}
+                value={descricao}
+                onChangeText={(text) => setDescricao(text)}
+                placeholder="Descrição"
+                placeholderTextColor="grey"
+                maxLength={71}
+              />
+              <TextInput
+                style={styles.inputDataHora}
+                value={dataHora}
+                onChangeText={(text) => setDataHora(text)}
+                placeholder="DataHora"
+                placeholderTextColor="grey"
+                maxLength={24}
+              >
+
+              </TextInput>
+            </View>
+
+            <View style={styles.ModalButtons}>
+              <TouchableOpacity
+                style={styles.btnSalvar}
+                title="Adicionar"
+                onPress={adicionarEtapa}
+              >
+                <Text style={styles.txt}>
+                  {etapaSelecionada !== null ? "Salvar" : "Adicionar"}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.btnVoltar}
+                onPress={() => {
+                  setEtapaSelecionada(null);
+                  setMostrarBotaoVoltar(false);
+                  setModalVisible(false);
+                }}
+              >
+                <Text style={styles.txt}>Voltar</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        </Modal>
 
         {/* Botão "Adicionar Etapa" */}
         {/* Lista de Etapas */}
@@ -90,16 +167,13 @@ export default function TimeLineScreen() {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.mainEtapa}>
-              <TouchableOpacity style={styles.btnEtapa} onPress={() => {
-                setEtapaSelecionada(index);
-                setMostrarModalConfirmacao(true);
-              }}>
-                <Icon_Clock
-                  name="clock"
-                  size={60}
-                  color={"#FFF"}
-                ></Icon_Clock>
+              <TouchableOpacity
+                style={[styles.btnEtapa, { backgroundColor: corBotao }]}
+                onPress={() => setMostrarModalConfirmacao(true)}
+              >
+                <Icon_Clock name="clock" size={60} color={"#FFF"}></Icon_Clock>
               </TouchableOpacity>
+
               <View style={styles.boxEtapa}>
                 <View style={styles.dados}>
                   <View style={styles.ViewTitulo}>
@@ -151,65 +225,36 @@ export default function TimeLineScreen() {
           )}
         />
 
-        {/* Modal para adicionar/editar Etapa */}
         <Modal
           style={styles.Modal}
           animationType="fade"
           transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setEtapaSelecionada(null);
-            setModalVisible(false);
-          }}
+          visible={mostrarModalConfirmacao}
+          onRequestClose={() => setMostrarModalConfirmacao(false)}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.titulo}>
-              {etapaSelecionada !== null
-                ? "Editar Etapa"
-                : "Adicionar Nova Etapa"}
-            </Text>
+            <Text style={styles.titulo}>Concluir Etapa?</Text>
             <View style={styles.modalContent}>
-              <TextInput
-                style={styles.inputTitulo}
-                value={titulo}
-                onChangeText={(text) => setTitulo(text)}
-                placeholder="Título"
-                placeholderTextColor="grey"
-                maxLength={40}
-              />
-              <TextInput
-                style={styles.inputDescricao}
-                value={descricao}
-                onChangeText={(text) => setDescricao(text)}
-                placeholder="Descrição"
-                placeholderTextColor="grey"
-                maxLength={71}
-              />
-              <TextInput
-                style={styles.inputDataHora}
-                value={dataHora}
-                onChangeText={(text) => setDataHora(text)}
-                placeholder="DataHora"
-                placeholderTextColor="grey"
-                maxLength={24}
+              <TouchableOpacity
+                style={[styles.btnModal, { backgroundColor: "#007B8F" }]}
+                onPress={() => {
+                  setCorBotao("#00A148"); // Muda a cor do botão para verde
+                  setMostrarModalConfirmacao(false);
+                }}
               >
-
-              </TextInput>
+                <Text style={styles.txt}>Sim</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btnModal}
+                onPress={() => setMostrarModalConfirmacao(false)}
+              >
+                <Text style={styles.txt}>Não</Text>
+              </TouchableOpacity>
             </View>
-
-            <TouchableOpacity
-              style={styles.btnSalvar}
-              title="Adicionar"
-              onPress={adicionarEtapa}
-            >
-              <Text style={styles.txt}>
-                {etapaSelecionada !== null ? "Salvar" : "Adicionar"}
-              </Text>
-            </TouchableOpacity>
-
           </View>
         </Modal>
 
+        {/* Modal para adicionar/editar Etapa */}
 
 
         <TouchableOpacity
@@ -224,7 +269,7 @@ export default function TimeLineScreen() {
         </TouchableOpacity>
 
       </ScrollView>
-      <Footer routeSelected={route.name}/>
+      <Footer routeSelected={route.name} />
     </View>
 
   );

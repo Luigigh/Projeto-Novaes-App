@@ -19,6 +19,24 @@ const styles = StyleSheet.create({
       main:{
         paddingLeft:15,
         paddingRight:15
+      },
+      caminho:{
+        paddingLeft:20
+      },
+      title:{
+        padding:20,
+        fontSize:22
+      },
+      caminhoContainer:{
+        flexDirection:'row',
+        justifyContent:'space-between'
+      },
+      iconContainer:{
+        marginRight:20,
+        marginTop:20
+      },
+      emptyContainer:{
+        alignItems:'center'
       }
   
 });

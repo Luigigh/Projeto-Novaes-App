@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 18,
-    color: "#007B8F",
+    color: "white",
   },
   inputTitulo: {
     alignSelf: "center",
@@ -132,15 +132,37 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
   },
+  ModalButtons:{
+    height: 50,
+    width: '100%',
+    flexDirection: 'row',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginTop: 50,
+    padding: 5
+  },
   btnSalvar: {
     height: 40,
-    width: 150,
+    width: '45%',
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
-    marginTop: 20
+    backgroundColor: "#00A148",
+    borderWidth: 1,
+    borderColor: '#007C38',
   },
+  btnVoltar:{
+    height: 40,
+    width: '40%',
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#E56D01",
+    borderWidth: 1,
+    borderColor: '#AB5100',
+  },
+
 });
 
 export default styles;

@@ -1,14 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  Modal,
-  FlatList,
-  ScrollView,
-  Animated,
-} from "react-native";
+import {View,TouchableOpacity,Text,TextInput,Modal,FlatList,ScrollView,Animated,} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "./Styles";
 import Icon_Plus from "react-native-vector-icons/Entypo";

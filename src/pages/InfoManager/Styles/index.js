@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     },
     main: {
         justifyContent: "center",
-        flexDirection: "column",
+        flexDirection: "column", 
+        height: '100%'
     },
     container_foto_user: {
         backgroundColor: "#083C52",
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal: 20,
-        height: 400,
+        height: '51%'
     },
     texto_contato: {
         color: "#000000",

@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../Login/Styles";
 import { LinearGradient } from "expo-linear-gradient";
+import { serviceLoginMethod } from "../../service/UserService";
+
+
 
 export default function LoginScreen() {
     const navigation = useNavigation();
+    const [ username , setUsername] = useState('');
+    const [ password , setPassword] = useState('');
+    const [alertEmpty , setAlertEmpty] = useState('');
+
+    const login = () => {
+        if(username === "" || password === ""){
+            setAlertEmpty("Todos os campos devem ser preenchidos");
+        }else{
+            serviceLoginMethod( username , password )
+            .then(function(result) {
+                if(result){
+                    console.log('Entrou...');
+                    navigation.navigate('ContractList');
+                }else{
+                    setAlertEmpty('Erro no Login... Usuario ou Senha Incorretos');
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+    }
+
+    
 
     return (
         <View style={styles.container}>
@@ -23,15 +50,18 @@ export default function LoginScreen() {
                     <TextInput
                         style={styles.input_login}
                         placeholder="Email"
+                        onChangeText={text => setUsername(text)}
                     ></TextInput>
 
                     <TextInput
                         style={styles.input_login}
                         placeholder="Senha"
                         secureTextEntry={true}
+                        onChangeText={text => setPassword(text)}
                     ></TextInput>
 
-                    <TouchableOpacity style={styles.btn_login} onPress={() => navigation.navigate("ContractList")}>
+                    <Text>{alertEmpty}</Text>
+                    <TouchableOpacity style={styles.btn_login} onPress={async() => login()}>
                         <Text style={styles.text_entrar}>Entrar</Text>
                     </TouchableOpacity>
 

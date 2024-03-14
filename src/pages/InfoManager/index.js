@@ -1,28 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { View, Image, TextInput, Text, TouchableOpacity, Plataform } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import Icon_Camera from "react-native-vector-icons/Entypo";
+import IconCamera from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import * as ImagePicker from 'expo-image-picker';
 
+function ImageViewer({ placeholderImageSource, selectedImage }) {
+  const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
+  return <Image source={imageSource} style={styles.imagem_perfil} />;
+}
+
 export default function InfoManager() {
   const route = useRoute();
-  const [image, setImage] = useState("../../../src/img/IconProfile.png");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const PlaceholderImage = require('../../../src/img/IconProfile.png');
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      aspect: [4, 4],
       allowsEditing: true,
       quality: 1,
     });
 
-    console.log("RESULTADO ->", result);
-
-    if (!result.cancelled) {
-      setImage(result.assets[0].uri);
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      console.log("Erro ao selecionar a Imagem");
     }
   };
 
@@ -32,10 +36,13 @@ export default function InfoManager() {
         <Header />
         <View style={styles.container_foto_user}>
           <View style={styles.fotoperfil}>
-          {image && <Image source={{ uri: image }} style={styles.imagem_perfil} />}
+            <ImageViewer
+              placeholderImageSource={PlaceholderImage}
+              selectedImage={selectedImage}
+            />
             <View style={styles.imagem_camera}>
               <TouchableOpacity onPress={pickImage}>
-                <Icon_Camera name="camera" size={33} color={"#FFF"} />
+                <IconCamera name="camera" size={33} color={"#FFF"} />
               </TouchableOpacity>
             </View>
           </View>
@@ -73,10 +80,4 @@ export default function InfoManager() {
       <Footer style={styles.footer} routeSelected={route.name} />
     </View>
   );
-}
-
-function ImageViewer({ image }) {
-  const imageSource = image ? { uri: image } : require("../../../src/img/IconProfile.png");
-
-  return <Image source={imageSource} style={styles.imagem_perfil} />;
 }

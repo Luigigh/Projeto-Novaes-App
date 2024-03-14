@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     },
     fotoperfil: {
         flexDirection: 'row',
-        backgroundColor: 'green'
     },
     imagem_perfil: {
         width: 150,

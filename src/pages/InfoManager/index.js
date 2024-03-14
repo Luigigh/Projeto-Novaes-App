@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { View, Image, TextInput, Text, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Image, TextInput, Text, TouchableOpacity, Plataform } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import Icon_Camera from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import iconProfile from "../../../src/img/IconProfile.png";
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function InfoManager() {
   const route = useRoute();
-  const [image, setImage] = useState(iconProfile);
+  const [image, setImage] = useState("../../../src/img/IconProfile.png");
 
-  const handleImagePicker = async () => {
+  const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       aspect: [4, 4],
@@ -20,10 +19,10 @@ export default function InfoManager() {
       quality: 1,
     });
 
-    if (!result.canceled) {
-      //   const imageURI = result.assets[0].uri;
-      //   setImage(imageURI);
-      setImage(result.uri);
+    console.log("RESULTADO ->", result);
+
+    if (!result.cancelled) {
+      setImage(result.assets[0].uri);
     }
   };
 
@@ -33,9 +32,9 @@ export default function InfoManager() {
         <Header />
         <View style={styles.container_foto_user}>
           <View style={styles.fotoperfil}>
-            <Image style={styles.imagem_perfil} source={image} />
+          {image && <Image source={{ uri: image }} style={styles.imagem_perfil} />}
             <View style={styles.imagem_camera}>
-              <TouchableOpacity onPress={handleImagePicker}>
+              <TouchableOpacity onPress={pickImage}>
                 <Icon_Camera name="camera" size={33} color={"#FFF"} />
               </TouchableOpacity>
             </View>
@@ -74,4 +73,10 @@ export default function InfoManager() {
       <Footer style={styles.footer} routeSelected={route.name} />
     </View>
   );
+}
+
+function ImageViewer({ image }) {
+  const imageSource = image ? { uri: image } : require("../../../src/img/IconProfile.png");
+
+  return <Image source={imageSource} style={styles.imagem_perfil} />;
 }

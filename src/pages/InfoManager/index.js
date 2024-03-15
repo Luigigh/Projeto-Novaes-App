@@ -7,12 +7,13 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ModalPhoto from '../../components/ModalPhoto';
 import * as ImagePicker from 'expo-image-picker';
+import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 
-function ImageViewer({ placeholderImageSource, selectedImage }) {
-  const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
+// function ImageViewer({ placeholderImageSource, selectedImage }) {
+//   const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
 
-  return <Image source={imageSource} style={styles.imagem_perfil} />;
-}
+//   return <Image source={imageSource} style={styles.imagem_perfil} />;
+// }
 
 export default function InfoManager() {
   const route = useRoute();
@@ -20,6 +21,9 @@ export default function InfoManager() {
   const PlaceholderImage = require('../../../src/img/IconProfile.png');
   const [modalVisible, setModalVisible] = useState(false);
 
+  const openModal = async () => {
+    setModalVisible(true);
+  }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,21 +39,44 @@ export default function InfoManager() {
     }
   };
 
+  const openGallery = () => {
+    pickImage();
+  };
+
+  const openCamera = async () => {
+    let resultCamera = await launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    })
+
+    if (!resultCamera.canceled) {
+      setSelectedImage(resultCamera.assets[0].uri);
+      setModalVisible(true);
+    } else {
+      console.log("Erro ao abrir a câmera");
+    }
+  }
+
+
   return (
     <View contentContainerStyle={styles.container}>
       <View style={styles.main}>
         <Header />
         <View style={styles.container_foto_user}>
           <View style={styles.fotoperfil}>
-            <ImageViewer
-              placeholderImageSource={PlaceholderImage}
-              selectedImage={selectedImage} onPress={() => setModalVisible(true)}
-            />
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Image source={selectedImage ? { uri: selectedImage } : PlaceholderImage} style={styles.imagem_perfil} />
+            </TouchableOpacity>
             <View style={styles.imagem_camera}>
               <TouchableOpacity onPress={pickImage}>
                 <IconCamera name="camera" size={33} color={"#FFF"} />
               </TouchableOpacity>
+
+              <TouchableOpacity style={styles.btnTESTE} onPress={openCamera}>
+                <Text>Abrir Camera</Text>
+              </TouchableOpacity>
             </View>
+            {/* <ModalGalleryCamera visible={modalVisible} onPress={() => setModalVisible(false)}/> */}
             <ModalPhoto visible={modalVisible} imageURL={selectedImage} onClose={() => setModalVisible(false)} />
 
           </View>

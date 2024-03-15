@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         padding: 7
     },
+    btnTESTE: {
+        backgroundColor: 'green',
+        width: 35,
+        height: 35,
+    },
     container_info_user: {
         backgroundColor: "white",
         justifyContent: "center",

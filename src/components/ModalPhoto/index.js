@@ -1,7 +1,9 @@
 import React from 'react';
-import { Modal, Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import styles from "./Styles";
+import { Modal, Image, TouchableOpacity, View } from 'react-native';
+import IconClose from "react-native-vector-icons/AntDesign";
 
-const ModalPhoto = ({ visible, imageURL, onClose }) => {
+const ModalPhoto = ({ visible, imageURL, onClose, children }) => {
   return (
     <Modal
       visible={visible}
@@ -9,44 +11,15 @@ const ModalPhoto = ({ visible, imageURL, onClose }) => {
       onRequestClose={onClose}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-          <Text style={styles.closeIcon}>X</Text>
+          <IconClose name="close" size={25} color={"white"} />
         </TouchableOpacity>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: imageURL }} style={styles.image} />
+          {/* <Image source={{ uri: imageURL }} style={styles.image} /> */}
+          {children ? children : <Image source={{ uri: imageURL }} style={styles.image} />}
         </View>
       </View>
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-  },
-  closeIcon: {
-    width: 20,
-    height: 20,
-    color: '#fff',
-  },
-  imageContainer: {
-    width: '80%',
-    height: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-  },
-});
 
 export default ModalPhoto;

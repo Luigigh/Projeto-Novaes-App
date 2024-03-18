@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import SplashScreen from "../pages/SplashScreen";
-import LoginScreen from '../pages/Login';
-import Register from '../pages/Register';
-import ContractList from '../pages/ContractList';
-import InfoManager from "../pages/InfoManager";
-import TimeLine from '../pages/TimeLine';
+import SplashScreen from "../pages/Client/SplashScreen";
+import LoginScreen from '../pages/Client/Login';
+import Register from '../pages/Client/Register';
+import ContractList from '../pages/Client/ContractList';
+import InfoManager from "../pages/Client/InfoManager";
+import TimeLine from '../pages/Client/TimeLine';
 
 
 const Stack = createNativeStackNavigator();

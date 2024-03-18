@@ -7,9 +7,9 @@ import Icon_Clock from "react-native-vector-icons/Feather";
 import Icon_Edit from "react-native-vector-icons/FontAwesome";
 import Icon_Trash from "react-native-vector-icons/Entypo";
 import Icon_Date from "react-native-vector-icons/Fontisto";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import ModalStage from "../../components/Modal";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
+import ModalStage from "../../../components/Modal";
 
 
 export default function TimeLineScreen() {

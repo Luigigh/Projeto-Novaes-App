@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         padding: 7
     },
     btnTESTE: {
-        backgroundColor: 'green',
+        backgroundColor: 'blue',
         width: 35,
         height: 35,
     },

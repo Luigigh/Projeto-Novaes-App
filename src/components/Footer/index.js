@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function Footer({routeSelected}) {
 const [ifHomeSelected, setIfHomeSelected] = useState(false);
 const [ifContactSelected, setIfContactSelected] = useState(false);
-const [ifTimelineSelected, setIfTimelineSelected] = useState(false);
+const [ifProgressClientSelected, setIfProgressClientSelected] = useState(false);
 
 const navigator = useNavigation();
 
@@ -22,8 +22,8 @@ const navigator = useNavigation();
     if(routeSelected === 'InfoManager'){
         setIfContactSelected(true);
     }
-    if(routeSelected === 'Timeline'){
-        setIfTimelineSelected(true);
+    if(routeSelected === 'ProgressClient'){
+        setIfProgressClientSelected(true);
     }
     },[routeSelected]);
 
@@ -45,8 +45,8 @@ const navigator = useNavigation();
         </TouchableOpacity>
 
         <TouchableOpacity 
-            style={ifTimelineSelected ? styles.btnSelected : styles.btnNotSelected}
-            onPress={() => {navigator.navigate('TimeLine')}}
+            style={ifProgressClientSelected ? styles.btnSelected : styles.btnNotSelected}
+            onPress={() => {navigator.navigate('ProgressClient')}}
             >
                 <Icon_Timeline name='timeline-clock' size={35} color={'#fff'}/>
         </TouchableOpacity>

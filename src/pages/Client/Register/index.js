@@ -3,7 +3,7 @@
 import React from "react";
 import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import styles from "../Register/Styles";
+import styles from "./Styles";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Register() {
@@ -12,7 +12,7 @@ export default function Register() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../../../src/img/LogoGrupoNovaesGrande.png")} style={styles.logo}></Image>
+        <Image source={require("../../../../src/img/LogoGrupoNovaesGrande.png")} style={styles.logo}></Image>
       </View>
 
       <View style={styles.main}>

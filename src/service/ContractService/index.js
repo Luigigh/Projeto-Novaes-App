@@ -43,7 +43,13 @@ const FileSystem = [
                         ]
                     }
                 ]
-            }
+            },
+            {
+                name: "Elaborados pela NOVAES",
+                lastModification: "09/03/2024",
+                type: "directory",
+                content: []
+            },
         ]
     }
 ];
@@ -57,10 +63,10 @@ export async function AddArchive(archiveName, parentDirectory) {
 
     const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
     if (parent) {
-    parent.content.push({ name: archiveName, lastModification: lastModification, type: "archive" });
-    return FileSystem;
+        parent.content.push({ name: archiveName, lastModification: lastModification, type: "archive" });
+        return FileSystem;
     } else {
-    throw new Error("Diretório pai não encontrado");
+        throw new Error("Diretório pai não encontrado");
     }
 }
 
@@ -117,10 +123,7 @@ export async function FindDirectory(directoryName, currentDirectory = FileSystem
     await new Promise(res => setTimeout(res, 1000));
 
 function searchDirectory(directory, name) {
-    console.log("name:"+name);
-    console.log(directory);
     for (let i = 0; i < directory.length; i++) {
-        console.log(directory[i].name);
         if (directory[i].type === "directory" && directory[i].content.length > 0) {
             const foundInSubDirectory = searchDirectory(directory[i].content, name);
             if (foundInSubDirectory !== null) {
@@ -136,7 +139,6 @@ function searchDirectory(directory, name) {
 }
 
 const foundDirectory = searchDirectory(currentDirectory, directoryName);
-    console.log(foundDirectory);
     if (foundDirectory) {
         return foundDirectory;
     } else {
@@ -146,8 +148,6 @@ const foundDirectory = searchDirectory(currentDirectory, directoryName);
 
 export async function ListItemsInDirectory(directoryName, currentDirectory = FileSystem) {
     await new Promise(res => setTimeout(res, 1000));
-    console.log("Nome do diretorio:" +directoryName);
     const directory = await FindDirectory(directoryName, currentDirectory);
-    console.log(directory)
     return directory.content;
 }

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { View, Text , TouchableOpacity, ActivityIndicator } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styles from "./Styles";
-import Header from '../../components/Header'
-import Footer from "../../components/Footer";
-import FolderItem from "../../components/FolderItem";
-import FileItem from "../../components/FileItem";
-import { ListItemsInDirectory } from "../../service/ContractService";
+import Header from '../../../components/Header'
+import Footer from "../../../components/Footer";
+import FolderItem from "../../../components/FolderItem";
+import FileItem from "../../../components/FileItem";
+import { ListItemsInDirectory } from "../../../service/ContractService";
 import Icon_beck from 'react-native-vector-icons/AntDesign';
 import Icon_folder from 'react-native-vector-icons/Entypo'
 

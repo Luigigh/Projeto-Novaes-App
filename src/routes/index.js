@@ -1,10 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from '../pages/Client/Login';
-import Register from '../pages/Client/Register';
 import ContractList from '../pages/Client/ContractList';
 import InfoManager from "../pages/Client/InfoManager";
-import TimeLine from '../pages/Client/TimeLine';
+import ProgressClient from '../pages/Client/ProgressClient'
 
 
 const Stack = createNativeStackNavigator();
@@ -33,10 +32,10 @@ export default function Routes() {
                 component={InfoManager}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen
-                name="TimeLine"
-                component={TimeLine}
-                options={{ headerShown: false}}
+            <Stack.Screen 
+                name="ProgressClient"
+                component={ProgressClient}
+                options={{headerShown: false}}
             />
 
         </Stack.Navigator>

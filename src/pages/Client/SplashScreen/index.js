@@ -16,7 +16,7 @@ return (
   <View style={styles.container}>
     <Image
       style={styles.image}
-      source={require("../../img/LogoGrupoNovaesGrande.png")}/>
+      source={require("../../../img/LogoGrupoNovaesGrande.png")}/>
   </View>
 );
 };

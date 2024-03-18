@@ -3,9 +3,9 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import IconCamera from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import ModalPhoto from '../../components/ModalPhoto';
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
+import ModalPhoto from '../../../components/ModalPhoto';
 import * as ImagePicker from 'expo-image-picker';
 import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 
@@ -17,9 +17,10 @@ import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 
 export default function InfoManager() {
   const route = useRoute();
+  const PlaceholderImage = require('../../../../src/img/IconProfile.png');
   const [selectedImage, setSelectedImage] = useState(null);
-  const PlaceholderImage = require('../../../src/img/IconProfile.png');
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalCameraVisible, setModalCameraVisible] = useState(false);
 
   const openModal = async () => {
     setModalVisible(true);
@@ -30,7 +31,7 @@ export default function InfoManager() {
       allowsEditing: true,
       quality: 1,
     });
-
+  
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
       setModalVisible(true);
@@ -38,7 +39,7 @@ export default function InfoManager() {
       console.log("Erro ao selecionar a Imagem");
     }
   };
-
+  
   const openGallery = () => {
     pickImage();
   };
@@ -48,7 +49,7 @@ export default function InfoManager() {
       allowsEditing: true,
       quality: 1,
     })
-
+  
     if (!resultCamera.canceled) {
       setSelectedImage(resultCamera.assets[0].uri);
       setModalVisible(true);
@@ -81,6 +82,7 @@ export default function InfoManager() {
 
           </View>
         </View>
+
 
         <View style={styles.container_info_user}>
           <View style={styles.campo_input}>

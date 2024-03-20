@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
       borderColor: '#007B8F',
       borderWidth: 1,
       justifyContent: 'space-between',
-      borderRadius: 5
+      borderRadius: 5,
     },
 
     progressContent:{

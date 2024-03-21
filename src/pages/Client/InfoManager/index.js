@@ -40,23 +40,23 @@ export default function InfoManager() {
     }
   };
   
-  const openGallery = () => {
-    pickImage();
-  };
+  // const openGallery = () => {
+  //   pickImage();
+  // };
 
-  const openCamera = async () => {
-    let resultCamera = await launchCameraAsync({
-      allowsEditing: true,
-      quality: 1,
-    })
+  // const openCamera = async () => {
+  //   let resultCamera = await launchCameraAsync({
+  //     allowsEditing: true,
+  //     quality: 1,
+  //   })
   
-    if (!resultCamera.canceled) {
-      setSelectedImage(resultCamera.assets[0].uri);
-      setModalVisible(true);
-    } else {
-      console.log("Erro ao abrir a câmera");
-    }
-  }
+  //   if (!resultCamera.canceled) {
+  //     setSelectedImage(resultCamera.assets[0].uri);
+  //     setModalVisible(true);
+  //   } else {
+  //     console.log("Erro ao abrir a câmera");
+  //   }
+  // }
 
 
   return (
@@ -73,9 +73,9 @@ export default function InfoManager() {
                 <IconCamera name="camera" size={33} color={"#FFF"} />
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.btnTESTE} onPress={openCamera}>
+              {/* <TouchableOpacity style={styles.btnTESTE} onPress={openCamera}>
                 <Text>Abrir Camera</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             {/* <ModalGalleryCamera visible={modalVisible} onPress={() => setModalVisible(false)}/> */}
             <ModalPhoto visible={modalVisible} imageURL={selectedImage} onClose={() => setModalVisible(false)} />

@@ -6,11 +6,8 @@ import IconCamera from "react-native-vector-icons/Entypo";
 import IconGallery from "react-native-vector-icons/Foundation";
 import IconRemove from "react-native-vector-icons/Ionicons";
 
-
 const ModalGalleryCamera = ({ visible, onClose, onCameraPress, onGalleryPress }) => {
     return (
-
-
         <Modal
             visible={visible}
             transparent={true}

@@ -3,7 +3,7 @@ import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-na
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { serviceLoginMethod } from "../../../service/UserService";
+import { serviceLoginMethod } from "../../service/UserService";
 
 
 
@@ -41,7 +41,7 @@ export default function LoginScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image style={styles.imagem_logo} source={require("../../../img/LogoGrupoNovaesGrande.png")}></Image>
+                <Image style={styles.imagem_logo} source={require("../../img/LogoGrupoNovaesGrande.png")}></Image>
             </View>
 
             <View style={styles.main}>

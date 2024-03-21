@@ -9,16 +9,16 @@ const styles = StyleSheet.create({
   },
 
   scrollviewContainer: {
-    height: 400,
+    flex: 1,
     width: "100%",
   },
 
   etapaContainer: {
-    height: 150,
+    maxHeight: 150,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginVertical: 20,
   },
 
   btnClock: {
@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 5,
+  },
+  btnDate:{
+    marginRight: 10
   },
 
   content: {

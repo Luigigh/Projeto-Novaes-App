@@ -6,7 +6,7 @@ import Header from '../../../components/Header'
 import Footer from "../../../components/Footer";
 import FolderItem from "../../../components/FolderItem";
 import FileItem from "../../../components/FileItem";
-import { ListItemsInDirectory } from "../../../service/ContractService";
+import { ListItemsInDirectory } from "../../../service/ContractService"; // Alteração do import para a nova service
 import Icon_beck from 'react-native-vector-icons/AntDesign';
 import Icon_folder from 'react-native-vector-icons/Entypo'
 
@@ -18,7 +18,7 @@ export default function ContractList() {
   async function atualizarListaDiretorios(nomeDirectory){
     setIsLoading(true);
     try {
-      const list = await ListItemsInDirectory(nomeDirectory); 
+      const list = await ListItemsInDirectory(nomeDirectory); // Alteração da chamada para a nova service
       setListArchive(list);
     } catch (error) {
       console.error("Erro ao buscar lista de arquivos:", error);
@@ -30,7 +30,7 @@ export default function ContractList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        atualizarListaDiretorios("root")
+        await atualizarListaDiretorios("root") // Alteração da chamada para a nova service
       } catch (error) {
         console.error("Erro ao buscar lista de arquivos:", error);
       }

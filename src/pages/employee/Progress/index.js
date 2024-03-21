@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRoute } from '@react-navigation/native'
 import { View, TouchableOpacity, Text, FlatList, ScrollView } from 'react-native';
 import ModalProgress from '../../../components/ModalProgress'
 import ModalConfirmacao from '../../../components/ModalStage';
@@ -13,7 +14,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import styles from './Styles';
 
-const ProgressClient = () => {
+const Progress = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [progressList, setProgressList] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -22,6 +23,7 @@ const ProgressClient = () => {
   const [titulo, setTitulo] = useState();
   const [descricao, setDescricao] = useState();
   const [dataHora, setDataHora] = useState();
+  const route = useRoute();
 
   const handleAddProgress = async ({ titulo, descricao, dataHora }) => {
     if (editingIndex !== null) {
@@ -61,74 +63,71 @@ const ProgressClient = () => {
 
   return (
     <View style={styles.container}>
-      <Header/>
-      <ModalProgress visible={isModalVisible} onClose={() => setIsModalVisible(false)} onAdd={handleAddProgress} isEditing={editingIndex !== null}/>
+      <Header />
+      <ModalProgress visible={isModalVisible} onClose={() => setIsModalVisible(false)} onAdd={handleAddProgress} isEditing={editingIndex !== null} />
       <ModalConfirmacao visible={confirmModalVisible} onConfirm={() => handleConfirm(true)} onCancel={() => handleConfirm(false)} />
-      <ScrollView>
-        <FlatList
-          style={styles.BoxStage}
-          data={progressList}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <View style={styles.progressContainer}>
-              <TouchableOpacity
-                style={[styles.btnClock, { backgroundColor: item.completed ? '#00A148' : '#007B8F' }]}
-                onPress={() => handleClockButtonClick(index)}
-              >
-                {item.completed ? ( // Renderizar o ícone de acordo com o estado completed
-                  <Icon_Check name="check" size={60} color="white" />
-                ) : (
-                  <Icon_Clock name="clock" size={60} color="#FFF" />
-                )}
-              </TouchableOpacity>
-              <View style={styles.content}>
-                <View style={styles.progressContent}>
-                  <Text style={styles.progressText}>{` ${item.titulo}`}</Text>
-                  <Text>--------------------------------------------</Text>
-                  <Text style={styles.progressText}>{` ${item.descricao}`}</Text>
-                  <Text style={styles.progressText}>
-                    {' '}
-                    <Icon_Date name="date" size={20} color="#007B8F" />
-                    {` ${item.dataHora}`}
-                  </Text>
-                </View>
-                <View style={styles.buttons}>
-                  <TouchableOpacity
-                    style={styles.btnEdit}
-                    onPress={() => {
-                      setIsModalVisible(true);
-                      setEditingIndex(index);
-                      setTitulo(item.titulo);
-                      setDescricao(item.descricao);
-                      setDataHora(item.dataHora);
-                    }}>
-                    <Icon_Edit name="pencil" size={25} color="#FFF" />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.btnDelete}
-                    onPress={() => handleDeleteProgress(index)}>
-                    <Icon_Trash name="trash" size={25} color="#FFF" />
-                  </TouchableOpacity>
-                </View>
+
+      <FlatList
+        style={styles.BoxStage}
+        data={progressList}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <View style={styles.progressContainer}>
+            <TouchableOpacity
+              style={[styles.btnClock, { backgroundColor: item.completed ? '#00A148' : '#007B8F' }]}
+              onPress={() => handleClockButtonClick(index)}
+            >
+              {item.completed ? ( // Renderizar o ícone de acordo com o estado completed
+                <Icon_Check name="check" size={60} color="white" />
+              ) : (
+                <Icon_Clock name="clock" size={60} color="#FFF" />
+              )}
+            </TouchableOpacity>
+            <View style={styles.content}>
+              <View style={styles.progressContent}>
+                <Text style={styles.progressText}>{` ${item.titulo}`}</Text>
+                <Text>--------------------------------------------</Text>
+                <Text style={styles.progressText}>{` ${item.descricao}`}</Text>
+                <Text style={styles.progressText}>
+                  {' '}
+                  <Icon_Date name="date" size={20} color="#007B8F" />
+                  {` ${item.dataHora}`}
+                </Text>
+              </View>
+              <View style={styles.buttons}>
+                <TouchableOpacity
+                  style={styles.btnEdit}
+                  onPress={() => {
+                    setIsModalVisible(true);
+                    setEditingIndex(index);
+                    setTitulo(item.titulo);
+                    setDescricao(item.descricao);
+                    setDataHora(item.dataHora);
+                  }}>
+                  <Icon_Edit name="pencil" size={25} color="#FFF" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btnDelete}
+                  onPress={() => handleDeleteProgress(index)}>
+                  <Icon_Trash name="trash" size={25} color="#FFF" />
+                </TouchableOpacity>
               </View>
             </View>
-          )}
-        />
-      </ScrollView>
+          </View>
+        )}
+      />
+
       <View style={styles.addButton}>
-      <TouchableOpacity
-        style={styles.btnAdd}
-        title="Adicionar"
-        onPress={() => setIsModalVisible(true)}>
-        <Icon_Plus name="plus" size={55} color="#FFF" />
-      </TouchableOpacity>
-
+        <TouchableOpacity
+          style={styles.btnAdd}
+          title="Adicionar"
+          onPress={() => setIsModalVisible(true)}>
+          <Icon_Plus name="plus" size={55} color="#FFF" />
+        </TouchableOpacity>
       </View>
-
-      
-      <Footer/>
+      <Footer routeSelected={route.name} />
     </View>
   );
 };
 
-export default ProgressClient;
+export default Progress;

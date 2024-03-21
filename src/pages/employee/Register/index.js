@@ -1,13 +1,16 @@
-// src/screens/Login/index.js
-
-import React from "react";
+import React, {useState}from "react";
 import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import ModalRegsFuncionario from "../../../components/ModalRegsFuncionario";
+import ModalRegsCliente from "../../../components/ModalRegsCliente";
 import styles from "./Styles";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Register() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisibleClient, setIsModalVisibleClient] = useState(false);
   const navigation = useNavigation();
+  
 
   return (
     <View style={styles.container}>
@@ -22,21 +25,17 @@ export default function Register() {
         >
           <Text style={styles.texto_cadastro}>Cadastre-se com a Novaes</Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Nome"
-          ></TextInput>
+          <View style={styles.NomeSobrenome}>
+            <TextInput
+              style={styles.inputNomeSobrenome}
+              placeholder="Nome"
+            ></TextInput>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-          ></TextInput>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Nome da Empresa"
-          ></TextInput>
-
+            <TextInput
+              style={styles.inputNomeSobrenome}
+              placeholder="Sobrenome"
+            ></TextInput>
+          </View> 
           <TextInput
             style={styles.input}
             placeholder="Senha"
@@ -49,13 +48,29 @@ export default function Register() {
             secureTextEntry={true}
           ></TextInput>
 
+          <View style={styles.buttonsUser}>
+            <TouchableOpacity style={styles.btnFuncionario}>
+              <Text style={{color: 'white', fontSize: 16}}
+              onPress={() => setIsModalVisible(true)}
+              >Funcionario</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.btnCliente}>
+            <Text style={{color: 'white', fontSize: 16}}
+            onPress={() => setIsModalVisibleClient(true)}>Cliente</Text>
+            </TouchableOpacity>
+          </View>
+
           <TouchableOpacity style={styles.btn_cadastro} onPress={() => navigation.navigate("Login")}>
             <Text style={styles.text_cadastrar}>Cadastrar</Text>
           </TouchableOpacity>
 
+          <ModalRegsFuncionario visible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
+          <ModalRegsCliente visible={isModalVisibleClient} onClose={() => setIsModalVisibleClient(false)}/>
+
           <View style={styles.textos}>
-            <Text  onPress={() => navigation.navigate("Login")}>Já possui uma conta? Clique aqui.</Text>
-            <Text >Sou Funcionario</Text>
+            <Text >Já possui uma conta? </Text>
+            <Text onPress={() => navigation.navigate("Login")}>Clique aqui.</Text>
           </View>
 
         </LinearGradient>

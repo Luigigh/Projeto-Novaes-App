@@ -1,10 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import SplashScreen from "../pages/Client/SplashScreen";
-import LoginScreen from '../pages/Client/Login';
+import LoginScreen from '../pages/LoginPage';
 import ContractList from '../pages/Client/ContractList';
 import InfoManager from "../pages/Client/InfoManager";
-import ProgressClient from '../pages/Client/ProgressClient'
-
+import Register from "../pages/employee/Register"
 
 const Stack = createNativeStackNavigator();
 
@@ -33,8 +32,8 @@ export default function Routes() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen 
-                name="ProgressClient"
-                component={ProgressClient}
+                name="Register"
+                component={Register}
                 options={{headerShown: false}}
             />
 

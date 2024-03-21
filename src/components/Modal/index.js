@@ -63,7 +63,7 @@ return(
                 onChangeText={(text) => setDescricao(text)}
                 placeholder="Descrição"
                 placeholderTextColor="grey"
-                maxLength={71}
+                maxLength={80}
               />
               <TextInput
                 style={styles.inputDataHora}

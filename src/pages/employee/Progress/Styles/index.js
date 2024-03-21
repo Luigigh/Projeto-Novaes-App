@@ -13,10 +13,11 @@ const styles = StyleSheet.create({
     },
 
     progressContainer:{
-      height: 150,
+      maxHeight: 150,
       width: '100%',
       flexDirection: 'row',
       alignItems: 'center', 
+      marginVertical: 20,
     },
 
     btnClock:{

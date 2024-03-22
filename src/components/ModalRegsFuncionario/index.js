@@ -45,7 +45,6 @@ const ModalRegsFuncionario = ({ visible, onClose, onAdd, isEditing }) => {
                                 { label: 'Engenharia', value: 'eng' },
                             ]}
                             placeholder={{ label: 'Selecione um Cargo:', value: null }}
-
                         />
                     </View>
 

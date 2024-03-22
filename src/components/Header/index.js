@@ -2,8 +2,6 @@ import react from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import styles from "./Style";
-// import TabRoutes from "../../routes/tab.routs";
-import DrawerRoutes from "../../routes/drawer.routs";
 import { NavigationContainer } from "@react-navigation/native";
 import 'react-native-gesture-handler';
 

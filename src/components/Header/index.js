@@ -19,9 +19,9 @@ export default function Header() {
         <Icon name="menu" size={50} color={"#fff"}></Icon>
       </TouchableOpacity>
 
-      <NavigationContainer independent={true}>
+      {/* <NavigationContainer independent={true}>
         <DrawerRoutes />
-      </NavigationContainer>
+      </NavigationContainer> */}
     </View>
   );
 }

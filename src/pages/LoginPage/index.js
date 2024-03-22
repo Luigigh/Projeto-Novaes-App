@@ -3,9 +3,7 @@ import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-na
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { serviceLoginMethod } from "../../../service/UserService";
-
-
+import { serviceLoginMethod } from "../../service/UserService";
 
 export default function LoginScreen() {
     const navigation = useNavigation();

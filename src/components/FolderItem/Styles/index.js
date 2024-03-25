@@ -25,8 +25,17 @@ const styles = StyleSheet.create({
     },
     InformationPaste:{
         marginLeft:20,
-    }
-    
+    },
+
+    MenuProviderContainer:{
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        marginLeft: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
 });
 
 export default styles;

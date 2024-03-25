@@ -1,5 +1,5 @@
-import react,{useState , useEffect} from "react";
-import { View ,Text } from "react-native";
+import react, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import Icon_Entypo from 'react-native-vector-icons/Entypo';
 import Icon_Awesome from 'react-native-vector-icons/FontAwesome';
 import styles from "./Style";
@@ -7,30 +7,30 @@ import styles from "./Style";
 
 
 
-export default function FileItem({fileName, lastModification, extensionFile}) {
-    const [extension , setExtention] = useState('');
+export default function FileItem({ fileName, lastModification, extensionFile }) {
+    const [extension, setExtention] = useState('');
 
 
     useEffect(() => {
         verifyTypeFile(extensionFile);
-    },[extensionFile])
+    }, [extensionFile])
 
-    const verifyTypeFile = (typeFile)=> {
+    const verifyTypeFile = (typeFile) => {
         switch (typeFile) {
             case "pdf":
-               setExtention('file-pdf-o');
-              break;
+                setExtention('file-pdf-o');
+                break;
             case "jpg":
             case "png":
             case "jfif":
-              setExtention('image');
-              break;
+                setExtention('image');
+                break;
             default:
-              console.log("Extensão de arquivo não reconhecida.");
-          }
-          
+                console.log("Extensão de arquivo não reconhecida.");
+        }
+
     }
-    return(
+    return (
         <View style={styles.container}>
             <View style={styles.right}>
                 <Icon_Awesome name={extension} size={30} color={'#000'} />
@@ -39,7 +39,10 @@ export default function FileItem({fileName, lastModification, extensionFile}) {
                     <Text style={styles.lastModification}>Ultima Modificação: {lastModification}</Text>
                 </View>
             </View>
-            <Icon_Entypo name="dots-three-vertical" size={30} color={'#000'}/>
+            <TouchableOpacity>
+                <Icon_Entypo name="dots-three-vertical" size={30} color={'#000'} />
+            </TouchableOpacity>
+
         </View>
     )
 }

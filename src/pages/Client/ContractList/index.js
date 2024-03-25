@@ -6,7 +6,7 @@ import Header from '../../../components/Header'
 import Footer from "../../../components/Footer";
 import FolderItem from "../../../components/FolderItem";
 import FileItem from "../../../components/FileItem";
-import { ListItemsInDirectory } from "../../../service/ContractService"; // Alteração do import para a nova service
+import { ListItemsInDirectory } from "../../../service/ContractService"; 
 import Icon_beck from 'react-native-vector-icons/AntDesign';
 import Icon_folder from 'react-native-vector-icons/Entypo'
 

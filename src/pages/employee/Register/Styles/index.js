@@ -3,20 +3,27 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   header:{
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
+
+  body:{
+    alignItems: 'center',
+  },
+
   main: {
     marginTop: 20,
-    height: '70%',
+    height: '60%',
     width: '80%',    
     borderRadius: 20,
     shadowColor: 'black',
-    shadowRadius: 20
+    shadowRadius: 20,
+    alignItems: 'center',
+    
   },
   linear:{
     height: '100%',
@@ -25,11 +32,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     shadowColor: 'black',
     shadowRadius: 20,
-    elevation: 15
+    elevation: 15,
+    
   },
   texto_cadastro:{
     marginTop: 10,
-    marginBottom: 50,
+    marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 20
   },
@@ -48,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    marginTop: 100
+    marginTop: 40
   },
   text_cadastrar:{
     color: 'white',
@@ -56,7 +64,6 @@ const styles = StyleSheet.create({
   },
   textos:{
     flexDirection: 'row',
-    marginTop: 10
   },
 
   NomeSobrenome:{
@@ -78,13 +85,13 @@ const styles = StyleSheet.create({
     width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
   },
 
   btnFuncionario:{
     backgroundColor: '#00A148',
     height: 47,
-    width: '45%',
+    width: '50%',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',

@@ -22,19 +22,44 @@ const styles = StyleSheet.create({
     },
     right:{
         flexDirection:'row',
+        width: '90%',
+        justifyContent: 'flex-end'
     },
     InformationPaste:{
+        flexDirection:'row',
         marginLeft:20,
     },
 
-    MenuProviderContainer:{
+    content:{
+        flexDirection: 'collum'
+    },
+
+    btnOptions:{
+        width: 75,
         height: 50,
-        width: 50,
-        borderRadius: 25,
-        marginLeft: 40,
-        alignItems: 'center',
+        borderRadius: 15,
+        alignItems:'center',
         justifyContent: 'center',
     },
+
+    optionContainer:{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        backgroundColor: '#FFF',
+        borderRadius: 5,
+        elevation: 5,
+        zIndex: 1,
+    },
+    option: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+      },
+      optionText: {
+        marginLeft: 10,
+      },
 
 });
 

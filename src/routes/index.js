@@ -3,8 +3,8 @@ import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from '../pages/LoginPage';
 import ContractList from '../pages/Client/ContractList';
 import InfoManager from "../pages/Client/InfoManager";
-import Register from "../pages/employee/Register"
-
+import Register from "../pages/employee/Register";
+// import CallMenu from "../pages/Client/CallMenu";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +37,11 @@ export default function Routes() {
                 component={Register}
                 options={{headerShown: false}}
             />
+            {/* <Stack.Screen 
+                name="CallMenu"
+                component={CallMenu}
+                options={{headerShown: false}}
+            /> */}
 
         </Stack.Navigator>
     )

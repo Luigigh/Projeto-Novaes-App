@@ -120,11 +120,18 @@ const FileSystem = [
   export async function RemoveDirectory(directoryName, parentDirectory) {
     await new Promise(res => setTimeout(res, 1000));
   
+    console.log("Tentando remover o diretório:", directoryName, "do diretório pai:", parentDirectory);
+  
     const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
+    console.log("Diretório pai encontrado:", parent);
+  
     if (parent) {
       const index = parent.content.findIndex(item => item.name === directoryName && item.type === "directory");
+      console.log("Índice do diretório a ser removido:", index);
+  
       if (index !== -1) {
         const removedDirectory = parent.content.splice(index, 1)[0];
+        console.log("Diretório removido:", removedDirectory);
         return FileSystem;
       } else {
         throw new Error("Diretório não encontrado");

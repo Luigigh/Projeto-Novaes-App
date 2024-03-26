@@ -25,14 +25,14 @@ const ModalRegsFuncionario = ({ visible, onClose, onAdd, isEditing }) => {
                     style={styles.linear}
                     colors={["#B3DFE7", "white"]}
                 >
-
+                
                     <Text style={styles.title}>{isEditing ? 'Editar Etapa' : 'Cadastrar Funcionário'}</Text>
                     <TextInput
                         style={styles.inputEmail}
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
-                        maxLength={20}
+                        maxLength={30}
                         placeholderTextColor={'#6B6D71'}
                         fontSize={15}
                     />

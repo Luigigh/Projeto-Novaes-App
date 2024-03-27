@@ -1,30 +1,30 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1
-    },
-    imagemBackground: {
-        width: undefined,
-        padding: 16,
-        paddingTop: 48
-    },
-    profile: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        borderWidth: 3,
-        borderColor: "red"
-    },
-    textPessoa: {
-        color: 'blue',
-        fontSize: 20,
-        fontWeight: '800',
-        marginVertical: 8
-    },
-    TESTE: {
-        flexDirection: 'row'
-    }
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 10,
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  userImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10,
+  },
+  username: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  menuItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
 });
 
 export default styles;

@@ -55,7 +55,7 @@ const FileSystem = [
   ];
   
   export async function AddArchive(archiveName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, 100));
   
     const currentDate = new Date();
     const lastModification = currentDate.toLocaleDateString();
@@ -77,7 +77,7 @@ const FileSystem = [
   
   // Adiciona um diretório ao diretório especificado
   export async function AddDirectory(directoryName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, 100));
   
     const currentDate = new Date();
     const lastModification = currentDate.toLocaleDateString();
@@ -100,7 +100,7 @@ const FileSystem = [
   
   // Remove um arquivo do diretório especificado
   export async function RemoveFile(fileName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, 100));
   
     const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
     if (parent) {
@@ -117,33 +117,36 @@ const FileSystem = [
   }
   
   // Remove um diretório do diretório especificado
-  export async function RemoveDirectory(directoryName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 1000));
+  export async function RemoveDirectory(directoryName) {
+    await new Promise(res => setTimeout(res, 100));
   
-    console.log("Tentando remover o diretório:", directoryName, "do diretório pai:", parentDirectory);
-  
-    const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
-    console.log("Diretório pai encontrado:", parent);
-  
-    if (parent) {
-      const index = parent.content.findIndex(item => item.name === directoryName && item.type === "directory");
-      console.log("Índice do diretório a ser removido:", index);
-  
-      if (index !== -1) {
-        const removedDirectory = parent.content.splice(index, 1)[0];
-        console.log("Diretório removido:", removedDirectory);
-        return FileSystem;
-      } else {
-        throw new Error("Diretório não encontrado");
+    function findAndRemoveDirectory(directory, name) {
+      for (let i = 0; i < directory.length; i++) {
+        if (directory[i].type === "directory" && directory[i].name === name) {
+          directory.splice(i, 1);
+          return true;
+        }
+        if (directory[i].type === "directory" && directory[i].content.length > 0) {
+          const foundInSubDirectory = findAndRemoveDirectory(directory[i].content, name);
+          if (foundInSubDirectory) {
+            return true;
+          }
+        }
       }
+      return false;
+    }
+  
+    const removed = findAndRemoveDirectory(FileSystem, directoryName);
+    if (removed) {
+      return FileSystem;
     } else {
-      throw new Error("Diretório pai não encontrado");
+      throw new Error("Diretório não encontrado");
     }
   }
-  
+ 
   // Encontra um diretório com o nome especificado
   export async function FindDirectory(directoryName, currentDirectory = FileSystem) {
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, 100));
   
     function searchDirectory(directory, name) {
       for (let i = 0; i < directory.length; i++) {
@@ -169,7 +172,7 @@ const FileSystem = [
   }
   
   export async function ListItemsInDirectory(directoryName, currentDirectory = FileSystem) {
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, 100));
     const directory = await FindDirectory(directoryName, currentDirectory);
     return directory.content;
   }

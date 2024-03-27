@@ -3,8 +3,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import styles from "./Style";
 import { useRoute } from "@react-navigation/native";
-import 'react-native-gesture-handler';
-
+import Btn_Menu from '../Btn_Menu';
 
 export default function Header() {
   return (
@@ -13,13 +12,9 @@ export default function Header() {
         source={require("../../img/LogoDesenhoBranca.png")}
         style={styles.image}
       />
-      <TouchableOpacity style={styles.btn_menu}>
-        <Icon name="menu" size={50} color={"#fff"}></Icon>
-      </TouchableOpacity>
-      
-      {/* <NavigationContainer independent={true}>
-        <DrawerRoutes />
-      </NavigationContainer> */}
+
+      <Btn_Menu />
+
     </View>
   );
 }

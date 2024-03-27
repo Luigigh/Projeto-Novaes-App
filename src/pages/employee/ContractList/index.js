@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import DocumentPicker from '@react-native-document-picker';
+import DocumentPicker from "@react-native-document-picker";
 import styles from "./Styles";
-import Header from '../../../components/Header';
+import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FolderItem from "../../../components/FolderItem";
 import FileItem from "../../../components/FileItem";
 import { ListItemsInDirectory, AddArchive, AddDirectory, RemoveFile, RemoveDirectory } from "../../../service/ContractService";
-import Icon_beck from 'react-native-vector-icons/AntDesign';
-import Icon_folder from 'react-native-vector-icons/Entypo';
+import Icon_beck from "react-native-vector-icons/AntDesign";
+import Icon_folder from "react-native-vector-icons/Entypo";
 
 export default function ContractList() {
   const [listArchive, setListArchive] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
 
-  async function atualizarListaDiretorios(nomeDirectory) {
+  async function atualizarListaDiretorios(nomeDirectory, parentDirectory) {
     setIsLoading(true);
     try {
-      const list = await ListItemsInDirectory(nomeDirectory);
+      const list = await ListItemsInDirectory(nomeDirectory, parentDirectory);
       setListArchive(list);
     } catch (error) {
       console.error("Erro ao buscar lista de arquivos:", error);
@@ -27,6 +27,15 @@ export default function ContractList() {
       setIsLoading(false);
     }
   }
+
+  const handleDeleteDirectory = async (directoryName) => {
+    try {
+      await RemoveDirectory(directoryName);
+      await atualizarListaDiretorios("root");
+    } catch (error) {
+      console.error("Erro ao deletar diretório:", error);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -66,13 +75,27 @@ export default function ContractList() {
         const isFile = item.type === "archive";
 
         if (isFile) {
-          const fileName = item.name.split('.').shift();
-          const extensionFile = item.name.split('.').pop();
-          return <FileItem key={key} fileName={fileName} lastModification={lastModification} extensionFile={extensionFile} />;
+          const fileName = item.name.split(".").shift();
+          const extensionFile = item.name.split(".").pop();
+          return (
+            <FileItem
+              key={key}
+              fileName={fileName}
+              lastModification={lastModification}
+              extensionFile={extensionFile}
+            />
+          );
         } else {
           return (
-            <TouchableOpacity key={key} onPress={() => atualizarListaDiretorios(item.name)}>
-              <FolderItem nameFolder={item.name} lastModification={lastModification} />
+            <TouchableOpacity
+              key={key}
+              onPress={() => atualizarListaDiretorios(item.name, "root")}
+            >
+              <FolderItem
+                nameFolder={item.name}
+                lastModification={lastModification}
+                onDelete={() => handleDeleteDirectory(item.name)}
+              />
             </TouchableOpacity>
           );
         }
@@ -86,7 +109,12 @@ export default function ContractList() {
         <Header />
         <View style={styles.caminhoContainer}>
           <Text style={styles.title}>Arquivos Disponíveis</Text>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => { atualizarListaDiretorios('root') }}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => {
+              atualizarListaDiretorios("root");
+            }}
+          >
             <Icon_beck name="back" size={30} color={"#000"} />
           </TouchableOpacity>
         </View>

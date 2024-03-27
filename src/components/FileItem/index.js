@@ -4,9 +4,6 @@ import Icon_Entypo from 'react-native-vector-icons/Entypo';
 import Icon_Awesome from 'react-native-vector-icons/FontAwesome';
 import styles from "./Style";
 
-
-
-
 export default function FileItem({ fileName, lastModification, extensionFile }) {
     const [extension, setExtention] = useState('');
 
@@ -28,7 +25,6 @@ export default function FileItem({ fileName, lastModification, extensionFile }) 
             default:
                 console.log("Extensão de arquivo não reconhecida.");
         }
-
     }
     return (
         <View style={styles.container}>

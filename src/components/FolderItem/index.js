@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon_Entypo from "react-native-vector-icons/Entypo";
 import Icon_Awesome from "react-native-vector-icons/FontAwesome";
@@ -16,30 +16,24 @@ export default function FolderItem({ nameFolder, lastModification, parentDirecto
   };
 
   const handleEdit = async () => {
-    // Chama a função de edição do ContractService
     try {
-      // Aqui você deve implementar a lógica para abrir um modal ou tela de edição do diretório
-      // Isso pode envolver navegação para outra tela ou a abertura de um modal com campos para edição
-      // Uma vez editado, você pode chamar a função AddDirectory do ContractService para salvar as alterações
-      // Exemplo:
-      // const editedDirectoryName = 'Novo nome'; // Supondo que você tenha o novo nome do diretório
-      // await ContractService.AddDirectory(editedDirectoryName, parentDirectory);
-      // Em seguida, atualize a interface para refletir as alterações, se necessário
-      onEdit(); // Chama a função de callback passada para atualizar a interface
+      // Se você quer passar a informação do diretório para edição, você precisa passá-la para a função onEdit.
+      // Por exemplo:
+      onEdit(nameFolder);
     } catch (error) {
       console.error("Erro ao editar diretório:", error);
     }
   };
 
-  const handleDelete = async () => {
-    // Chama a função de exclusão do ContractService
+  const handleDeleteDirectory = async (directoryName) => {
     try {
-      await ContractService.RemoveDirectory(nameFolder, parentDirectory);
-      onDelete(); // Chama a função de callback passada para atualizar a interface
+      await RemoveDirectory(directoryName);
+      await atualizarListaDiretorios("root");
     } catch (error) {
       console.error("Erro ao deletar diretório:", error);
     }
   };
+  
 
   return (
     <View style={styles.container}>
@@ -58,11 +52,13 @@ export default function FolderItem({ nameFolder, lastModification, parentDirecto
         </View>
         {showOptions && (
           <View style={styles.optionContainer}>
+            {/* Botão para editar */}
             <TouchableOpacity onPress={handleEdit} style={styles.option}>
               <Icon_Edit name="edit" size={20} color={"#000"} />
               <Text style={styles.optionText}>Editar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleDelete} style={styles.option}>
+            {/* Botão para deletar */}
+            <TouchableOpacity onPress={handleDeleteDirectory} style={styles.option}>
               <Icon_Trash name="trash" size={20} color={"#000"} />
               <Text style={styles.optionText}>Deletar</Text>
             </TouchableOpacity>

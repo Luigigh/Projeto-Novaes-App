@@ -1,180 +1,92 @@
 const FileSystem = [
-    {
-      name: "root",
-      lastModification: "13/03/2024",
-      type: "directory",
-      content: [
-        {
-          name: "Arquivos Contratuais",
-          lastModification: "09/03/2024",
-          type: "directory",
-          content: []
-        },
-        {
-          name: "Produtos Entregues",
-          lastModification: "15/01/2024",
-          type: "directory",
-          content: [
-            {
-              name: "doc1.pdf",
-              lastModification: "13/03/2024",
-              type: "archive"
-            },
-            {
-              name: "doc2.pdf",
-              lastModification: "27/01/2024",
-              type: "archive"
-            },
-            {
-              name: "pasta3",
-              lastModification: "28/12/2023",
-              type: "directory",
-              content: [
-                {
-                  name: "doc4.pdf",
-                  lastModification: "07/03/2024",
-                  type: "archive"
-                },
-                {
-                  name: "doc5.pdf",
-                  lastModification: "19/02/2024",
-                  type: "archive"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: "Elaborados pela NOVAES",
-          lastModification: "09/03/2024",
-          type: "directory",
-          content: []
-        },
-      ]
-    }
-  ];
-  
-  export async function AddArchive(archiveName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 100));
-  
-    const currentDate = new Date();
-    const lastModification = currentDate.toLocaleDateString();
-  
-    const file = {
-      name: archiveName,
-      lastModification: lastModification,
-      type: "archive"
-    };
-  
-    const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
-    if (parent) {
-      parent.content.push(file);
-      return FileSystem;
-    } else {
-      throw new Error("Diretório pai não encontrado");
-    }
-  }
-  
-  // Adiciona um diretório ao diretório especificado
-  export async function AddDirectory(directoryName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 100));
-  
-    const currentDate = new Date();
-    const lastModification = currentDate.toLocaleDateString();
+  {
+    name: "root",
+    lastModification: "13/03/2024",
+    type: "directory",
+    content: [
+      {
+        name: "Arquivos Contratuais",
+        lastModification: "09/03/2024",
+        type: "directory",
+        content: [],
+      },
+      {
+        name: "Produtos Entregues",
+        lastModification: "15/01/2024",
+        type: "directory",
+        content: [
+          {
+            name: "doc1.pdf",
+            lastModification: "13/03/2024",
+            type: "archive",
+          },
+          {
+            name: "doc2.pdf",
+            lastModification: "27/01/2024",
+            type: "archive",
+          },
+          {
+            name: "pasta3",
+            lastModification: "28/12/2023",
+            type: "directory",
+            content: [
+              {
+                name: "doc4.pdf",
+                lastModification: "07/03/2024",
+                type: "archive",
+              },
+              {
+                name: "doc5.pdf",
+                lastModification: "19/02/2024",
+                type: "archive",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
 
-    const directory = {
-      name: directoryName,
-      lastModification: lastModification,
+class ContractService {
+  static async getFileSystem() {
+    // Simulando uma requisição assíncrona para obter a estrutura de pastas
+    return FileSystem;
+  }
+
+  static async addFolder(folderName) {
+    // Simulando uma requisição assíncrona para adicionar uma nova pasta
+    const newFolder = {
+      name: folderName,
+      lastModification: new Date().toLocaleDateString(), // Supondo que a última modificação seja a data atual
       type: "directory",
-      content: []
+      content: [],
     };
-  
-    const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
-    if (parent) {
-      parent.content.push(directory);
-      return FileSystem;
-    } else {
-      throw new Error("Diretório pai não encontrado");
-    }
+    FileSystem[0].content.push(newFolder); // Adiciona a nova pasta ao sistema de arquivos
+    return newFolder;
   }
-  
-  // Remove um arquivo do diretório especificado
-  export async function RemoveFile(fileName, parentDirectory) {
-    await new Promise(res => setTimeout(res, 100));
-  
-    const parent = FileSystem.find(item => item.name === parentDirectory && item.type === "directory");
-    if (parent) {
-      const index = parent.content.findIndex(item => item.name === fileName && item.type === "archive");
-      if (index !== -1) {
-        parent.content.splice(index, 1);
-        return FileSystem;
-      } else {
-        throw new Error("Arquivo não encontrado");
-      }
-    } else {
-      throw new Error("Diretório pai não encontrado");
-    }
-  }
-  
-  // Remove um diretório do diretório especificado
-  export async function RemoveDirectory(directoryName) {
-    await new Promise(res => setTimeout(res, 100));
-  
-    function findAndRemoveDirectory(directory, name) {
-      for (let i = 0; i < directory.length; i++) {
-        if (directory[i].type === "directory" && directory[i].name === name) {
-          directory.splice(i, 1);
+
+  static async deleteFolder(folderName) {
+    // Encontre a pasta com o nome especificado e remova-a do sistema de arquivos
+    const removeFolder = (folders) => {
+      for (let i = 0; i < folders.length; i++) {
+        if (folders[i].name === folderName) {
+          folders.splice(i, 1);
           return true;
         }
-        if (directory[i].type === "directory" && directory[i].content.length > 0) {
-          const foundInSubDirectory = findAndRemoveDirectory(directory[i].content, name);
-          if (foundInSubDirectory) {
+        if (folders[i].type === "directory") {
+          if (removeFolder(folders[i].content)) {
             return true;
           }
         }
       }
       return false;
-    }
-  
-    const removed = findAndRemoveDirectory(FileSystem, directoryName);
-    if (removed) {
-      return FileSystem;
-    } else {
-      throw new Error("Diretório não encontrado");
-    }
+    };
+
+    removeFolder(FileSystem[0].content);
   }
- 
-  // Encontra um diretório com o nome especificado
-  export async function FindDirectory(directoryName, currentDirectory = FileSystem) {
-    await new Promise(res => setTimeout(res, 100));
-  
-    function searchDirectory(directory, name) {
-      for (let i = 0; i < directory.length; i++) {
-        if (directory[i].type === "directory" && directory[i].content.length > 0) {
-          const foundInSubDirectory = searchDirectory(directory[i].content, name);
-          if (foundInSubDirectory !== null) {
-            return foundInSubDirectory;
-          }
-        }
-        if (directory[i].name === name && directory[i].type === "directory") {
-          return directory[i];
-        }
-      }
-      return null;
-    }
-  
-    const foundDirectory = searchDirectory(currentDirectory, directoryName);
-    if (foundDirectory) {
-      return foundDirectory;
-    } else {
-      throw new Error("Diretório não encontrado");
-    }
-  }
-  
-  export async function ListItemsInDirectory(directoryName, currentDirectory = FileSystem) {
-    await new Promise(res => setTimeout(res, 100));
-    const directory = await FindDirectory(directoryName, currentDirectory);
-    return directory.content;
-  }
-  
+}
+
+export default ContractService;
+
 

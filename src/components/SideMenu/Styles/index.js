@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     marginBottom: 20,
+    backgroundColor: '#083C52',
   },
   userImage: {
     width: 100,

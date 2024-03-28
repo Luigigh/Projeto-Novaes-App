@@ -1,3 +1,4 @@
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SplashScreen from "../pages/Client/SplashScreen";
@@ -5,12 +6,12 @@ import LoginScreen from "../pages/LoginPage";
 import ContractList from "../pages/Client/ContractList";
 import InfoManager from "../pages/Client/InfoManager";
 import Register from "../pages/employee/Register";
-// import CallMenu from "../pages/Client/CallMenu";
+import SideMenu from "../components/SideMenu";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-export default function Routes() {
+const AppStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -40,13 +41,14 @@ export default function Routes() {
       />
     </Stack.Navigator>
   );
-
-  const DrawerNavigator = () => (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={StackNavigator} />
-      {/* Adicione outras telas do Drawer Navigator aqui, se necessário */}
-    </Drawer.Navigator>
-  );
-
-  const RoutesDrawerNavegation = () => <DrawerNavigator />;
 }
+
+const DrawerNavigator = () => (
+  <Drawer.Navigator drawerContent={(props) => <SideMenu {...props} />}>
+    <Drawer.Screen name="Meu perfil" component={AppStack} options={{ headerShown: false }}/>
+  </Drawer.Navigator>
+);
+
+const Routes = () => <DrawerNavigator />;
+
+export default Routes;

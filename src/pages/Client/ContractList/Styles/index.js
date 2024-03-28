@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent:'space-between',
+
       },
       folderItem: {
         backgroundColor: 'lightblue',
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
       },
       caminhoContainer:{
         flexDirection:'row',
-        justifyContent:'space-between'
       },
       iconContainer:{
         marginRight:20,
@@ -39,7 +38,6 @@ const styles = StyleSheet.create({
         alignItems:'center'
       },
       list:{
-        justifyContent:'flex-start'
       }
   
 });

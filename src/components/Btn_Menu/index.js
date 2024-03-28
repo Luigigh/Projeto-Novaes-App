@@ -3,13 +3,13 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Entypo";
 import { DrawerActions } from '@react-navigation/native';
-import DrawerNavigator from '../DrawerNavigator'; // Importe o componente do DrawerNavigator
+import DrawerNavigator from '../DrawerNavigator';
 
 const Btn_Menu = () => {
   const navigation = useNavigation();
 
   const handleOpenDrawer = () => {
-    navigation.dispatch(DrawerActions.openDrawer()); // Dispare a ação openDrawer() usando dispatch
+    navigation.dispatch(DrawerActions.openDrawer());
   };
 
   return (

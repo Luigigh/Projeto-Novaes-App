@@ -1,3 +1,5 @@
+// FILEITEM
+
 import react, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Icon_Entypo from 'react-native-vector-icons/Entypo';

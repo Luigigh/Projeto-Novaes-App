@@ -4,38 +4,45 @@ import colors from "../../../color";
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
+        alignSelf: 'center',
         backgroundColor:colors.primary,
         height:70,
+        width: '95%',
         borderRadius:5,
         padding:10,
-        marginBottom:10,
-        marginTop:10,
+        marginVertical: 10
     },
+
+    btnFolder:{
+        backgroundColor: colors.verde,
+    },
+
     nameFolder:{
         fontSize:18,
-        color:colors.branco
+        color:colors.branco,
     },
+
     lastModification: {
         color:colors.branco,
     },
+
     right:{
-        flexDirection:'row',
-        width: '90%',
-        justifyContent: 'flex-end'
-    },
-    InformationPaste:{
-        flexDirection:'row',
-        marginLeft:20,
+        flexDirection: 'row',
+        width: '94%',
+        justifyContent: 'space-around'
     },
 
-    content:{
-        flexDirection: 'collum'
+    InformationPaste:{
+        flexDirection: 'column',
+        width: '80%',
+    },
+
+    contentContainer:{
+        
     },
 
     btnOptions:{
-        width: 75,
+        width: 50,
         height: 50,
         borderRadius: 15,
         alignItems:'center',
@@ -51,14 +58,15 @@ const styles = StyleSheet.create({
         elevation: 5,
         zIndex: 1,
     },
+
     option: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 5,
-        paddingHorizontal: 10,
+
       },
+
       optionText: {
-        marginLeft: 10,
       },
 
 });

@@ -2,8 +2,15 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: 'white',
+      justifyContent: 'center',
+      },
+      body:{
+        height: '85%',
+        alignItems: 'center',
+        justifyContent: 'center',
       },
       folderItem: {
         backgroundColor: 'lightblue',
@@ -16,6 +23,14 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         padding: 10
       },
+      containerFlatList:{
+        height: '70%',
+        padding: 10,
+      },
+
+
+
+
       main:{
         paddingLeft:15,
         paddingRight:15
@@ -38,7 +53,22 @@ const styles = StyleSheet.create({
         alignItems:'center'
       },
       list:{
-      }
+      },
+
+
+      btnSpace:{
+        alignItems: 'flex-end',
+        paddingRight: 10,
+        justifyContent: 'center'
+      },
+      btnAdd: {
+        height: 60,
+        width: 60,
+        backgroundColor: "#007B8F",
+        borderRadius: 40,
+        alignItems: "center",
+        justifyContent: "center",
+      },
   
 });
 

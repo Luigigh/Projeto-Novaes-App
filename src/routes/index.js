@@ -5,8 +5,10 @@ import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from "../pages/LoginPage";
 import ContractList from "../pages/Client/ContractList";
 import InfoManager from "../pages/Client/InfoManager";
-import Register from "../pages/employee/Register";
+import ProgressClient from "../pages/Client/ProgressClient";
+import Progress from "../pages/employee/Progress";
 import SideMenu from "../components/SideMenu";
+import Register from "../pages/employee/Register";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -32,6 +34,16 @@ const AppStack = () => {
       <Stack.Screen
         name="InfoManager"
         component={InfoManager}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProgressClient"
+        component={ProgressClient}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Progress"
+        component={Progress}
         options={{ headerShown: false }}
       />
       <Stack.Screen

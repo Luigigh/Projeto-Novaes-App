@@ -1,20 +1,20 @@
-// ContractList.js
-
-import React, { useState, useEffect } from 'react';
-import { View, Button } from 'react-native';
-import FolderItem from '../../../components/FolderItem';
-import ContractService from '../../../service/ContractService';
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer';
-import ModalFolder from '../../../components/ModalFolder'; // Importe o componente ModalFolder
-import styles from './Styles';
-import { useRoute } from '@react-navigation/native'
-
+import React, { useState, useEffect } from "react";
+import { View, TouchableOpacity, FlatList, Text } from "react-native";
+import FolderItem from "../../../components/FolderItem";
+import ContractService from "../../../service/ContractService";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
+import ModalFolder from "../../../components/ModalFolder";
+import Icon_Plus from "react-native-vector-icons/Entypo";
+import Icon_Return from "react-native-vector-icons/Ionicons"
+import styles from "./Styles";
+import { useRoute } from "@react-navigation/native";
 
 const ContractList = () => {
   const [folders, setFolders] = useState([]);
   const [showAddFolderModal, setShowAddFolderModal] = useState(false);
   const [currentFolder, setCurrentFolder] = useState(null);
+  const [folderStack, setFolderStack] = useState([]);
   const route = useRoute();
 
   useEffect(() => {
@@ -28,50 +28,102 @@ const ContractList = () => {
     }
   };
 
-  const handleDeleteFolder = async (folderName) => {
-    try {
-      await ContractService.deleteFolder(folderName);
-      setFolders(folders.filter(folder => folder.name !== folderName));
-    } catch (error) {
-      console.error('Erro ao deletar pasta:', error);
-    }
-  };
-
   const handleAddFolder = async (folderName) => {
     try {
       await ContractService.addFolder(folderName);
-      setShowAddFolderModal(false); // Fechar o modal após adicionar a pasta
-      loadFileSystem(); // Recarregar a lista de pastas
+      setShowAddFolderModal(false);
+      loadFileSystem();
     } catch (error) {
-      console.error('Erro ao adicionar pasta:', error);
+      console.error("Erro ao adicionar pasta:", error);
+    }
+  };
+
+  const handleDeleteFolder = async (folderName) => {
+    try {
+      await ContractService.deletarItem(folderName);
+      loadFileSystem();
+    } catch (error) {
+      console.error("Erro ao deletar pasta:", error);
     }
   };
 
   const handleViewFolder = async (folder) => {
-    // Define a pasta atualmente exibida para a pasta clicada
+    setFolderStack([...folderStack, currentFolder]);
     setCurrentFolder(folder);
+  };
+
+  const handleGoBack = () => {
+    if (folderStack.length > 0) {
+      const previousFolder = folderStack.pop();
+      setCurrentFolder(previousFolder);
+      setFolderStack([...folderStack]); // Atualiza o estado para re-renderizar
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    <FolderItem
+      folder={item}
+      onFolderPress={handleViewFolder}
+    />
+  );
+
+  const renderEmptyFolderMessage = () => {
+    return (
+      <View style={styles.emptyFolderContainer}>
+        <Text style={styles.emptyFolderText}>Pasta Vazia</Text>
+      </View>
+    );
   };
 
   return (
     <View style={styles.container}>
       <Header />
+      <View style={styles.body}>
+        {currentFolder ? (
+          <>
+            <TouchableOpacity onPress={handleGoBack}>
+               <Icon_Return name="return-up-back" size={50}/>
+            </TouchableOpacity>
+            {currentFolder.content.length > 0 ? (
+              <FlatList
+                style={styles.containerFlatList}
+                data={currentFolder.content}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.name}
+              />
+            ) : (
+              renderEmptyFolderMessage()
+            )}
+          </>
+        ) : (
+          <FlatList
+            style={styles.containerFlatList}
+            data={folders}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.name}
+          />
+        )}
 
-      {folders.map(folder => (
-        <FolderItem key={folder.name} folder={folder} onDelete={handleDeleteFolder} onView={handleViewFolder}/>
-      ))}
+        {showAddFolderModal && (
+          <ModalFolder
+            style={styles.modals}
+            visible={showAddFolderModal}
+            onClose={() => setShowAddFolderModal(false)}
+            onAddFolder={handleAddFolder}
+          />
+        )}
 
-      <Button title="Adicionar Pasta" onPress={() => setShowAddFolderModal(true)} />
-
-      
-      {showAddFolderModal && (
-        <ModalFolder
-          visible={showAddFolderModal}
-          onClose={() => setShowAddFolderModal(false)}
-          onAddFolder={handleAddFolder}
-        />
-      )}
-
-      <Footer routeSelected={route.name}/>
+        <View style={styles.btnSpace}>
+          <TouchableOpacity
+            style={styles.btnAdd}
+            title="Adicionar Pasta"
+            onPress={() => setShowAddFolderModal(true)}
+          >
+            <Icon_Plus name="plus" size={55} color="#FFF" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Footer routeSelected={route.name} />
     </View>
   );
 };

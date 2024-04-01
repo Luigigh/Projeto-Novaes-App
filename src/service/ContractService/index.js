@@ -48,13 +48,12 @@ const FileSystem = [
   },
 ];
 
-class ContractService {
-  static async getFileSystem() {
+const ContractService = {
+  getFileSystem: async function() {
     // Simulando uma requisição assíncrona para obter a estrutura de pastas
     return FileSystem;
-  }
-
-  static async addFolder(folderName) {
+  },
+  addFolder: async function(folderName) {
     // Simulando uma requisição assíncrona para adicionar uma nova pasta
     const newFolder = {
       name: folderName,
@@ -64,29 +63,34 @@ class ContractService {
     };
     FileSystem[0].content.push(newFolder); // Adiciona a nova pasta ao sistema de arquivos
     return newFolder;
-  }
-
-  static async deleteFolder(folderName) {
-    // Encontre a pasta com o nome especificado e remova-a do sistema de arquivos
-    const removeFolder = (folders) => {
-      for (let i = 0; i < folders.length; i++) {
-        if (folders[i].name === folderName) {
-          folders.splice(i, 1);
+  },
+  deletarItem: async function(nomeDoItem) {
+    // Função para encontrar e deletar o item da lista
+    function encontrarEdeletarItem(lista, nome) {
+      for (let i = 0; i < lista.length; i++) {
+        const item = lista[i];
+        if (item.name === nome) {
+          lista.splice(i, 1);
           return true;
         }
-        if (folders[i].type === "directory") {
-          if (removeFolder(folders[i].content)) {
+        if (item.type === "directory" && item.content.length > 0) {
+          if (encontrarEdeletarItem(item.content, nome)) {
             return true;
           }
         }
       }
       return false;
-    };
-
-    removeFolder(FileSystem[0].content);
+    }
+    
+    // Simulação de conexão com o banco de dados para verificar se o item existe
+    // Neste exemplo, verificamos apenas se o item existe na lista FileSystem
+    const itemExiste = encontrarEdeletarItem(FileSystem, nomeDoItem);
+    
+    // Se o item não existe, exibir uma mensagem
+    if (!itemExiste) {
+      console.log("O item '" + nomeDoItem + "' não foi encontrado.");
+    }
   }
-}
+};
 
 export default ContractService;
-
-

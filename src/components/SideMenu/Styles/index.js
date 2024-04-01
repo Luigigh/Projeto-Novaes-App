@@ -1,15 +1,23 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../color";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
-    paddingHorizontal: 10,
+  },
+  containerOpcao: {
+    marginTop: 15,
+    marginHorizontal: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    minHeight: '70%',
   },
   header: {
     alignItems: "center",
-    marginBottom: 20,
-    backgroundColor: '#083C52',
+    marginBottom: 5,
+    backgroundColor: "#083C52",
+    paddingTop: 25,
+    paddingBottom: 20,
   },
   userImage: {
     width: 100,
@@ -17,14 +25,53 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginBottom: 10,
   },
+  subContainerOpcao:{
+    justifyContent: 'space-between',
+  },
   username: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "white",
   },
   menuItem: {
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: colors.primary,
+    marginHorizontal: 12,
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  menuItemLast: {
+    paddingVertical: 10,
+    marginHorizontal: 12,
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  menuItemLogout: {
+    paddingVertical: 10,
+    marginHorizontal: 12,
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.primary,
+    borderRadius: 7,
+  },
+  textOpcoes: {
+    color: colors.primary,
+    marginLeft: 5,
+  },
+  textOpcoesLogout: {
+    color: colors.branco,
+    marginLeft: 5,
+    fontWeight: "500",
+  },
+  icon_logout: {
+    marginLeft: 10,
+  },
+  containerLogout: {
+    justifyContent: 'flex-end',
   },
 });
 

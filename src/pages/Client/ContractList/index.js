@@ -56,7 +56,7 @@ const ContractList = () => {
     if (folderStack.length > 0) {
       const previousFolder = folderStack.pop();
       setCurrentFolder(previousFolder);
-      setFolderStack([...folderStack]); // Atualiza o estado para re-renderizar
+      setFolderStack([...folderStack]);
     }
   };
 

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Styles";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-// import {DrawerNavigatorItems} from '@react-navigation/drawer'
-import InfoManager from "../../pages/Client/InfoManager";
-import ContractList from "../../pages/Client/ContractList";
-import Login from "../../pages/LoginPage";
 import IconUser from "react-native-vector-icons/Feather";
 import IconContract from "react-native-vector-icons/Ionicons";
 import IconProgress from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,6 +8,7 @@ import IconLogout from "react-native-vector-icons/MaterialIcons";
 import IconCadaster from "react-native-vector-icons/AntDesign";
 import colors from "../../color";
 import ModalLogout from "../ModalLogout";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SideMenu = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
@@ -23,13 +20,16 @@ const SideMenu = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <LinearGradient
+        style={styles.header}
+        colors={[colors.primary, "#007B8F"]}
+      >
         <Image
           source={require("../../img/IconProfile.png")}
           style={styles.userImage}
         />
         <Text style={styles.username}>Nome do Usuário</Text>
-      </View>
+      </LinearGradient>
       <View style={styles.containerOpcao}>
         <View style={styles.subContainerOpcao}>
           <TouchableOpacity
@@ -68,11 +68,7 @@ const SideMenu = ({ navigation }) => {
             style={styles.menuItemLast}
             onPress={() => navigation.navigate("Register")}
           >
-            <IconCadaster
-              name="adduser"
-              size={20}
-              color={colors.primary}
-            />
+            <IconCadaster name="adduser" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Cadastro de usuário</Text>
           </TouchableOpacity>
         </View>

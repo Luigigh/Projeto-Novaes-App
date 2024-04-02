@@ -10,12 +10,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    minHeight: '70%',
+    minHeight: '67%',
   },
   header: {
     alignItems: "center",
     marginBottom: 5,
-    backgroundColor: "#083C52",
     paddingTop: 25,
     paddingBottom: 20,
   },
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.primary,
+    backgroundColor: "#007B8F",
     borderRadius: 7,
   },
   textOpcoes: {

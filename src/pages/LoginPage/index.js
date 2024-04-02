@@ -20,10 +20,10 @@ export default function LoginScreen() {
                 console.log(result)
                 if(result === 'Employee'){
                     console.log("Usuario funcionario se logou")
-                    navigation.navigate('ContractList');
+                    navigation.navigate('ContractList', { username: username });
                 }if(result === 'Client'){
                     console.log("Usuario clinete se logou")
-                    navigation.navigate('ContractList');
+                    navigation.navigate('ContractList', { username: username });
                 }else{
                     setAlertEmpty('Erro no Login... Usuario ou Senha Incorretos');
                 }

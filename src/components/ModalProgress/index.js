@@ -64,7 +64,6 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing }) => {
             >
               <Text style={{color: 'white', fontSize: 16.5}}>Voltar</Text>
             </TouchableOpacity>
-          
           </View>
         </View>
       </View>

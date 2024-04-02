@@ -3,34 +3,15 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        justifyContent:'space-between',
-    },
-    header: {
-        justifyContent: 'center',
-        width: "100%",
-        height: 0,
-        backgroundColor: "#083C52",
-        padding: 5,
-    },
-    imagem_logo: {
-        width: 30,
-        height: 30
-    },
-    main: {
-        justifyContent: "center",
-        flexDirection: "column", 
-        height: '100%'
     },
     container_foto_user: {
         backgroundColor: "#083C52",
         width: "100%",
+        height: '40%',
         justifyContent: "center",
         alignItems: "center",
         paddingTop: 30,
         paddingBottom: 70
-    },
-    fotoperfil: {
-        flexDirection: 'row',
     },
     imagem_perfil: {
         width: 150,
@@ -48,18 +29,18 @@ const styles = StyleSheet.create({
         bottom: 0,
         padding: 7
     },
-    // btnTESTE: {
-    //     backgroundColor: 'blue',
-    //     width: 35,
-    //     height: 35,
-    // },
+    main:{
+        height: '82.75%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
     container_info_user: {
+        height: '60%',
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal: 20,
-        height: '51%'
-    },
+     },
     texto_contato: {
         color: "#000000",
     },
@@ -68,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         width: "100%",
         justifyContent: "center",
-        marginVertical: 18,
+        marginVertical: 6.8,
     },
     view_input: {
         width: "100%",

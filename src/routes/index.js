@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from "../pages/LoginPage";
-import ContractList from "../pages/Client/ContractList";
+import ContractList from "../pages/employee/ContractList";
 import InfoManager from "../pages/Client/InfoManager";
+import Contacts from "../pages/Client/Contacts";
 import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
 import SideMenu from "../components/SideMenu";
@@ -34,6 +35,11 @@ const AppStack = () => {
       <Stack.Screen
         name="InfoManager"
         component={InfoManager}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Contacts"
+        component={Contacts}
         options={{ headerShown: false }}
       />
       <Stack.Screen

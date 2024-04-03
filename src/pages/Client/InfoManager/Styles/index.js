@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         width: "100%",
         justifyContent: "center",
-        marginVertical: 6.8,
+        marginVertical: 20,
     },
     view_input: {
         width: "100%",

@@ -7,8 +7,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ModalPhoto from "../../../components/ModalPhoto";
 import * as ImagePicker from "expo-image-picker";
-import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../../color";
+import { LinearGradient } from "expo-linear-gradient";
 
 // function ImageViewer({ placeholderImageSource, selectedImage }) {
 //   const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
@@ -48,7 +48,7 @@ export default function InfoManager() {
   };
 
   return (
-    <View contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Header />
       <View style={styles.main}>
         <LinearGradient
@@ -82,7 +82,7 @@ export default function InfoManager() {
             <Text style={styles.text_input}>Nome</Text>
             <View style={styles.view_input}>
               <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                {userData ? userData.username : ""}
+                {/* {userData ? userData.username : ""} */} Pessoa 01
               </Text>
             </View>
           </View>

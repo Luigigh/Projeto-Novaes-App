@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import ModalRegsFuncionario from "../../../components/ModalRegsFuncionario";
 import ModalRegsCliente from "../../../components/ModalRegsCliente";
 import styles from "./Styles";
-import { LinearGradient } from "expo-linear-gradient";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Register() {
   const [isModalVisible, setIsModalVisible] = useState(false);

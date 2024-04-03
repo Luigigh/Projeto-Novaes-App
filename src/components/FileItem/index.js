@@ -1,4 +1,4 @@
-// FILEITEM
+// FileItem
 
 import react, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";

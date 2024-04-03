@@ -20,7 +20,7 @@ export default function Footer({ routeSelected }) {
     if (routeSelected === "ContractList") {
       setIfHomeSelected(true);
     }
-    if (routeSelected === "InfoManager") {
+    if (routeSelected === "Contacts") {
       setIfContactSelected(true);
     }
     if (routeSelected === "Register") {
@@ -36,7 +36,7 @@ export default function Footer({ routeSelected }) {
       <TouchableOpacity
         style={ifContactSelected ? styles.btnSelected : styles.btnNotSelected}
         onPress={() => {
-          navigator.navigate("InfoManager");
+          navigator.navigate("Contacts");
         }}
       >
         <Icon_Contacts name="contacts" size={35} color={"#fff"} />

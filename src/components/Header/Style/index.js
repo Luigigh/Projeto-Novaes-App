@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         backgroundColor:colors.primary,
-        height:70,
         padding:10,
     },
     image:{

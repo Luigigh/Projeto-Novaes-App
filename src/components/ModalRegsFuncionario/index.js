@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import { LinearGradient } from "expo-linear-gradient";
 import styles from './Styles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ModalRegsFuncionario = ({ visible, onClose, onAdd, isEditing }) => {
     const [email, setEmail] = React.useState('');
     const [cargo, setCargo] = React.useState('');
 
     const handleAddProgress = () => {
-
         onAdd({ email, cargo });
     };
 

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    minHeight: '67%',
+    minHeight: '72%',
   },
   header: {
     alignItems: "center",

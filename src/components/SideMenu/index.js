@@ -10,6 +10,7 @@ import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
 
+
 const SideMenu = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
 

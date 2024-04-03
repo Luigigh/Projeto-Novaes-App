@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Button, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
-import { LinearGradient } from "expo-linear-gradient";
 import { serviceLoginMethod } from "../../service/UserService";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function LoginScreen() {
     const navigation = useNavigation();

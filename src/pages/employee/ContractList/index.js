@@ -1,139 +1,138 @@
+// ContractList/index.js
+
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { useRoute } from "@react-navigation/native";
-import DocumentPicker from "@react-native-document-picker";
-import styles from "./Styles";
+import { View, TouchableOpacity, FlatList, Text } from "react-native";
+import FolderItem from "../../../components/FolderItem";
+import ContractService from "../../../service/ContractService";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import FolderItem from "../../../components/FolderItem";
-import FileItem from "../../../components/FileItem";
-import { ListItemsInDirectory, AddArchive, AddDirectory, RemoveFile, RemoveDirectory } from "../../../service/ContractService";
-import Icon_beck from "react-native-vector-icons/AntDesign";
-import Icon_folder from "react-native-vector-icons/Entypo";
+import ModalFolder from "../../../components/ModalFolder";
+import Icon_Plus from "react-native-vector-icons/Entypo";
+import Icon_Return from "react-native-vector-icons/Ionicons"
+import styles from "./Styles";
+import { useRoute } from "@react-navigation/native";
 
-export default function ContractList() {
-  const [listArchive, setListArchive] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+const ContractList = () => {
+  const [folders, setFolders] = useState([]);
+  const [showAddFolderModal, setShowAddFolderModal] = useState(false);
+  const [currentFolder, setCurrentFolder] = useState(null);
+  const [folderStack, setFolderStack] = useState([]);
   const route = useRoute();
 
-  async function atualizarListaDiretorios(nomeDirectory, parentDirectory) {
-    setIsLoading(true);
-    try {
-      const list = await ListItemsInDirectory(nomeDirectory, parentDirectory);
-      setListArchive(list);
-    } catch (error) {
-      console.error("Erro ao buscar lista de arquivos:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  const handleDeleteDirectory = async (directoryName) => {
-    try {
-      await RemoveDirectory(directoryName);
-      await atualizarListaDiretorios("root");
-    } catch (error) {
-      console.error("Erro ao deletar diretório:", error);
-    }
-  };
-
   useEffect(() => {
-    async function fetchData() {
-      try {
-        await atualizarListaDiretorios("root");
-      } catch (error) {
-        console.error("Erro ao buscar lista de arquivos:", error);
-      }
-    }
-    fetchData();
+    loadFileSystem();
   }, []);
 
-  const handleAddArchive = async () => {
+  const loadFileSystem = async () => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles],
-      });
-      await AddArchive(res.name, "root");
-      await atualizarListaDiretorios("root");
+      const fileSystem = await ContractService.getFileSystem();
+      if (fileSystem && fileSystem.length > 0) {
+        setFolders(fileSystem);
+      }
     } catch (error) {
-      console.error("Erro ao adicionar arquivo:", error);
+      console.error("Erro ao carregar o sistema de arquivos:", error);
     }
   };
 
-  const renderListItems = () => {
-    if (listArchive.length === 0) {
-      return (
-        <View style={styles.emptyContainer}>
-          <Icon_folder name="folder" size={90} color="#ccc" />
-          <Text style={styles.emptyText}>Este diretório está vazio.</Text>
-        </View>
-      );
-    } else {
-      return listArchive.map((item, index) => {
-        const key = `item_${index}`;
-        const lastModification = item.lastModification;
-        const isFile = item.type === "archive";
-
-        if (isFile) {
-          const fileName = item.name.split(".").shift();
-          const extensionFile = item.name.split(".").pop();
-          return (
-            <FileItem
-              key={key}
-              fileName={fileName}
-              lastModification={lastModification}
-              extensionFile={extensionFile}
-            />
-          );
-        } else {
-          return (
-            <TouchableOpacity
-              key={key}
-              onPress={() => atualizarListaDiretorios(item.name, "root")}
-            >
-              <FolderItem
-                nameFolder={item.name}
-                lastModification={lastModification}
-                onDelete={() => handleDeleteDirectory(item.name)}
-              />
-            </TouchableOpacity>
-          );
-        }
-      });
+  const handleAddFolder = async (folderName) => {
+    try {
+      await ContractService.addFolder(folderName);
+      setShowAddFolderModal(false);
+      loadFileSystem();
+    } catch (error) {
+      console.error("Erro ao adicionar pasta:", error);
     }
+  };
+
+  const handleDeleteFolder = async (folderId) => {
+    try {
+      await ContractService.deleteFolder(folderId); // Correção: o parâmetro deveria ser o id da pasta, não o nome
+      loadFileSystem();
+    } catch (error) {
+      console.error("Erro ao deletar pasta:", error);
+    }
+  };
+
+  const handleViewFolder = (folder) => {
+    setCurrentFolder(folder);
+    setFolderStack([...folderStack, currentFolder]);
+  };
+
+  const handleGoBack = () => {
+    if (folderStack.length > 0) {
+      const previousFolder = folderStack.pop();
+      setCurrentFolder(previousFolder);
+      setFolderStack([...folderStack]);
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    <FolderItem
+      folder={item}
+      onFolderPress={handleViewFolder}
+      onDeleteFolder={handleDeleteFolder} // Adicionando a função onDeleteFolder
+    />
+  );
+
+  const renderEmptyFolderMessage = () => {
+    return (
+      <View style={styles.emptyFolderContainer}>
+        <Text style={styles.emptyFolderText}>Pasta Vazia</Text>
+      </View>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <View>
-        <Header />
-        <View style={styles.caminhoContainer}>
-          <Text style={styles.title}>Arquivos Disponíveis</Text>
+      <Header />
+      <View style={styles.body}>
+        {currentFolder ? (
+          <>
+            <TouchableOpacity onPress={handleGoBack}>
+               <Icon_Return name="return-up-back" size={50}/>
+            </TouchableOpacity>
+            {currentFolder.subDirectories.length > 0 ? (
+              <FlatList
+                style={styles.containerFlatList}
+                data={currentFolder.subDirectories}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id_Directory.toString()}
+              />
+            ) : (
+              renderEmptyFolderMessage()
+            )}
+          </>
+        ) : (
+          <FlatList
+            style={styles.containerFlatList}
+            data={folders}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id_Directory.toString()}
+          />
+        )}
+
+        {showAddFolderModal && (
+          <ModalFolder
+            style={styles.modals}
+            visible={showAddFolderModal}
+            onClose={() => setShowAddFolderModal(false)}
+            onAddFolder={handleAddFolder}
+          />
+        )}
+
+        <View style={styles.btnSpace}>
           <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => {
-              atualizarListaDiretorios("root");
-            }}
+            style={styles.btnAdd}
+            title="Adicionar Pasta"
+            onPress={() => setShowAddFolderModal(true)}
           >
-            <Icon_beck name="back" size={30} color={"#000"} />
+            <Icon_Plus name="plus" size={55} color="#FFF" />
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={styles.main}>
-        {isLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
-        ) : (
-          <View style={styles.list}>
-            {renderListItems()}
-            <TouchableOpacity onPress={handleAddArchive}>
-              <Text style={styles.addButton}>Adicionar Arquivo</Text>
-            </TouchableOpacity>
-          </View>
-        )}
       </View>
       <Footer routeSelected={route.name} />
     </View>
   );
-}
+};
+
+export default ContractList;

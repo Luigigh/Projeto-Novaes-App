@@ -21,17 +21,14 @@ export default function Register() {
       <Header />
 
       <View style={styles.body}>
-
-        <View style={styles.header}>
-          <Image source={require("../../../../src/img/LogoGrupoNovaesGrande.png")}></Image>
-        </View>
+        
 
         <View style={styles.main}>
           <LinearGradient
             style={styles.linear}
             colors={["#B3DFE7", "#EEEEEE", "#FFFFFF"]}
           >
-            <Text style={styles.texto_cadastro}>Cadastre-se com a Novaes</Text>
+            <Text style={styles.texto_cadastro}>Cadastrar Usuários</Text>
 
             <View style={styles.NomeSobrenome}>
               <TextInput
@@ -78,7 +75,7 @@ export default function Register() {
 
             <View style={styles.textos}>
               <Text >Já possui uma conta? </Text>
-              <Text onPress={() => navigation.navigate("Login")}>Clique aqui.</Text>
+              <Text style={{fontWeight: "bold"}} onPress={() => navigation.navigate("Login")}>Clique aqui.</Text>
             </View>
 
           </LinearGradient>

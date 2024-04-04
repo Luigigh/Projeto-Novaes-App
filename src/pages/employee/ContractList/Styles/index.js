@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   list: {},
 
   btnSpace: {
+    width: '100%',
     alignItems: "flex-end",
     paddingRight: 10,
     justifyContent: "center",

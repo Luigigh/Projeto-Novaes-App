@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../../color";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,9 @@ const styles = StyleSheet.create({
   },
 
   body:{
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
   },
 
   main: {
@@ -26,7 +29,7 @@ const styles = StyleSheet.create({
     
   },
   linear:{
-    height: '100%',
+    flex: 1,
     width: '100%',
     alignItems: 'center',
     borderRadius: 20,
@@ -39,30 +42,31 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 18
   },
   input: {
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 5,
     marginVertical: 6,
-    width: '80%'
+    width: '80%',
   },
   btn_cadastro:{
-    backgroundColor: "#007B8F",
+    backgroundColor: colors.verde,
     padding: 10,
     borderRadius: 10,
     width: 130,
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    marginTop: 40
+    marginTop: 30
   },
   text_cadastrar:{
     color: 'white',
     fontSize: 17
   },
   textos:{
+    marginTop: 5,
     flexDirection: 'row',
   },
 
@@ -89,26 +93,26 @@ const styles = StyleSheet.create({
   },
 
   btnFuncionario:{
-    backgroundColor: '#00A148',
+    backgroundColor: colors.laranja,
     height: 47,
     width: '50%',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#417C5C',
+    borderColor: '#975B26',
     borderWidth: 1.5,
   },
 
   btnCliente:{
-    backgroundColor: '#C06F26',
+    backgroundColor: colors.azul_claro,
     height: 45,
     width: '45%',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#975B26',
+    borderColor: colors.primary,
     borderWidth: 1.5,
   },
 

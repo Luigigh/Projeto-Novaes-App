@@ -1,4 +1,4 @@
-const usuarios = [
+export const usuarios = [
     {
         username: 'Luciano',
         password: '1234',
@@ -42,3 +42,4 @@ export async function serviceLoginMethod(username, password) {
         
     }
 }
+

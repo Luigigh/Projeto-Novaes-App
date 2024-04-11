@@ -1,13 +1,16 @@
+// src/components/ModalProgress/index.js
+
 import React from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
 import styles from './Styles';
 
-const ModalProgress = ({ visible, onClose, onAdd, isEditing }) => {
-  const [titulo, setTitulo] = React.useState('');
-  const [descricao, setDescricao] = React.useState('');
-  const [dataHora, setDataHora] = React.useState('');
+const ModalProgress = ({ visible, onClose, onAdd, isEditing, titulo, setTitulo, descricao, setDescricao, dataHora, setDataHora }) => {
+  console.log("titulo:", titulo); // Adicione este log
+  console.log("descricao:", descricao); // Adicione este log
+  console.log("dataHora:", dataHora); // Adicione este log
 
   const handleAddProgress = () => {
+    console.log("Dados a serem enviados:", { titulo, descricao, dataHora });
     // Chama a função onAdd passando os dados como parâmetros
     onAdd({ titulo, descricao, dataHora });
   };
@@ -26,7 +29,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing }) => {
             style={styles.inputTitulo}
             placeholder="Título"
             value={titulo}
-            onChangeText={setTitulo}
+            onChangeText={text => setTitulo(text)} // Modifique aqui
             maxLength={20}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}
@@ -36,7 +39,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing }) => {
             style={styles.inputDescricao}
             placeholder="Descrição"
             value={descricao}
-            onChangeText={setDescricao}
+            onChangeText={text => setDescricao(text)} // Modifique aqui
             maxLength={70}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}
@@ -45,7 +48,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing }) => {
             style={styles.inputDataHora}
             placeholder="Data e Hora"
             value={dataHora}
-            onChangeText={setDataHora}
+            onChangeText={text => setDataHora(text)} // Modifique aqui
             maxLength={20}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}

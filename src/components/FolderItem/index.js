@@ -14,7 +14,7 @@ const FolderItem = ({ folder, onFolderPress, onDeleteFolder }) => {
   };
 
   const handleDelete = () => {
-    onDeleteFolder(folder.id_Directory); // Chamando a função onDeleteFolder passando o id da pasta
+    onDeleteFolder(folder.id_Directory);
     setShowOptions(false);
   };
 

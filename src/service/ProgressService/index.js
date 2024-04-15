@@ -1,11 +1,9 @@
-// service/ProgressService/index.js
-
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.15.36:8080'; // URL base da sua API
+const apiUrl = 'http://192.168.15.36:8080'; // Substitua pelo URL base da sua API
 
 const ProgressService = {
-  async getAllStages() {
+  getAllStages: async () => {
     try {
       const response = await axios.get(`${apiUrl}/stages`);
       return response.data;
@@ -15,38 +13,27 @@ const ProgressService = {
     }
   },
 
-  async addStage(stageData) {
-    console.log("Dados recebidos em addStage:", stageData); // Adicione este log
-
+  addStage: async (stageData) => {
     try {
       const response = await axios.post(`${apiUrl}/stages`, stageData);
-      console.log("Resposta da API em addStage:", response.data); // Adicione este log
       return response.data;
     } catch (error) {
-      console.error('Erro ao adicionar uma etapa:', error);
+      console.error('Erro ao adicionar etapa:', error);
       throw error;
     }
   },
 
-  async editStage(stageId, updatedStageData) {
-    try {
-      const response = await axios.put(`${apiUrl}/stages/${stageId}`, updatedStageData);
-      return response.data;
-    } catch (error) {
-      console.error('Erro ao editar uma etapa:', error);
-      throw error;
-    }
-  },
-
-  async deleteStage(stageId) {
+  deleteStage: async (stageId) => {
     try {
       const response = await axios.delete(`${apiUrl}/stages/${stageId}`);
       return response.data;
     } catch (error) {
-      console.error('Erro ao deletar uma etapa:', error);
+      console.error('Erro ao deletar etapa:', error);
       throw error;
     }
-  }
+  },
+
+  // Adicione outras funções necessárias para editar ou realizar outras operações relacionadas às etapas
 };
 
 export default ProgressService;

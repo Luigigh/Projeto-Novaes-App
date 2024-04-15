@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import IconCamera from "react-native-vector-icons/Entypo";
+import IconArrow from "react-native-vector-icons/Ionicons";
 import styles from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -9,6 +10,7 @@ import ModalPhoto from "../../../components/ModalPhoto";
 import * as ImagePicker from "expo-image-picker";
 import colors from "../../../color";
 import { LinearGradient } from "expo-linear-gradient";
+import { usuarios } from "../../../service/UserService";
 
 // function ImageViewer({ placeholderImageSource, selectedImage }) {
 //   const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
@@ -16,7 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 //   return <Image source={imageSource} style={styles.imagem_perfil} />;
 // }
 
-export default function InfoManager() {
+const InfoManager = ({ navigation }) => {
   const route = useRoute();
   const PlaceholderImage = require("../../../../src/img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
@@ -78,11 +80,19 @@ export default function InfoManager() {
         </LinearGradient>
 
         <View style={styles.container_info_user}>
+          <TouchableOpacity
+            style={styles.containerBack}
+            onPress={() => navigation.navigate("Contacts")}
+          >
+            <IconArrow name="arrow-undo-outline" size={33} color={"#007B8F"} />
+            <Text style={styles.textBack}>Voltar</Text>
+          </TouchableOpacity>
+
           <View style={styles.campo_input}>
             <Text style={styles.text_input}>Nome</Text>
             <View style={styles.view_input}>
               <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                {/* {userData ? userData.username : ""} */} Pessoa 01
+                {/* {userData ? userData.username : ""} */} {usuarios[0].username}
               </Text>
             </View>
           </View>
@@ -109,7 +119,9 @@ export default function InfoManager() {
       <Footer style={styles.footer} routeSelected={route.name} />
     </View>
   );
-}
+};
+
+export default InfoManager;
 
 // METODO PARA ENVIAR A IMAGEM PARA O BACK END
 // const selectImage = () => {

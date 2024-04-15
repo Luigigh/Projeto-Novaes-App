@@ -3,7 +3,7 @@ import axios from 'axios';
 const ContractService = {
   getFileSystem: async () => {
     try {
-      const response = await axios.get('http://192.168.15.36:8080/archive/directory');
+      const response = await axios.get(`http://192.168.15.36:8080/archive/directory`);
       console.log(JSON.stringify(response))
       return response.data;
       

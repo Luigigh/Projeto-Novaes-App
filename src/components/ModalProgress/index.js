@@ -4,15 +4,15 @@ import React from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
 import styles from './Styles';
 
-const ModalProgress = ({ visible, onClose, onAdd, isEditing, titulo, setTitulo, descricao, setDescricao, dataHora, setDataHora }) => {
-  console.log("titulo:", titulo); // Adicione este log
-  console.log("descricao:", descricao); // Adicione este log
-  console.log("dataHora:", dataHora); // Adicione este log
+const ModalProgress = ({ visible, onClose, onAdd, isEditing, tittle, setTittle, description, setDescription, dateHour, setDateHour }) => {
+  console.log("titulo:", tittle); 
+  console.log("description:", description); 
+  console.log("dataHora:", dateHour); 
 
   const handleAddProgress = () => {
-    console.log("Dados a serem enviados:", { titulo, descricao, dataHora });
+    console.log("Dados a serem enviados:", { tittle, description, dateHour });
     // Chama a função onAdd passando os dados como parâmetros
-    onAdd({ titulo, descricao, dataHora });
+    onAdd({ tittle, description, dateHour });
   };
 
   return (
@@ -28,8 +28,8 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, titulo, setTitulo, 
           <TextInput
             style={styles.inputTitulo}
             placeholder="Título"
-            value={titulo}
-            onChangeText={text => setTitulo(text)} // Modifique aqui
+            value={tittle}
+            onChangeText={text => setTittle(text)}
             maxLength={20}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}
@@ -38,8 +38,8 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, titulo, setTitulo, 
           <TextInput
             style={styles.inputDescricao}
             placeholder="Descrição"
-            value={descricao}
-            onChangeText={text => setDescricao(text)} // Modifique aqui
+            value={description}
+            onChangeText={text => setDescription(text)}
             maxLength={70}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}
@@ -47,8 +47,8 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, titulo, setTitulo, 
           <TextInput
             style={styles.inputDataHora}
             placeholder="Data e Hora"
-            value={dataHora}
-            onChangeText={text => setDataHora(text)} // Modifique aqui
+            value={dateHour}
+            onChangeText={text => setDateHour(text)}
             maxLength={20}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}

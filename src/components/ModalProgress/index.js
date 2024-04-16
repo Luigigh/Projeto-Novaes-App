@@ -4,16 +4,13 @@ import React from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
 import styles from './Styles';
 
-const ModalProgress = ({ visible, onClose, onAdd, isEditing, tittle, setTittle, description, setDescription, dateHour, setDateHour }) => {
-  console.log("titulo:", tittle); 
-  console.log("description:", description); 
-  console.log("dataHora:", dateHour); 
+const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, description, setDescription, dateHour, setDateHour }) => { 
 
   const handleAddProgress = () => {
-    console.log("Dados a serem enviados:", { tittle, description, dateHour });
-    // Chama a função onAdd passando os dados como parâmetros
-    onAdd({ tittle, description, dateHour });
+    console.log("Dados a serem enviados:", { title, description, dateHour });
+    onAdd({ title, description, dateHour });
   };
+
 
   return (
     <Modal
@@ -28,8 +25,8 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, tittle, setTittle, 
           <TextInput
             style={styles.inputTitulo}
             placeholder="Título"
-            value={tittle}
-            onChangeText={text => setTittle(text)}
+            value={title}
+            onChangeText={text => setTitle(text)}
             maxLength={20}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}

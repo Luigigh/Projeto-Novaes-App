@@ -11,6 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 import colors from "../../../color";
 import { LinearGradient } from "expo-linear-gradient";
 import { usuarios } from "../../../service/UserService";
+// import { useUser } from "../../../context/index.js"
 
 // function ImageViewer({ placeholderImageSource, selectedImage }) {
 //   const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
@@ -24,6 +25,7 @@ const InfoManager = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const userData = route.params?.userData;
+  // const { username } = useUser();
 
   useEffect(() => {
     if (userData) {
@@ -93,6 +95,7 @@ const InfoManager = ({ navigation }) => {
             <View style={styles.view_input}>
               <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
                 {/* {userData ? userData.username : ""} */} {usuarios[0].username}
+                {/* {username} */}
               </Text>
             </View>
           </View>

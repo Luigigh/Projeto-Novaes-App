@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.15.36:8080'; // Substitua pelo URL base da sua API
+const apiUrl = 'http://192.168.15.36:8080';
 
 const ProgressService = {
   getAllStages: async () => {
@@ -23,6 +23,16 @@ const ProgressService = {
     }
   },
 
+  editStage: async (stageId, stageData) => {
+    try {
+      const response = await axios.put(`${apiUrl}/stages/${stageId}`, stageData);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao atualizar etapa:', error);
+      throw error;
+    }
+  },
+
   deleteStage: async (stageId) => {
     try {
       const response = await axios.delete(`${apiUrl}/stages/${stageId}`);
@@ -32,8 +42,6 @@ const ProgressService = {
       throw error;
     }
   },
-
-  // Adicione outras funções necessárias para editar ou realizar outras operações relacionadas às etapas
 };
 
 export default ProgressService;

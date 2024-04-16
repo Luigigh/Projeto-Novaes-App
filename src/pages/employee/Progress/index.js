@@ -1,3 +1,5 @@
+// src/pages/employee/Progress/index.js
+
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
@@ -16,7 +18,7 @@ const Progress = () => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [clockButtonIndex, setClockButtonIndex] = useState(null);
-  const [title, setTitle] = useState(""); // Corrigido para "title"
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dateHour, setDateHour] = useState("");
   const route = useRoute();
@@ -31,10 +33,9 @@ const Progress = () => {
       console.log("Dados das etapas:", progress);
       setProgressList(progress);
     } catch (error) {
-      console.error('Erro ao buscar progressos:', error);
+      console.error("Erro ao buscar progressos:", error);
     }
   };
-  
 
   const handleAddProgress = async () => {
     if (!title || !description || !dateHour) {
@@ -48,11 +49,11 @@ const Progress = () => {
           title,
           description,
           dateHour,
-        }); // Corrigido para "title"
+        });
         setIsModalVisible(false);
         setEditingIndex(null);
       } else {
-        await ProgressService.addStage({ title, description, dateHour }); // Corrigido para "title"
+        await ProgressService.addStage({ title, description, dateHour });
         setIsModalVisible(false);
       }
       fetchData();
@@ -74,6 +75,15 @@ const Progress = () => {
     setConfirmModalVisible(false);
   };
 
+  const handleEditProgress = async (index) => {
+    const item = progressList[index];
+    setTitle(item.title);
+    setDescription(item.description);
+    setDateHour(item.dateHour);
+    setEditingIndex(index);
+    setIsModalVisible(true);
+  };
+
   const handleDeleteProgress = async (index) => {
     await ProgressService.deleteStage(progressList[index].id);
     fetchData();
@@ -87,8 +97,8 @@ const Progress = () => {
         onClose={() => setIsModalVisible(false)}
         onAdd={handleAddProgress}
         isEditing={editingIndex !== null}
-        tittle={title} // Corrigido para "title"
-        setTittle={setTitle} // Corrigido para "setTitle"
+        title={title}
+        setTitle={setTitle}
         description={description}
         setDescription={setDescription}
         dateHour={dateHour}
@@ -104,6 +114,10 @@ const Progress = () => {
       <ModalRenderStage
         progressList={progressList}
         onDeleteProgress={handleDeleteProgress}
+        onEditProgress={handleEditProgress}
+        newItemTitle={title}
+        newItemDescription={description}
+        newItemDateHour={dateHour}
       />
 
       <View style={styles.addButton}>

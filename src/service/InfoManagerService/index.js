@@ -1,4 +1,5 @@
 let ImageList = [];
+const url = process.env.EXPO_PUBLIC_API_URL;
 
 export async function AddImageForProfile(uriImage) {
     let image = {

@@ -1,5 +1,3 @@
-// src/pages/employee/Progress/index.js
-
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
@@ -17,10 +15,10 @@ const Progress = () => {
   const [progressList, setProgressList] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [clockButtonIndex, setClockButtonIndex] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dateHour, setDateHour] = useState("");
+  const [selectedStageId, setSelectedStageId] = useState(null);
   const route = useRoute();
 
   useEffect(() => {
@@ -52,6 +50,9 @@ const Progress = () => {
         });
         setIsModalVisible(false);
         setEditingIndex(null);
+        setTitle("");
+        setDescription("");
+        setDateHour("");
       } else {
         await ProgressService.addStage({ title, description, dateHour });
         setIsModalVisible(false);
@@ -60,19 +61,6 @@ const Progress = () => {
     } catch (error) {
       console.error("Erro ao adicionar ou editar etapa:", error);
     }
-  };
-
-  const handleClockButtonClick = (index) => {
-    setClockButtonIndex(index);
-    setConfirmModalVisible(true);
-  };
-
-  const handleConfirm = async (confirmed) => {
-    if (confirmed) {
-      await ProgressService.deleteStage(progressList[clockButtonIndex].id);
-      fetchData();
-    }
-    setConfirmModalVisible(false);
   };
 
   const handleEditProgress = async (index) => {
@@ -87,6 +75,31 @@ const Progress = () => {
   const handleDeleteProgress = async (index) => {
     await ProgressService.deleteStage(progressList[index].id);
     fetchData();
+  };
+
+  const handleFinishStage = async (stageId) => {
+    setSelectedStageId(stageId);
+
+    setConfirmModalVisible(true);
+  };
+
+  const handleConfirm = async (confirmed, title, description, dateHour) => {
+    if ((confirmed, title, description, dateHour)) {
+      try {
+        await ProgressService.updateStageStatus(selectedStageId, true, {
+          title,
+          description,
+          dateHour,
+        });
+        console.log("Etapa concluída com sucesso!");
+
+        fetchData();
+      } catch (error) {
+        console.error("Erro ao concluir a etapa:", error);
+      }
+    }
+
+    setConfirmModalVisible(false);
   };
 
   return (
@@ -107,14 +120,18 @@ const Progress = () => {
 
       <ModalConfirmacao
         visible={confirmModalVisible}
-        onConfirm={() => handleConfirm(true)}
-        onCancel={() => handleConfirm(false)}
+        onConfirm={() => handleConfirm(true, title, description, dateHour)}
+        onCancel={() => setConfirmModalVisible(false)}
+        title={title}
+        description={description}
+        dateHour={dateHour}
       />
 
       <ModalRenderStage
         progressList={progressList}
         onDeleteProgress={handleDeleteProgress}
         onEditProgress={handleEditProgress}
+        onFinishStage={handleFinishStage}
         newItemTitle={title}
         newItemDescription={description}
         newItemDateHour={dateHour}

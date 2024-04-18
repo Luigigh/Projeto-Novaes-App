@@ -14,6 +14,7 @@ const ModalRenderStage = ({
   progressList,
   onDeleteProgress,
   onEditProgress,
+  onFinishStage,
 }) => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
@@ -38,7 +39,7 @@ const ModalRenderStage = ({
                 styles.btnClock,
                 { backgroundColor: item.completed ? "#00A148" : "#007B8F" },
               ]}
-              onPress={() => setConfirmModalVisible(true)}
+              onPress={() => onFinishStage(item.id, item.title, item.description, item.dateHour)}
             >
               {item.completed ? (
                 <Icon_Check name="check" size={60} color="white" />
@@ -64,9 +65,9 @@ const ModalRenderStage = ({
                   style={styles.btnEdit}
                   onPress={() => {
                     onEditProgress(index, {
-                      title: item.title, // Passa o título da etapa para edição
-                      description: item.description, // Passa a descrição da etapa para edição
-                      dateHour: item.dateHour, // Passa a data e hora da etapa para edição
+                      title: item.title,
+                      description: item.description,
+                      dateHour: item.dateHour,
                     });
                   }}
                 >

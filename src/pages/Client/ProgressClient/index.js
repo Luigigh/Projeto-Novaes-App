@@ -21,7 +21,6 @@ const ProgressClient = () => {
                         <TouchableHighlight style={styles.btnClock}>
                             <Icon_Clock name="clock" size={60} color="#FFF" />
                         </TouchableHighlight>
-
                         <View style={styles.content}>
                             <Text style={styles.etapaTitulo}>{etapa.titulo}</Text>
                             <Text style={styles.etapaDescricao}>{etapa.descricao}</Text>

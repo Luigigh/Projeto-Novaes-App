@@ -11,7 +11,6 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
     onAdd({ title, description, dateHour });
   };
 
-
   return (
     <Modal
       transparent

@@ -4,35 +4,30 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import { serviceLoginMethod } from "../../service/UserService";
 import { LinearGradient } from "expo-linear-gradient";
-// import { useUser } from "../../context/index.js";
+import { useUser } from "../../context/index.js";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
-    // const { setUsername } = useUser();
-    // const [username, setUsernameState] = useState('');
+    const { setUsername: setUsernameContext } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [alertEmpty, setAlertEmpty] = useState('');
 
+    const handleLoginSuccess = (username) => {
+        setUsernameContext(username);
+        navigation.navigate('ContractList');
+    }
+
     const login = () => {
         if(username === "" || password === ""){
             setAlertEmpty("Todos os campos devem ser preenchidos");
-        }else{
-            serviceLoginMethod( username , password )
+        } else {
+            serviceLoginMethod(username, password)
             .then(function(result) {
-                console.log(result)
-                if(result === 'Employee'){
-                    console.log("Usuario funcionario se logou")
-                    navigation.navigate('ContractList', { username: username });
-                    // setUsername(username);
-                    // navigation.navigate('ContractList');
-                }if(result === 'Client'){
-                    console.log("Usuario clinete se logou")
-                    navigation.navigate('ContractList', { username: username });
-                    // setUsername(username);
-                    // navigation.navigate('ContractList');
-                }else{
-                    setAlertEmpty('Erro no Login... Usuario ou Senha Incorretos');
+                if(result === 'Employee' || result === 'Client'){
+                    handleLoginSuccess(username);
+                } else {
+                    setAlertEmpty('Erro no Login... Usuário ou Senha Incorretos');
                 }
             })
             .catch(function(error) {
@@ -40,8 +35,6 @@ export default function LoginScreen() {
             });
         }
     }
-
-    
 
     return (
         <View style={styles.container}>

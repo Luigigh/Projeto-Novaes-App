@@ -54,7 +54,6 @@ const ContractList = () => {
     }
 };
 
-
   const handleDeleteFolder = async (folderId) => {
     try {
       await ContractService.deleteFolder(folderId); // Correção: o parâmetro deveria ser o id da pasta, não o nome

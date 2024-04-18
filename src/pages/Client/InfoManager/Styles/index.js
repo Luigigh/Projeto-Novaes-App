@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
   },
   text_input: {
     fontSize: 17,
@@ -89,6 +91,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     color: "black",
     fontSize: 17,
+    position: 'relative',
+  },
+  btn_editarContato: {
+    backgroundColor: '#E56D01',
+    borderRadius: 150,
+    padding: 3,
+    position: 'absolute',
+    right: 0,
+    bottom: 5
   },
 });
 

@@ -41,6 +41,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  menuItemSelected: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.primary,
+    backgroundColor: 'red',
+    marginHorizontal: 12,
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
   menuItemLast: {
     paddingVertical: 10,
     marginHorizontal: 12,

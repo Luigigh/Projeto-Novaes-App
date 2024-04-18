@@ -19,21 +19,15 @@ const InfoManager = ({ navigation }) => {
   const PlaceholderImage = require("../../../../src/img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
-  const userData = route.params?.userData;
+  const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
   const { username } = useUser();
 
-  useEffect(() => {
-    if (userData) {
-      setUsername(userData.username);
-    }
-  }, [userData]);
-
   const openModal = () => {
-    setModalVisible(true);
+    setModalVisibleEdit(true);
   };
 
   const closeModal = () => {
-    setModalVisible(false);
+    setModalVisibleEdit(false);
   };
 
   const handleSubmit = (data) => {
@@ -135,7 +129,7 @@ const InfoManager = ({ navigation }) => {
           {/* Outros campos de entrada para sobrenome e email */}
 
           <ModalEditContact
-            visible={modalVisible}
+            visible={modalVisibleEdit}
             onClose={closeModal}
             onSubmit={handleSubmit}
             initialData={{ name: username, lastName: "", email: "" }}

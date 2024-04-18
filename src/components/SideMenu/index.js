@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styles from "./Styles";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+// SideMenu.js
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import IconUser from "react-native-vector-icons/Feather";
 import IconContract from "react-native-vector-icons/Ionicons";
 import IconProgress from "react-native-vector-icons/MaterialCommunityIcons";
@@ -9,9 +9,9 @@ import IconCadaster from "react-native-vector-icons/AntDesign";
 import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
+import styles from "./Styles";
 
-
-const SideMenu = ({ navigation }) => {
+const SideMenu = ({ navigation, menuSelected }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
@@ -34,7 +34,10 @@ const SideMenu = ({ navigation }) => {
       <View style={styles.containerOpcao}>
         <View style={styles.subContainerOpcao}>
           <TouchableOpacity
-            style={styles.menuItem}
+            style={[
+              styles.menuItem,
+              menuSelected === "InfoManager" && styles.menuItemSelected,
+            ]}
             onPress={() => navigation.navigate("InfoManager")}
           >
             <IconUser name="user" size={20} color={colors.primary} />
@@ -42,7 +45,10 @@ const SideMenu = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.menuItem}
+            style={[
+              styles.menuItem,
+              menuSelected === "ContractList" && styles.menuItemSelected,
+            ]}
             onPress={() => navigation.navigate("ContractList")}
           >
             <IconContract
@@ -54,8 +60,11 @@ const SideMenu = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => navigation.navigate("Progress")}
+            style={[
+              styles.menuItem,
+              menuSelected === "ProgressClient" && styles.menuItemSelected,
+            ]}
+            onPress={() => navigation.navigate("ProgressClient")}
           >
             <IconProgress
               name="progress-question"
@@ -66,7 +75,10 @@ const SideMenu = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.menuItemLast}
+            style={[
+              styles.menuItemLast,
+              menuSelected === "Register" && styles.menuItemSelected,
+            ]}
             onPress={() => navigation.navigate("Register")}
           >
             <IconCadaster name="adduser" size={20} color={colors.primary} />

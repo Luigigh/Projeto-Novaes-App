@@ -27,12 +27,22 @@ export const usuarios = [
     }
 ];
 
+export const userLogged = [
+    {
+        username:"",
+        hierarchy:""
+    }
+]
+
 export async function serviceLoginMethod(username, password) {
     const user = usuarios.find(user => user.username === username);
     
 
     if(user && user.password === password) {
         console.log("usuario que logou: " + user.hierarchy);
+        //setando qual usuario se logou
+        userLogged[0].username=username;
+        userLogged[0].hierarchy=user.hierarchy;
 
         if(user.hierarchy === 'Funcionario' || user.hierarchy === 'Gerente' || user.hierarchy === 'Administrador'){
             

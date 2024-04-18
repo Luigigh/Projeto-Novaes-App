@@ -12,9 +12,7 @@ export default function Header() {
         source={require("../../img/LogoDesenhoBranca.png")}
         style={styles.image}
       />
-
       <Btn_Menu />
-
     </View>
   );
 }

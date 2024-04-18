@@ -12,7 +12,6 @@ const ContractService = {
     } catch (error) {
       console.error('Erro ao carregar o sistema de arquivos:', error);
       throw error;
-      
     }
   },
 

@@ -13,11 +13,6 @@ export default function LoginScreen() {
     const [password, setPassword] = useState('');
     const [alertEmpty, setAlertEmpty] = useState('');
 
-    const handleLoginSuccess = (username) => {
-        setUsernameContext(username);
-        navigation.navigate('ContractList');
-    }
-
     const login = () => {
         if(username === "" || password === ""){
             setAlertEmpty("Todos os campos devem ser preenchidos");
@@ -25,7 +20,13 @@ export default function LoginScreen() {
             serviceLoginMethod(username, password)
             .then(function(result) {
                 if(result === 'Employee' || result === 'Client'){
-                    handleLoginSuccess(username);
+                    if(result == 'Employee'){
+                        setUsernameContext(username);
+                        navigation.navigate('ContractList');
+                    }else{
+                        setUsernameContext(username);
+                        navigation.navigate('ContractList');
+                    }
                 } else {
                     setAlertEmpty('Erro no Login... Usuário ou Senha Incorretos');
                 }

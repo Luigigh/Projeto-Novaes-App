@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import { View, Modal, TextInput, TouchableOpacity, Text } from "react-native";
 import styles from "./Styles";
 
-const ModalFolder = ({ visible, onClose, onAddFolder }) => {
-  const [newFolderName, setNewFolderName] = useState("");
-
-  const handleAddFolder = () => {
-    onAddFolder(newFolderName);
-    setNewFolderName("");
-    onClose();
-  };
-
+const ModalFolder = ({ visible, onClose, newFolderName, onNewFolderNameChange, onConfirm }) => {
   return (
     <Modal
       transparent
@@ -20,18 +12,18 @@ const ModalFolder = ({ visible, onClose, onAddFolder }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-        <Text style={styles.title}>Adicionar Pasta</Text>
+          <Text style={styles.title}>Adicionar Pasta</Text>
           <TextInput
             style={styles.inputTitulo}
             placeholder="Nome da Pasta"
             value={newFolderName}
-            onChangeText={(text) => setNewFolderName(text)}
+            onChangeText={onNewFolderNameChange}
             maxLength={20}
             placeholderTextColor={"#6B6D71"}
             fontSize={15}
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.btnAdd} onPress={handleAddFolder}>
+            <TouchableOpacity style={styles.btnAdd} onPress={onConfirm}>
               <Text style={{ color: "white", fontSize: 18 }}>Salvar</Text>
             </TouchableOpacity>
 

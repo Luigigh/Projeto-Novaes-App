@@ -1,70 +1,32 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../../color";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "white",
   },
-  body: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  folderItem: {
-    backgroundColor: "lightblue",
-    marginBottom: 5,
-    padding: 10,
-  },
-  fileItem: {
-    borderWidth: 1,
-    borderColor: "blue",
-    marginBottom: 5,
-    padding: 10,
-  },
-  containerFlatList: {
-    height: "65%",
-    width: "90%",
-    padding: 10,
-  },
+ 
 
-  main: {
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  caminho: {
-    paddingLeft: 20,
-  },
-  title: {
-    padding: 20,
-    fontSize: 22,
-  },
-  caminhoContainer: {
-    flexDirection: "row",
-  },
-  iconContainer: {
-    marginRight: 20,
-    marginTop: 20,
-  },
-  emptyContainer: {
-    alignItems: "center",
-  },
-  list: {},
 
-  btnSpace: {
-    width: '100%',
-    alignItems: "flex-end",
-    paddingRight: 10,
-    justifyContent: "center",
-  },
-  btnAdd: {
+
+
+
+
+
+
+
+
+
+
+
+  btnPlus:{
     height: 60,
     width: 60,
-    backgroundColor: "#007B8F",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25
+  }
 });
 
 export default styles;

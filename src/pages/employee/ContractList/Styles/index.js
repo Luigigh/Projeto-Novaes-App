@@ -5,27 +5,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
- 
 
-
-
-
-
-
-
-
-
-
-
-
+  ViewFlatList:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%'
+  },
 
   btnPlus:{
-    height: 60,
-    width: 60,
+    height: 65,
+    width: 65,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25
+    borderRadius: 25,
   }
 });
 

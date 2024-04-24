@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// ModalFolder
+
+import React from "react";
 import { View, Modal, TextInput, TouchableOpacity, Text } from "react-native";
 import styles from "./Styles";
 
@@ -26,7 +28,6 @@ const ModalFolder = ({ visible, onClose, newFolderName, onNewFolderNameChange, o
             <TouchableOpacity style={styles.btnAdd} onPress={onConfirm}>
               <Text style={{ color: "white", fontSize: 18 }}>Salvar</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.btnCancel} onPress={onClose}>
               <Text style={{ color: "white", fontSize: 16.5 }}>Voltar</Text>
             </TouchableOpacity>

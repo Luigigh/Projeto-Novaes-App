@@ -6,9 +6,10 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
   const [lastName, setLastName] = useState(initialData.lastName);
   const [email, setEmail] = useState(initialData.email);
+  const [cargo, setCargo] = useState(initialData.cargo);
 
   const handleSubmit = () => {
-    onSubmit({ name, lastName, email });
+    onSubmit({ name, lastName, email, cargo });
     onClose();
   };
 
@@ -34,6 +35,12 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Cargo"
+              value={cargo}
+              onChangeText={setCargo}
               style={styles.inputs}
             />
             <View style={styles.buttons}>

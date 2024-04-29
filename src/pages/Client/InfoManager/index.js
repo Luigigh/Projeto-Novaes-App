@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import IconCamera from "react-native-vector-icons/Entypo";
 import IconArrow from "react-native-vector-icons/Ionicons";
@@ -82,59 +82,97 @@ const InfoManager = ({ navigation }) => {
         </LinearGradient>
 
         <View style={styles.container_info_user}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.containerBack}
             onPress={() => navigation.navigate("Contacts")}
           >
             <IconArrow name="arrow-undo-outline" size={33} color={"#007B8F"} />
             <Text style={styles.textBack}>Voltar</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <View style={styles.campo_input}>
-            <Text style={styles.text_input}>Nome</Text>
-            <View style={styles.view_input}>
-              <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                {username}
-              </Text>
-              <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
-                <IconPencil name="pencil" size={25} color={"#FFF"} />
-              </TouchableOpacity>
+          <ScrollView>
+            <Text style={styles.titleInfoContact}>Informações do usuário:</Text>
+            <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Nome</Text>
+              <View style={styles.view_input}>
+                <Text
+                  style={styles.input_contato}
+                  placeholderTextColor="#ABABAB"
+                >
+                  {username}
+                </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
 
-          <View style={styles.campo_input}>
-            <Text style={styles.text_input}>Sobrenome</Text>
-            <View style={styles.view_input}>
-              <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                {username}
-              </Text>
-              <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
-                <IconPencil name="pencil" size={25} color={"#FFF"} />
-              </TouchableOpacity>
+            <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Sobrenome</Text>
+              <View style={styles.view_input}>
+                <Text
+                  style={styles.input_contato}
+                  placeholderTextColor="#ABABAB"
+                >
+                  {username}
+                </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
 
-          <View style={styles.campo_input}>
-            <Text style={styles.text_input}>Email</Text>
-            <View style={styles.view_input}>
-              <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                {username}
-              </Text>
-              <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
-                <IconPencil name="pencil" size={25} color={"#FFF"} />
-              </TouchableOpacity>
+            <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Email</Text>
+              <View style={styles.view_input}>
+                <Text
+                  style={styles.input_contato}
+                  placeholderTextColor="#ABABAB"
+                >
+                  {username}
+                </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
 
-          {/* Outros campos de entrada para sobrenome e email */}
+            <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Cargo</Text>
+              <View style={styles.view_input}>
+                <Text
+                  style={styles.input_contato}
+                  placeholderTextColor="#ABABAB"
+                >
+                  {username}
+                </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
+              </View>
+            </View>
 
-          <ModalEditContact
-            visible={modalVisibleEdit}
-            onClose={closeModal}
-            onSubmit={handleSubmit}
-            initialData={{ name: username, lastName: "", email: "" }}
-          />
+            {/* Outros campos de entrada para sobrenome e email */}
 
+            <ModalEditContact
+              visible={modalVisibleEdit}
+              onClose={closeModal}
+              onSubmit={handleSubmit}
+              initialData={{ name: username, lastName: "", email: "" }}
+            />
+          </ScrollView>
         </View>
       </View>
       <Footer style={styles.footer} routeSelected={route.name} />

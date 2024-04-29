@@ -34,8 +34,6 @@ const styles = StyleSheet.create({
     width: "50%",
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "#B3DFE7",
     padding: 7,
     backgroundColor: "white",
     borderTopLeftRadius: 20,
@@ -85,6 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 50,
     borderRadius: 5,
+    marginVertical: 6,
   },
   btn_cadastro: {
     backgroundColor: colors.verde,

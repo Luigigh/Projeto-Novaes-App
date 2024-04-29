@@ -55,5 +55,26 @@ const addFolder = async (folderName, parentDirectoryId) => {
   }
 };
 
+const deleteFolder = async (folderId) => {
+  try {
+    const response = await axios.delete(`${url}/archive/directory/${folderId}`);
+    console.log("Pasta excluída com sucesso");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao excluir pasta:", error);
+    throw error;
+  }
+};
 
-export default {fetchFiles, fetchDirectories, addFolder };
+const updateFolder = async (folderId, folderName) => {
+  try {
+    const response = await axios.put(`${url}/archive/directory/${folderId}`, { name: folderName });
+    console.log("Pasta editada com sucesso");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao editar pasta:", error);
+    throw error;
+  }
+};
+
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder};

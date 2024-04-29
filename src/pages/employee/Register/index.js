@@ -54,7 +54,7 @@ export default function Register() {
       };
       try {
         await RegisterService.createFuncionario(userData);
-        alert("Usuário cadastrado com sucesso!");
+        alert(`Funcionário ${nome} ${sobrenome}, email ${email}, com o cargo ${cargo} cadastrado com sucesso!`);
         navigation.navigate("Login");
       } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
@@ -71,7 +71,7 @@ export default function Register() {
       
       try {
         await RegisterService.createCliente(userData);
-        alert("Cliente cadastrado com sucesso!");
+        alert(`Cliente ${nome} ${sobrenome}, email ${email}, da empresa ${nomeEmpresa} cadastrado com sucesso!`);
         navigation.navigate("Login");
       } catch (error) {
         console.error("Erro ao cadastrar cliente:", error);

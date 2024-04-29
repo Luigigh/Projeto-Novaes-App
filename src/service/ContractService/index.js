@@ -1,9 +1,13 @@
 import axios from "axios";
 const url = process.env.EXPO_PUBLIC_API_URL;
 
-const fetchDirectories = async () => {
+const fetchDirectories = async (parentDirectoryId = null) => {
   try {
-    const response = await axios.get(`${url}/archive/directory`);
+    const response = await axios.get(`${url}/archive/directory`, {
+      params: {
+        parentDirectoryId: parentDirectoryId
+      }
+    });
     
     if (response.data) {
       return response.data;
@@ -35,14 +39,14 @@ const fetchFiles = async () => {
 
 const addFolder = async (folderName, parentDirectoryId) => {
   try {    
-    if (parentDirectoryId > 1) {
+    if (parentDirectoryId >= 1) {
       const response = await axios.post(`${url}/archive/directory`, {
         name: folderName,
         parentDirectory: {
           id: parentDirectoryId
         }
       });
-      console.log(JSON.stringify(response)); 
+      console.log("RESPOSTA CONSOLE", JSON.stringify(response)); 
       return response.data;
     }
   } catch (error) {

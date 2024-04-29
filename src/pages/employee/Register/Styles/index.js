@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   main: {
-    height: "60%",
     width: "80%",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -35,19 +34,22 @@ const styles = StyleSheet.create({
     width: "50%",
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 5,
+    borderWidth: 1,
     borderColor: "#B3DFE7",
     padding: 7,
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+  abaSelecionada:{
+    borderColor: "white",
+    backgroundColor: "#B3DFE7",
+  },
   textAba: {
     fontSize: 15,
     color: colors.primary,
   },
   linear: {
-    flex: 1,
     width: "100%",
     alignItems: "center",
     borderBottomLeftRadius: 10,
@@ -76,6 +78,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 6,
     width: "80%",
+    fontSize: 16,
+  },
+  cargoPicker:{
+    width: '80%',
+    backgroundColor: 'white',
+    height: 50,
+    borderRadius: 5,
   },
   btn_cadastro: {
     backgroundColor: colors.verde,
@@ -86,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     marginTop: 30,
+    marginBottom: 30,
   },
   text_cadastrar: {
     color: "white",
@@ -101,7 +111,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginVertical: 6,
-    width: "45%",
+    width: "48%",
+    fontSize: 16,
   },
   buttonsUser: {
     width: "80%",

@@ -9,12 +9,15 @@ import ContractService from "../../../service/ContractService";
 import { useRoute } from "@react-navigation/native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
+import colors from "../../../color";
 
 const ContractList = () => {
+  const [currentDirectory, setCurrentDirectory] = useState(null);
   const [folders, setFolders] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [file, setFile] = useState([]);
+
   const route = useRoute();
 
   useEffect(() => {
@@ -22,9 +25,15 @@ const ContractList = () => {
     fetchFiles();
   }, []);
 
-  const fetchDirectories = async () => {
-    const directories = await ContractService.fetchDirectories();
-    setFolders(directories);
+  const fetchDirectories = async (parentDirectoryId = null) => {
+    try {
+      const response = await ContractService.fetchDirectories(
+        parentDirectoryId
+      );
+      setFolders(response);
+    } catch (error) {
+      console.error("Erro ao buscar diretórios:", error);
+    }
   };
 
   const fetchFiles = async () => {
@@ -32,8 +41,13 @@ const ContractList = () => {
     setFile(files);
   };
 
-  const handleFolderPress = (folder) => {
-    console.log("Pasta selecionada:", folder.name);
+  const handleFolderPress = async (folder) => {
+    try {
+      setCurrentDirectory(folder);
+      await fetchDirectories(folder.id_Directory);
+    } catch (error) {
+      console.error("Erro ao navegar para a pasta:", error);
+    }
   };
 
   const handleFilePress = (file) => {
@@ -46,7 +60,11 @@ const ContractList = () => {
 
   const handleConfirmAddFolder = async () => {
     try {
-      await ContractService.addFolder(newFolderName);
+      if (currentDirectory) {
+        await ContractService.addFolder(newFolderName, currentDirectory.id_Directory);
+      } else {
+        await ContractService.addFolder(newFolderName, 1);
+      }
       setModalVisible(false);
       fetchDirectories();
       console.log("Pasta adicionada:", newFolderName);
@@ -58,28 +76,29 @@ const ContractList = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.ViewFlatList}>
+      <View style={styles.body}>
         <FlatList
-          data={folders}
+          style={styles.flatListContent}
+          data={currentDirectory ? currentDirectory.subDirectories : folders}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleFolderPress(item)}>
               <FolderItem folder={item} onFolderPress={handleFolderPress} />
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item?.id?.toString()}
+          keyExtractor={(item) => item.id_Directory.toString()}
         />
-
         <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
           <Icon_Plus name="plus" size={55} color={"#fff"} />
         </TouchableOpacity>
-        <ModalFolder
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          newFolderName={newFolderName}
-          onNewFolderNameChange={setNewFolderName}
-          onConfirm={handleConfirmAddFolder}
-        />
       </View>
+
+      <ModalFolder
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        newFolderName={newFolderName}
+        onNewFolderNameChange={setNewFolderName}
+        onConfirm={handleConfirmAddFolder}
+      />
       <Footer routeSelected={route.name} />
     </View>
   );

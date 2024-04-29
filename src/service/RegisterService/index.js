@@ -13,9 +13,9 @@ const RegisterService = {
     }
   },
 
-  createFuncionario: async (userId, cargo) => {
+  createFuncionario: async (userData) => {
     try {
-      const response = await axios.post(`${url}/employee`, { id: userId, office: cargo });
+      const response = await axios.post(`${url}/employee`, userData);
       return response.data;
     } catch (error) {
       console.error("Erro ao adicionar funcionário:", error);
@@ -23,9 +23,9 @@ const RegisterService = {
     }
   },
 
-  createCliente: async (userId, nomeDaEmpresa) => {
+  createCliente: async (userData) => {
     try {
-      const response = await axios.post(`${url}/client`, { id: userId, enterprise_name: nomeDaEmpresa });
+      const response = await axios.post(`${url}/client`, userData);
       return response.data;
     } catch (error) {
       console.error("Erro ao adicionar cliente:", error);

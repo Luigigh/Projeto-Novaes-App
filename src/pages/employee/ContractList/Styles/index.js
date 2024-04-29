@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  ViewFlatList:{
+  body:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

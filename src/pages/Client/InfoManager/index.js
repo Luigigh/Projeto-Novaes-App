@@ -19,16 +19,16 @@ const InfoManager = ({ navigation }) => {
   const PlaceholderImage = require("../../../../src/img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
-  const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
+  // const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
   const { username } = useUser();
 
-  const openModal = () => {
-    setModalVisibleEdit(true);
-  };
+  // const openModal = () => {
+  //   setModalVisibleEdit(true);
+  // };
 
-  const closeModal = () => {
-    setModalVisibleEdit(false);
-  };
+  // const closeModal = () => {
+  //   setModalVisibleEdit(false);
+  // };
 
   const handleSubmit = (data) => {
     // Lógica para lidar com os dados atualizados
@@ -68,11 +68,6 @@ const InfoManager = ({ navigation }) => {
                 style={styles.imagem_perfil}
               />
             </TouchableOpacity>
-            <View style={styles.imagem_camera}>
-              <TouchableOpacity onPress={pickImage}>
-                <IconCamera name="camera" size={33} color={"#FFF"} />
-              </TouchableOpacity>
-            </View>
             <ModalPhoto
               visible={modalVisible}
               imageURL={selectedImage}
@@ -101,12 +96,6 @@ const InfoManager = ({ navigation }) => {
                 >
                   {username}
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
 
@@ -119,12 +108,6 @@ const InfoManager = ({ navigation }) => {
                 >
                   {username}
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
 
@@ -137,12 +120,6 @@ const InfoManager = ({ navigation }) => {
                 >
                   {username}
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
 
@@ -155,23 +132,15 @@ const InfoManager = ({ navigation }) => {
                 >
                   {username}
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
 
-            {/* Outros campos de entrada para sobrenome e email */}
-
-            <ModalEditContact
+            {/* <ModalEditContact
               visible={modalVisibleEdit}
               onClose={closeModal}
               onSubmit={handleSubmit}
               initialData={{ name: username, lastName: "", email: "" }}
-            />
+            /> */}
           </ScrollView>
         </View>
       </View>

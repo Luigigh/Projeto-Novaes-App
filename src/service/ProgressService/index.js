@@ -1,7 +1,6 @@
 import axios from 'axios';
 const url = process.env.EXPO_PUBLIC_API_URL;
 
-
 const ProgressService = {
   getAllStages: async () => {
     try {

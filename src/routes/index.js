@@ -5,6 +5,7 @@ import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from "../pages/LoginPage";
 import ContractList from "../pages/employee/ContractList";
 import InfoManager from "../pages/Client/InfoManager";
+import InfoManagerEmployer from "../pages/employee/InfoManagerEmployer";
 import Contacts from "../pages/Client/Contacts";
 import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
@@ -37,6 +38,11 @@ const AppStack = () => {
         <Stack.Screen
           name="InfoManager"
           component={InfoManager}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InfoManagerEmployer"
+          component={InfoManagerEmployer}
           options={{ headerShown: false }}
         />
         <Stack.Screen

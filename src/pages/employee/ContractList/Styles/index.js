@@ -6,40 +6,40 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  body:{
+  body: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
 
-  Options:{
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: colors.branco,
-    paddingHorizontal: 20
+  Options: {
+    height: 70,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingHorizontal: 20,
   },
 
-  btnBack:{
+  btnBack: {
     height: 65,
     width: 65,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "lightgrey",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 25,
   },
 
-  btnPlus:{
+  btnPlus: {
     height: 65,
     width: 65,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 25,
   },
 
-  goBackButton:{
+  goBackButton: {
     height: 65,
     width: 65,
     backgroundColor: colors.primary,
@@ -47,4 +47,3 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
-

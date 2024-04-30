@@ -1,6 +1,6 @@
 // SideMenu.js
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import IconUser from "react-native-vector-icons/Feather";
 import IconContract from "react-native-vector-icons/Ionicons";
 import IconProgress from "react-native-vector-icons/MaterialCommunityIcons";
@@ -36,9 +36,9 @@ const SideMenu = ({ navigation, menuSelected }) => {
           <TouchableOpacity
             style={[
               styles.menuItem,
-              menuSelected === "InfoManager" && styles.menuItemSelected,
+              menuSelected === "InfoManagerEmployer" && styles.menuItemSelected,
             ]}
-            onPress={() => navigation.navigate("InfoManager")}
+            onPress={() => navigation.navigate("InfoManagerEmployer")}
           >
             <IconUser name="user" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Meu perfil</Text>

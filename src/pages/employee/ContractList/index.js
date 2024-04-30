@@ -149,6 +149,9 @@ const ContractList = () => {
           keyExtractor={(item) => item.id_Directory.toString()}
         />
         <View style={styles.Options}>
+        <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
+            <Icon_Plus name="plus" size={55} color={"#fff"} />
+          </TouchableOpacity>
           {navigationHistory.length > 0 && (
             <TouchableOpacity
               style={styles.btnBack}
@@ -157,9 +160,7 @@ const ContractList = () => {
               <Icon_Back name="arrow-back" size={40} color={"#000"} />
             </TouchableOpacity>
           )}
-          <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
-            <Icon_Plus name="plus" size={55} color={"#fff"} />
-          </TouchableOpacity>
+
         </View>
       </View>
 

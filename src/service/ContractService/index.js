@@ -55,6 +55,8 @@ const addFolder = async (folderName, parentDirectoryId) => {
   }
 };
 
+
+
 const deleteFolder = async (folderId) => {
   try {
     const response = await axios.delete(`${url}/archive/directory/${folderId}`);

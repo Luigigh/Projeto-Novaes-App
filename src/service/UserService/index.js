@@ -28,31 +28,62 @@ export const usuarios = [
     }
 ];
 
-export const userLogged = [
-    {
-        username:"",
-        hierarchy:""
-    }
-]
 
 export async function serviceLoginMethod(username, password) {
-    const user = usuarios.find(user => user.username === username);
-    
+    try {
+        const response = await axios.post(url + "/auth/login", `login=${username}&password=${password}`, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
 
-    if(user && user.password === password) {
-        console.log("usuario que logou: " + user.hierarchy);
-        //setando qual usuario se logou
-        userLogged[0].username=username;
-        userLogged[0].hierarchy=user.hierarchy;
-
-        if(user.hierarchy === 'Funcionario' || user.hierarchy === 'Gerente' || user.hierarchy === 'Administrador'){
-            
-            return 'Employee';
+        if (response.status === 200) {
+            console.log("response: ", response);
+            return true;
+        } else {
+            console.log("response: ", response);
         }
-        if(user.hierarchy === 'Cliente'){
-            return 'Client';
-        }
-        
+    } catch (error) {
+        console.log("error: ", error);
     }
+    
+    return false;
+}
+
+export async function createClientMehtod(client){
+    let bodyContent = JSON.stringify({
+        "namne":client.name,
+        "lastname":client.lastname,
+        "login":client.login,
+        "password":client.password,
+        "enterprise_name":client.enterprise_name
+       });
+       
+       let reqOptions = {
+         url: `${url}/client`,
+         method: "POST",
+         data: bodyContent,
+       }
+       
+       let response = await axios.request(reqOptions);
+       console.log(response.data);
+}
+
+export async function crateEmployeeMethod(employee){       
+    let bodyContent = JSON.stringify({
+    "namne":employee.name,
+    "lastname":employee.lastname,
+    "login":employee.login,
+    "password":employee.password,
+    "office":employee.office,
+    "admin":employee.isAdmin
+    });
+    console.log(JSON.stringify(bodyContent))
+    let reqOptions = {
+        url: `${url}/employee`,
+        method: "POST",
+        data: bodyContent,
+    }
+    
+    let response = await axios.request(reqOptions);
+    console.log(response.data);
 }
 

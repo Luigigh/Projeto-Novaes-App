@@ -19,14 +19,8 @@ export default function LoginScreen() {
         } else {
             serviceLoginMethod(username, password)
             .then(function(result) {
-                if(result === 'Employee' || result === 'Client'){
-                    if(result == 'Employee'){
-                        setUsernameContext(username);
+                if(result){
                         navigation.navigate('ContractList');
-                    }else{
-                        setUsernameContext(username);
-                        navigation.navigate('ContractList');
-                    }
                 } else {
                     setAlertEmpty('Erro no Login... Usuário ou Senha Incorretos');
                 }

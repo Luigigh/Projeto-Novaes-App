@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 2,
     borderColor: colors.azul_claro,
-    padding: 5
+    paddingLeft: 10,
   },
   content:{
     flexDirection: 'row',
@@ -20,34 +20,41 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   ButtonName: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: "center",
     width: "100%",
     height: 50,
+    marginLeft: 5,
   },
   Text: {
+    fontSize: 17,
+    marginLeft: 10,
     color: 'black',
   },
   optionsFolder:{
-    width: '40%',
+    height: 60,
+    width: '42%',
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginLeft: 10
   },
   ButtonDelete: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
     backgroundColor: colors.secondary
   },
   ButtonEdit: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: colors.verde
+    backgroundColor: colors.verde,
+    marginRight: 3
   },
 });
 

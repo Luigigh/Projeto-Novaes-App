@@ -91,7 +91,7 @@ const InfoManagerEmployee = ({ navigation }) => {
           </TouchableOpacity> */}
 
           <ScrollView>
-            <Text style={styles.titleInfoContact}>Informações do usuário:</Text>
+            <Text style={styles.titleInfoContact}>Minhas informações:</Text>
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Nome</Text>
               <View style={styles.view_input}>

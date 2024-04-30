@@ -36,16 +36,16 @@ const FolderItem = ({
 
       <View style={styles.optionsFolder}>
         <TouchableOpacity
-          style={styles.ButtonDelete}
-          onPress={() => onDeleteFolder(folder)}
-        >
-          <Icon_Delete name="trash" size={35} color={colors.branco} />
-        </TouchableOpacity>
-        <TouchableOpacity
           style={styles.ButtonEdit}
           onPress={() => onEditFolder(folder)}
         >
-          <Icon_Edit name="edit" size={35} color={colors.branco} />
+          <Icon_Edit name="edit" size={25} color={colors.branco} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.ButtonDelete}
+          onPress={() => onDeleteFolder(folder)}
+        >
+          <Icon_Delete name="trash" size={25} color={colors.branco} />
         </TouchableOpacity>
       </View>
 

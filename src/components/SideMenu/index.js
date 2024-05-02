@@ -4,8 +4,9 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import IconUser from "react-native-vector-icons/Feather";
 import IconContract from "react-native-vector-icons/Ionicons";
 import IconProgress from "react-native-vector-icons/MaterialCommunityIcons";
+import IconContacts from "react-native-vector-icons/AntDesign";
 import IconLogout from "react-native-vector-icons/MaterialIcons";
-import IconCadaster from "react-native-vector-icons/AntDesign";
+import Iconlist from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
@@ -44,20 +45,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
             <Text style={styles.textOpcoes}>Meu perfil</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[
-              styles.menuItem,
-              menuSelected === "ContractList" && styles.menuItemSelected,
-            ]}
-            onPress={() => navigation.navigate("ContractList")}
-          >
-            <IconContract
-              name="newspaper-outline"
-              size={20}
-              color={colors.primary}
-            />
-            <Text style={styles.textOpcoes}>Lista de Contratos</Text>
-          </TouchableOpacity>
+          <View style={styles.line}></View>
 
           <TouchableOpacity
             style={[
@@ -66,23 +54,21 @@ const SideMenu = ({ navigation, menuSelected }) => {
             ]}
             onPress={() => navigation.navigate("ProgressClient")}
           >
-            <IconProgress
-              name="progress-question"
-              size={20}
-              color={colors.primary}
-            />
-            <Text style={styles.textOpcoes}>Progresso do Cliente</Text>
+            <IconProgress name="progress-clock" size={20} color={colors.primary} />
+            <Text style={styles.textOpcoes}>Progresso do cliente</Text>
           </TouchableOpacity>
+
+          <View style={styles.line}></View>
 
           <TouchableOpacity
             style={[
-              styles.menuItemLast,
-              menuSelected === "Register" && styles.menuItemSelected,
+              styles.menuItem,
+              menuSelected === "UsersList" && styles.menuItemSelected,
             ]}
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("UsersList")}
           >
-            <IconCadaster name="adduser" size={20} color={colors.primary} />
-            <Text style={styles.textOpcoes}>Cadastro de usuário</Text>
+            <Iconlist name="format-list-bulleted" size={20} color={colors.primary} />
+            <Text style={styles.textOpcoes}>Lista de clientes</Text>
           </TouchableOpacity>
         </View>
 

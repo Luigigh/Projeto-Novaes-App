@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     lastModification: {
         color:"#000"
     },
-    right:{
+    content:{
         flexDirection:'row',
     },
     InformationFile:{

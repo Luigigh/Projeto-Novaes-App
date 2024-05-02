@@ -33,11 +33,9 @@ const styles = StyleSheet.create({
     color: "white",
   },
   menuItem: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.primary,
+    paddingVertical: 15,
     marginHorizontal: 12,
-    marginVertical: 8,
+    marginVertical: 3,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -51,12 +49,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  menuItemLast: {
-    paddingVertical: 10,
-    marginHorizontal: 12,
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
+  line:{
+    borderBottomWidth: 1,
+    borderBottomColor: colors.primary,
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 12
   },
   menuItemLogout: {
     paddingVertical: 10,
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
   textOpcoes: {
     color: colors.primary,
     marginLeft: 5,
+    fontSize: 14
   },
   textOpcoesLogout: {
     color: colors.branco,

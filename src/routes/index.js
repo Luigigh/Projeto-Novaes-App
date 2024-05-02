@@ -11,6 +11,7 @@ import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
 import SideMenu from "../components/SideMenu";
 import Register from "../pages/employee/Register";
+import UsersList from "../pages/employee/UsersList";
 import { useUser, UserProvider } from "../context/index.js";
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,11 @@ const AppStack = () => {
         <Stack.Screen
           name="InfoManagerEmployer"
           component={InfoManagerEmployer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UsersList"
+          component={UsersList}
           options={{ headerShown: false }}
         />
         <Stack.Screen

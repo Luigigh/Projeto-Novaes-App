@@ -9,20 +9,18 @@ const styles = StyleSheet.create({
       modalContent: {
         height: 250,
         width: 300,
-        backgroundColor: '#fff',
         padding: 20,
         borderRadius: 10,
-        backgroundColor: '#007B8F',
+        backgroundColor: '#ebebeb',
         elevation: 15,
         alignItems: 'center',
         borderColor: '#083C52',
         borderWidth: 1,
       },
       title:{
-        color: 'white',
+        color: '#083C52',
         fontSize: 30,
         fontWeight: 'bold',
-        textDecorationLine: 'underline',
       },
       inputTitulo: {
         height: 50,

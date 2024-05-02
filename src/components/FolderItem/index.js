@@ -6,20 +6,7 @@ import Icon_Delete from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
 import colors from "../../color";
 
-const FolderItem = ({
-  folder,
-  onFolderPress,
-  onDeleteFolder,
-  onEditFolder,
-}) => {
-  const renderFileItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.fileItemContainer}
-      onPress={() => onFilePress(item)}
-    >
-      <Text style={styles.fileItemText}>{item.name}</Text>
-    </TouchableOpacity>
-  );
+const FolderItem = ({ folder, onFolderPress, onDeleteFolder, onEditFolder}) => {
 
   return (
     <View style={styles.container}>
@@ -49,11 +36,6 @@ const FolderItem = ({
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={folder.listArchives}
-        renderItem={renderFileItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
     </View>
   );
 };

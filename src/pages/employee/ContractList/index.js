@@ -18,7 +18,7 @@ const ContractList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [navigationHistory, setNavigationHistory] = useState([]);
-  const [file, setFile] = useState([]);
+  const [files, setFiles] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editFolderId, setEditFolderId] = useState(null);
 
@@ -26,8 +26,13 @@ const ContractList = () => {
 
   useEffect(() => {
     fetchDirectories();
-    fetchFiles();
   }, []);
+
+  useEffect(() => {
+    if (currentDirectory) {
+      fetchFiles();
+    }
+  }, [currentDirectory]);
 
   const fetchDirectories = async (parentDirectoryId = null) => {
     try {
@@ -40,10 +45,10 @@ const ContractList = () => {
     }
   };
 
-  const fetchFiles = async () => {
+  const fetchFiles = async (parentDirectoryId = null) => {
     try {
-      const files = await ContractService.fetchFiles();
-      setFile(files);
+      const response = await ContractService.fetchFiles(parentDirectoryId);
+      setFiles(response);
     } catch (error) {
       console.error("Erro ao buscar arquivos:", error);
     }
@@ -148,8 +153,22 @@ const ContractList = () => {
           )}
           keyExtractor={(item) => item.id_Directory.toString()}
         />
+
+        {currentDirectory && currentDirectory.id_Directory && (
+          <FlatList
+            style={styles.flatListContent}
+            data={files}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => handleFilePress(item)}>
+                <FileItem file={item} onFilePress={handleFilePress} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        )}
+
         <View style={styles.Options}>
-        <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
+          <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
             <Icon_Plus name="plus" size={55} color={"#fff"} />
           </TouchableOpacity>
           {navigationHistory.length > 0 && (
@@ -160,7 +179,6 @@ const ContractList = () => {
               <Icon_Back name="arrow-back" size={40} color={"#000"} />
             </TouchableOpacity>
           )}
-
         </View>
       </View>
 

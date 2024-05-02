@@ -21,9 +21,13 @@ const fetchDirectories = async (parentDirectoryId = null) => {
   }
 };
 
-const fetchFiles = async () => {
+const fetchFiles = async (parentDirectoryId = null) => {
   try {
-    const response = await axios.get(`${url}/archive`);
+    const response = await axios.get(`${url}/archive`, {
+      params: {
+        parentDirectoryId: parentDirectoryId
+      }
+    });
     console.log(JSON.stringify(response.data));
     if (response.data) {
       return response.data;
@@ -36,6 +40,9 @@ const fetchFiles = async () => {
     return [];
   }
 };
+
+
+
 
 const addFolder = async (folderName, parentDirectoryId) => {
   try {    

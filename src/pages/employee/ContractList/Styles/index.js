@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  flatListContentFile:{
+    height: 250,
+    width: '90%',
+  },
+
   btnBack: {
     height: 65,
     width: 65,

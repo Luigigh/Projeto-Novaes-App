@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor:colors.primary,
         height:70,
+        width: '100%',
         borderRadius:5,
         padding:10,
         marginBottom:10,
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
         color:"#000"
     },
     content:{
+        height: 60,
+        width: '80%',
+        alignItems: 'center',
         flexDirection:'row',
     },
     InformationFile:{

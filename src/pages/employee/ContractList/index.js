@@ -156,7 +156,7 @@ const ContractList = () => {
 
         {currentDirectory && currentDirectory.id_Directory && (
           <FlatList
-            style={styles.flatListContent}
+            style={styles.flatListContentFile}
             data={files}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => handleFilePress(item)}>

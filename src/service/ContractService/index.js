@@ -21,14 +21,11 @@ const fetchDirectories = async (parentDirectoryId = null) => {
   }
 };
 
-const fetchFiles = async (parentDirectoryId = null) => {
+const fetchFiles = async (id_directory) => {
+  console.log(id_directory);
   try {
-    const response = await axios.get(`${url}/archive`, {
-      params: {
-        parentDirectoryId: parentDirectoryId
-      }
-    });
-    console.log(JSON.stringify(response.data));
+    const response = await axios.get(`${url}/archive/getArchiveOfDirectory/${id_directory}`);
+    console.log(id_directory);
     if (response.data) {
       return response.data;
     } else {
@@ -36,11 +33,14 @@ const fetchFiles = async (parentDirectoryId = null) => {
       return [];
     }
   } catch (error) {
-    console.error("Erro ao buscar arquivos:", error);
+    console.error("Erro ao buscar arquivos requisição:", error);
     return [];
   }
 };
 
+addFile = async () => {
+
+}
 
 
 

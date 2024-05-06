@@ -137,3 +137,31 @@
 //     </View>
 //   );
 // }
+
+
+
+// import axios from "axios";
+// var fs = require('fs');
+
+// let headersList = {
+//  "Accept": "*/*",
+//  "User-Agent": "Thunder Client (https://www.thunderclient.com)" 
+// }
+
+// let formdata = new FormData();
+// formdata.append("name", "Contrato Novaes 12");
+// formdata.append("type", "pdf");
+// formdata.append("directoryID", "8");
+// formdata.append("contentArchive", fs.createReadStream("d:\RIO_DAS_PEDRAS\PROCESSAMENTO_IMAGENS\4-DOCUMENTO\V10-PARCIAL.pdf"));
+
+// let bodyContent =  formdata;
+
+// let reqOptions = {
+//   url: "localhost:8080/archive",
+//   method: "POST",
+//   headers: headersList,
+//   data: bodyContent,
+// }
+
+// let response = await axios.request(reqOptions);
+// console.log(response.data);

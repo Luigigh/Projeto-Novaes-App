@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     },
     InformationFile:{
         marginLeft:20,
+    },
+    Text:{
+        fontSize: 16
     }
     
 });

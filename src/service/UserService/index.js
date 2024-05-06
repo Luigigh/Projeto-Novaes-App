@@ -39,7 +39,9 @@ export async function serviceLoginMethod(username, password) {
     );
 
     if (response.status === 200) {
-      console.log("response: ", response);
+      console.log("response: ", response.data);
+      //const res = await axios.get(`${url}+user/${response.data}`);
+      
       return true;
     } else {
       console.log("response: ", response);

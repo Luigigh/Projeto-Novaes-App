@@ -4,57 +4,62 @@ import colors from "../../../color";
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    width: "100%",
+    width: "98%",
     flexDirection: "row",
-    backgroundColor: colors.branco,
+    backgroundColor: colors.primary,
     borderRadius: 5,
     alignItems: "center",
     marginVertical: 10,
     borderWidth: 2,
-    borderColor: colors.azul_claro,
+    borderColor: "#052A39",
     paddingLeft: 10,
+    justifyContent: "space-between",
   },
-  content:{
-    flexDirection: 'row',
-    width: '50%',
-    alignItems: 'center'
+  icon_Folder: {},
+  content: {
+    flexDirection: "row",
+    width: "55%",
+    alignItems: "center",
   },
   ButtonName: {
-    alignItems: 'flex-start',
     justifyContent: "center",
-    width: "100%",
+    width: "95%",
     height: 50,
-    marginLeft: 5,
   },
   Text: {
-    fontSize: 17,
+    fontSize: 19,
     marginLeft: 10,
-    color: 'black',
+    color: colors.branco,
   },
-  optionsFolder:{
+  BtnOption: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    width: "7%",
+  },
+  optionsFolder: {
     height: 60,
-    width: '42%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginLeft: 10
+    width: "23%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   ButtonDelete: {
     height: 40,
     width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 25,
-    backgroundColor: colors.secondary
+    backgroundColor: colors.secondary,
   },
   ButtonEdit: {
     height: 40,
     width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 25,
     backgroundColor: colors.verde,
-    marginRight: 3
+    marginRight: 3,
   },
 });
 

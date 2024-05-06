@@ -9,6 +9,7 @@ import ContractService from "../../../service/ContractService";
 import { useRoute } from "@react-navigation/native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
+import Icon_EmptyFolder from "react-native-vector-icons/Ionicons";
 import styles from "./Styles";
 import colors from "../../../color";
 
@@ -30,7 +31,7 @@ const ContractList = () => {
 
   useEffect(() => {
     if (currentDirectory) {
-      fetchFiles();
+      fetchFiles(currentDirectory.id_Directory);
     }
   }, [currentDirectory]);
 
@@ -45,12 +46,17 @@ const ContractList = () => {
     }
   };
 
-  const fetchFiles = async (parentDirectoryId = null) => {
+  const fetchFiles = async (id_directory) => {
     try {
-      const response = await ContractService.fetchFiles(parentDirectoryId);
+      let response;
+      if (id_directory) {
+        response = await ContractService.fetchFiles(id_directory);
+      } else {
+        response = await ContractService.fetchFiles();
+      }
       setFiles(response);
     } catch (error) {
-      console.error("Erro ao buscar arquivos:", error);
+      console.error("Erro ao buscar arquivos front:", error);
     }
   };
 
@@ -141,6 +147,16 @@ const ContractList = () => {
         <FlatList
           style={styles.flatListContent}
           data={currentDirectory ? currentDirectory.subDirectories : folders}
+          ListEmptyComponent={() => (
+            <View style={styles.emptyMessageContainer}>
+              <Text style={styles.Text}>Não contém pastas.</Text>
+              <Icon_EmptyFolder
+                name="folder-open-outline"
+                size={40}
+                color={colors.cinzaClaro}
+              />
+            </View>
+          )}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleFolderPress(item)}>
               <FolderItem
@@ -158,6 +174,13 @@ const ContractList = () => {
           <FlatList
             style={styles.flatListContentFile}
             data={files}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyMessageContainer}>
+                <Text style={styles.emptyMessage}>
+                  Esta pasta não tem arquivos.
+                </Text>
+              </View>
+            )}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => handleFilePress(item)}>
                 <FileItem file={item} onFilePress={handleFilePress} />

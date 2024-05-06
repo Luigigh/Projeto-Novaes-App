@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert, FlatList, Share, Platform } from "react-native";
-import Icon_Entypo from "react-native-vector-icons/Entypo";
+import { View, Text, TouchableOpacity, Alert, Platform } from "react-native";
+import Icon_Download from "react-native-vector-icons/MaterialIcons";
 import Icon_File from "react-native-vector-icons/Feather";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import styles from './Style';
+import colors from "../../color";
 
 const API_URL = 'http://192.168.15.31:8080/archive';
-const PDF_NAME = "doc.pdf";
 
 export default function FileItem({ file, onFilePress }) {
 
   async function handleDownload() {
     try {
-      const fileUri = FileSystem.cacheDirectory + file.name;
+      const fileUri = FileSystem.documentDirectory + file.name + '.pdf';
       const downloadResumable = FileSystem.createDownloadResumable(
         `${API_URL}/${file.id}`,
-        fileUri
+        fileUri,
+        {},
+        (downloadProgress) => {
+          console.log(`Progresso de download: ${downloadProgress.totalBytesWritten} de ${downloadProgress.totalBytesExpectedToWrite}`);
+        }
       );
       const downloadResponse = await downloadResumable.downloadAsync();
 
@@ -31,7 +35,13 @@ export default function FileItem({ file, onFilePress }) {
 
   async function handleOpenFile(uri) {
     try {
-      await Sharing.shareAsync(uri);
+      if (Platform.OS === 'android' && Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(uri);
+      } else if (Platform.OS === 'ios' && Sharing.shareAsync) {
+        await Sharing.shareAsync(uri);
+      } else {
+        Alert.alert("Abrir arquivo", "Não é possível abrir o arquivo diretamente neste dispositivo.");
+      }
     } catch (error) {
       Alert.alert("Erro", "Não foi possível abrir o arquivo.");
       console.error(error);
@@ -41,7 +51,7 @@ export default function FileItem({ file, onFilePress }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Icon_File name="file" size={35} color={"grey"} />
+        <Icon_File name="file" size={40} color={"#6D6D6D"} />
 
         <TouchableOpacity
           style={styles.ButtonName}
@@ -51,9 +61,8 @@ export default function FileItem({ file, onFilePress }) {
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={handleDownload}>
-        <Icon_Entypo name="download" size={30} color={"#000"} />
+        <Icon_Download name="file-download" size={30} color={colors.primary} />
       </TouchableOpacity>
     </View>
   );
 }
-

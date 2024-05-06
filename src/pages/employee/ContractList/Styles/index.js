@@ -24,30 +24,27 @@ const styles = StyleSheet.create({
   flatListContentFile:{
     height: 250,
     width: '90%',
+    marginTop: 20
   },
 
   btnBack: {
-    height: 65,
-    width: 65,
+    height: 50,
+    width: 50,
     backgroundColor: "lightgrey",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,
+    marginTop: 10
   },
 
   btnPlus: {
-    height: 65,
-    width: 65,
+    height: 60,
+    width: 60,
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25,
-  },
-
-  goBackButton: {
-    height: 65,
-    width: 65,
-    backgroundColor: colors.primary,
+    borderRadius: 20,
+    marginTop: 5
   },
 });
 

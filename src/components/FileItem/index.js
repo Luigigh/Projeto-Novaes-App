@@ -7,7 +7,7 @@ import * as Sharing from "expo-sharing";
 import styles from './Style';
 import colors from "../../color";
 
-const API_URL = 'http://192.168.15.31:8080/archive';
+const url = process.env.EXPO_PUBLIC_API_URL;
 
 export default function FileItem({ file, onFilePress }) {
 
@@ -15,7 +15,7 @@ export default function FileItem({ file, onFilePress }) {
     try {
       const fileUri = FileSystem.documentDirectory + file.name + '.pdf';
       const downloadResumable = FileSystem.createDownloadResumable(
-        `${API_URL}/${file.id}`,
+        `${url}/archive/${file.id}`,
         fileUri,
         {},
         (downloadProgress) => {

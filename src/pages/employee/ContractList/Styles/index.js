@@ -21,10 +21,39 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  flatListContentFile:{
+  flatListContentFile: {
     height: 250,
-    width: '90%',
-    marginTop: 20
+    width: "90%",
+    marginTop: 20,
+  },
+
+  emptyMessageContainer: {
+    height: 250,
+    justifyContent: 'space-around'
+  },
+
+  Text:{
+    fontSize: 20
+  },
+
+  icon_emptyfolder: {
+    height: 100,
+    alignSelf: "center",
+  },
+
+  emptyMessageContainer:{
+    height: 250,
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+
+  Text:{
+    fontSize: 20
+  },
+
+  emptyMessage:{
+    height: 100,
+    alignSelf: "center",
   },
 
   btnBack: {
@@ -34,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,
-    marginTop: 10
+    marginTop: 10,
   },
 
   btnPlus: {
@@ -44,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    marginTop: 5
+    marginTop: 5,
   },
 });
 

@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   addButton: {
-    alignItems: "flex-end",
+    flexDirection: 'row',
+    alignItems: "center",
     paddingRight: 10,
     justifyContent: "center",
   },

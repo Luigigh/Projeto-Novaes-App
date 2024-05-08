@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     justifyContent: "space-between",
   },
-  icon_Folder: {},
   content: {
     flexDirection: "row",
     width: "55%",

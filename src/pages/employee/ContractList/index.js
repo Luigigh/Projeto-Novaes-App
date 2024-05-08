@@ -5,11 +5,12 @@ import Footer from "../../../components/Footer";
 import FolderItem from "../../../components/FolderItem";
 import FileItem from "../../../components/FileItem";
 import ModalFolder from "../../../components/ModalFolder";
-import ContractService from "../../../service/ContractService";
+import ContractService from "../../../service/DirectoryService";
 import { useRoute } from "@react-navigation/native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
 import Icon_EmptyFolder from "react-native-vector-icons/Ionicons";
+import Icon_EmptyFile from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./Styles";
 import colors from "../../../color";
 
@@ -151,8 +152,9 @@ const ContractList = () => {
             <View style={styles.emptyMessageContainer}>
               <Text style={styles.Text}>Não contém pastas.</Text>
               <Icon_EmptyFolder
+                style={styles.icon_emptyfolder}
                 name="folder-open-outline"
-                size={40}
+                size={80}
                 color={colors.cinzaClaro}
               />
             </View>
@@ -176,9 +178,13 @@ const ContractList = () => {
             data={files}
             ListEmptyComponent={() => (
               <View style={styles.emptyMessageContainer}>
-                <Text style={styles.emptyMessage}>
-                  Esta pasta não tem arquivos.
-                </Text>
+                <Text style={styles.Text}>Não contém arquivos.</Text>
+                <Icon_EmptyFile
+                style={styles.icon_emptyfolder}
+                name="file-question-outline"
+                size={80}
+                color={colors.cinzaClaro}
+              />
               </View>
             )}
             renderItem={({ item }) => (

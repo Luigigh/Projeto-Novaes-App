@@ -37,7 +37,7 @@ const ProgressService = {
     const response = await axios.put(`${url}/stages/${stageId}`, { status, ...stageData });
     return response.data;
   } catch (error) {
-    console.error('Erro ao atualizar status da etapa:', error);
+    console.error('Erro ao atualizar status da etapa requisição:', error);
     throw error;
   }
 },

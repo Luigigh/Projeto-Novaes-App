@@ -14,6 +14,7 @@ const ContratoService = {
   getStagesByContractId: async (contractId) => {
     try {
       const response = await axios.get(`${url}/stages/byContract/${contractId}`);
+      console.log("Etapas: ", response.data);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar estágios do contrato requisicao:", error);
@@ -40,10 +41,10 @@ const ContratoService = {
     }
   },
 
-  updateStageStatus: async (stageId, status, stageData) => {
+  updateStageStatus: async (stageId) => {
     try {
-      console.log(stageData);
-      const response = await axios.put(`${url}/stages/${stageId}`, { status, ...stageData });
+      console.log(stageId);
+      const response = await axios.put(`${url}/stages/alterStatus/${stageId}`);
       console.log(JSON.stringify, response);
       if(response){
         console.log("status alterado");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
+import Icon_Question from "react-native-vector-icons/AntDesign";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ModalProgress from "../../../components/ModalProgress";
@@ -12,6 +13,7 @@ import ContratoService from "../../../service/ContratoService";
 import ModalRenderStage from "../../../components/ModalRenderStage";
 import styles from "./Styles";
 import { useRoute } from "@react-navigation/native";
+import colors from "../../../color";
 
 const Progress = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,6 +27,7 @@ const Progress = () => {
   const [selectedStageId, setSelectedStageId] = useState(null);
   const [currentContract, setCurrentContract] = useState(null);
   const [navigationStack, setNavigationStack] = useState([]);
+  const [currentContractId, setCurrentContractId] = useState(null);
 
   const route = useRoute();
 
@@ -43,6 +46,7 @@ const Progress = () => {
 
   const handleContractPress = async (selectedContract) => {
     setCurrentContract(selectedContract);
+    setCurrentContractId(selectedContract.id);
     setNavigationStack([...navigationStack, selectedContract]);
     const stages = await ContratoService.getStagesByContractId(
       selectedContract.id
@@ -52,11 +56,13 @@ const Progress = () => {
 
   const handleNavigateBack = () => {
     if (navigationStack.length > 1) {
-      navigationStack.pop();
-      const previousContract = navigationStack[navigationStack.length - 1];
+      const newStack = [...navigationStack];
+      newStack.pop();
+      const previousContract = newStack[newStack.length - 1];
       setCurrentContract(previousContract);
       const stages = ContratoService.getStagesByContractId(previousContract.id);
       setProgressList(stages);
+      setNavigationStack(newStack);
     } else {
       setCurrentContract(null);
       setProgressList([]);
@@ -71,11 +77,12 @@ const Progress = () => {
   
     try {
       if (editingIndex !== null) {
+        console.log("Editing id do contrato: ", currentContract.id);
         await ContratoService.editStage(progressList[editingIndex].id, {
           title,
           description,
           dateHour,
-          contract: { id: currentContract.id }
+          contract: { id: currentContract.id}
         });
         setIsModalVisible(false);
         setEditingIndex(null);
@@ -89,7 +96,7 @@ const Progress = () => {
           description,
           dateHour,
           status: false,
-          contract: { id: currentContract.id }
+          contract: { id: currentContract.id}
         });
         setIsModalVisible(false);
       }
@@ -110,14 +117,20 @@ const Progress = () => {
   };
 
   const handleDeleteProgress = async (index) => {
-    await ContratoService.deleteStage(progressList[index].id);
-    fetchData();
+    try {
+      await ContratoService.deleteStage(progressList[index].id);
+      const updatedProgressList = progressList.filter((_, i) => i !== index);
+      setProgressList(updatedProgressList);
+    } catch (error) {
+      console.error("Erro ao deletar a etapa:", error);
+    }
   };
 
   const handleFinishStage = async (stageId) => {
     setSelectedStageId(stageId);
     setConfirmModalVisible(true);
   };
+  
 
   const handleConfirm = async (confirmed, title, description, dateHour) => {
     if ((confirmed, title, description, dateHour)) {
@@ -128,7 +141,7 @@ const Progress = () => {
           dateHour,
           confirmed
         });
-        console.log("Etapa concluída com sucesso!");
+        console.log("Etapa concluída com sucesso!", title, description, dateHour, confirmed);
 
         fetchContracts();
       } catch (error) {
@@ -137,6 +150,7 @@ const Progress = () => {
     }
     setConfirmModalVisible(false);
   };
+
 
   return (
     <View style={styles.container}>
@@ -169,6 +183,7 @@ const Progress = () => {
                 <Text style={styles.emptyMessage}>
                   Não há estágios para este contrato.
                 </Text>
+                <Icon_Question name="question" size={80} color={colors.cinzaClaro}/>
               </View>
             )}
             renderItem={({ item }) => (
@@ -192,6 +207,7 @@ const Progress = () => {
         setDescription={setDescription}
         dateHour={dateHour}
         setDateHour={setDateHour}
+        currentContractId={currentContractId}
       />
 
       <ModalConfirmacao

@@ -1,5 +1,3 @@
-// src/components/ModalRenderStage/index.js
-
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import Icon_Edit from "react-native-vector-icons/FontAwesome";
@@ -23,11 +21,11 @@ const ModalRenderStage = ({
   };
 
   const handleCancel = () => {
-    setConfirmModalVisible(false); 
+    setConfirmModalVisible(false);
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <FlatList
         style={styles.BoxStage}
         data={progressList}
@@ -37,16 +35,17 @@ const ModalRenderStage = ({
             <TouchableOpacity
               style={[
                 styles.btnClock,
-                { backgroundColor: item.completed ? "#00A148" : "#007B8F" },
+                { backgroundColor: item.status ? "#00A148" : "#007B8F" },
               ]}
-              onPress={() => onFinishStage(item.id, item.title, item.description, item.dateHour)}
+              onPress={() => onFinishStage(item.id)}
             >
-              {item.completed ? (
+              {item.status ? (
                 <Icon_Check name="check" size={60} color="white" />
               ) : (
                 <Icon_Clock name="clock" size={60} color="#FFF" />
               )}
             </TouchableOpacity>
+
             <View style={styles.content}>
               <View style={styles.progressContent}>
                 <Text style={styles.progressText}>{` ${item.title}`}</Text>

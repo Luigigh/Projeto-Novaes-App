@@ -1,14 +1,12 @@
-// src/components/ModalProgress/index.js
-
 import React from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
 import styles from './Styles';
 
-const ModalProgress = ({ visible, onClose, onAdd, isEditing, contract_id, title, setTitle, description, setDescription, dateHour, setDateHour }) => { 
+const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, description, setDescription, dateHour, setDateHour, currentContractId }) => { 
 
   const handleAddProgress = () => {
-    console.log("Dados a serem enviados:", {contract_id, title, description, dateHour });
-    onAdd({contract_id, title, description, dateHour });
+    console.log("Dados a serem enviados add:", { title, description, dateHour, contract_id: currentContractId });
+    onAdd({ title, description, dateHour, contract_id: currentContractId });
   };
 
   return (

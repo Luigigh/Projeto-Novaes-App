@@ -4,9 +4,6 @@ import colors from "../../../../color";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "white",
-    justifyContent: "center",
   },
 
   BoxStage: {
@@ -55,7 +52,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     backgroundColor: colors.primary,
-    borderRadius: 40,
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -79,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   addButton: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: "center",
     paddingRight: 10,

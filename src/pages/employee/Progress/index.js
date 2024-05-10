@@ -45,67 +45,82 @@ const Progress = () => {
   };
 
   const handleContractPress = async (selectedContract) => {
-    setCurrentContract(selectedContract);
-    setCurrentContractId(selectedContract.id);
-    setNavigationStack([...navigationStack, selectedContract]);
-    const stages = await ContratoService.getStagesByContractId(
-      selectedContract.id
-    );
-    setProgressList(stages);
-  };
-
-  const handleNavigateBack = () => {
-    if (navigationStack.length > 1) {
-      const newStack = [...navigationStack];
-      newStack.pop();
-      const previousContract = newStack[newStack.length - 1];
-      setCurrentContract(previousContract);
-      const stages = ContratoService.getStagesByContractId(previousContract.id);
+    try {
+      setCurrentContract(selectedContract);
+      setCurrentContractId(selectedContract.id);
+      const stages = await ContratoService.getStagesByContractId(selectedContract.id);
       setProgressList(stages);
-      setNavigationStack(newStack);
-    } else {
-      setCurrentContract(null);
-      setProgressList([]);
+      setNavigationStack([selectedContract]);
+    } catch (error) {
+      console.error("Erro ao carregar etapas do contrato:", error);
     }
   };
+  
+  const handleNavigateBack = async () => {
+    try {
+      if (navigationStack.length > 1) {
+        const previousContract = navigationStack[navigationStack.length - 2];
+        const stages = await ContratoService.getStagesByContractId(previousContract.id);
+        setProgressList(stages);
+        setNavigationStack(navigationStack.slice(0, -1));
+        setCurrentContract(previousContract);
+      } else {
+        setCurrentContract(null);
+        setProgressList([]);
+        setNavigationStack([]);
+      }
+    } catch (error) {
+      console.error("Erro ao navegar de volta:", error);
+    }
+  };
+  
 
   const handleAddProgress = async () => {
     if (!title || !description || !dateHour || !currentContract) {
-      console.error("Todos os campos devem ser preenchidos e um contrato deve ser selecionado.");
+      console.error(
+        "Todos os campos devem ser preenchidos e um contrato deve ser selecionado."
+      );
       return;
     }
   
     try {
+      let updatedProgressList;
       if (editingIndex !== null) {
         console.log("Editing id do contrato: ", currentContract.id);
         await ContratoService.editStage(progressList[editingIndex].id, {
           title,
           description,
           dateHour,
-          contract: { id: currentContract.id}
+          contract: { id: currentContract.id },
         });
-        setIsModalVisible(false);
+        updatedProgressList = [...progressList];
+        updatedProgressList[editingIndex] = {
+          ...updatedProgressList[editingIndex],
+          title,
+          description,
+          dateHour,
+        };
         setEditingIndex(null);
-        setTitle("");
-        setDescription("");
-        setDateHour("");
       } else {
         console.log("id do contrato: ", currentContract.id);
-        await ContratoService.addStage({
+        const newStage = await ContratoService.addStage({
           title,
           description,
           dateHour,
           status: false,
-          contract: { id: currentContract.id}
+          contract: { id: currentContract.id },
         });
-        setIsModalVisible(false);
+        updatedProgressList = [...progressList, newStage];
       }
-      fetchContracts();
+  
+      setProgressList(updatedProgressList);
+      setIsModalVisible(false);
     } catch (error) {
       console.error("Erro ao adicionar ou editar etapa handle:", error);
     }
   };
   
+
 
   const handleEditProgress = async (index) => {
     const item = progressList[index];
@@ -130,27 +145,25 @@ const Progress = () => {
     setSelectedStageId(stageId);
     setConfirmModalVisible(true);
   };
-  
 
-  const handleConfirm = async (confirmed, title, description, dateHour) => {
-    if ((confirmed, title, description, dateHour)) {
-      try {
-        await ContratoService.updateStageStatus(selectedStageId, true, {
-          title,
-          description,
-          dateHour,
-          confirmed
-        });
-        console.log("Etapa concluída com sucesso!", title, description, dateHour, confirmed);
-
-        fetchContracts();
-      } catch (error) {
-        console.error("Erro ao concluir a etapa:", error);
-      }
+  const handleConfirm = async () => {
+    try {
+      await ContratoService.updateStageStatus(selectedStageId);
+      const updatedProgressList = progressList.map((stage) => {
+        if (stage.id === selectedStageId) {
+          return { ...stage, status: true };
+        } else {
+          return stage;
+        }
+      });
+      setProgressList(updatedProgressList);
+      console.log("Etapa concluída com sucesso!");
+      fetchContracts();
+    } catch (error) {
+      console.error("Erro ao concluir a etapa:", error);
     }
     setConfirmModalVisible(false);
   };
-
 
   return (
     <View style={styles.container}>
@@ -183,7 +196,11 @@ const Progress = () => {
                 <Text style={styles.emptyMessage}>
                   Não há estágios para este contrato.
                 </Text>
-                <Icon_Question name="question" size={80} color={colors.cinzaClaro}/>
+                <Icon_Question
+                  name="question"
+                  size={80}
+                  color={colors.cinzaClaro}
+                />
               </View>
             )}
             renderItem={({ item }) => (

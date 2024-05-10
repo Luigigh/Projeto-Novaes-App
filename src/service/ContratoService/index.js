@@ -43,8 +43,8 @@ const ContratoService = {
 
   updateStageStatus: async (stageId) => {
     try {
-      console.log(stageId);
       const response = await axios.put(`${url}/stages/alterStatus/${stageId}`);
+      console.log("Etapa: ",stageId);
       console.log(JSON.stringify, response);
       if(response){
         console.log("status alterado");

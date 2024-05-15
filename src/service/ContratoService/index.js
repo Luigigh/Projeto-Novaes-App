@@ -23,13 +23,14 @@ const ContratoService = {
 
   addStage: async (stageData) => {
     try {
-      const response = await axios.post(`${url}/stages`,stageData);
+      const response = await axios.post(`${url}/stages`, stageData);
       return response.data;
     } catch (error) {
       console.error('Erro ao adicionar etapa requisição:', error);
       throw error;
     }
   },
+  
 
   editStage: async (stageId, stageData) => {
     try {

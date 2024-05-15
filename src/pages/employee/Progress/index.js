@@ -7,7 +7,6 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ModalProgress from "../../../components/ModalProgress";
 import ModalConfirmacao from "../../../components/ModalStage";
-import ProgressService from "../../../service/ProgressService";
 import Contract from "../../../components/Contract";
 import ContratoService from "../../../service/ContratoService";
 import ModalRenderStage from "../../../components/ModalRenderStage";
@@ -48,19 +47,23 @@ const Progress = () => {
     try {
       setCurrentContract(selectedContract);
       setCurrentContractId(selectedContract.id);
-      const stages = await ContratoService.getStagesByContractId(selectedContract.id);
+      const stages = await ContratoService.getStagesByContractId(
+        selectedContract.id
+      );
       setProgressList(stages);
       setNavigationStack([selectedContract]);
     } catch (error) {
       console.error("Erro ao carregar etapas do contrato:", error);
     }
   };
-  
+
   const handleNavigateBack = async () => {
     try {
       if (navigationStack.length > 1) {
         const previousContract = navigationStack[navigationStack.length - 2];
-        const stages = await ContratoService.getStagesByContractId(previousContract.id);
+        const stages = await ContratoService.getStagesByContractId(
+          previousContract.id
+        );
         setProgressList(stages);
         setNavigationStack(navigationStack.slice(0, -1));
         setCurrentContract(previousContract);
@@ -73,7 +76,6 @@ const Progress = () => {
       console.error("Erro ao navegar de volta:", error);
     }
   };
-  
 
   const handleAddProgress = async () => {
     if (!title || !description || !dateHour || !currentContract) {
@@ -90,7 +92,7 @@ const Progress = () => {
         await ContratoService.editStage(progressList[editingIndex].id, {
           title,
           description,
-          dateHour,
+          dateHour: new Date(dateHour).toISOString(),
           contract: { id: currentContract.id },
         });
         updatedProgressList = [...progressList];
@@ -102,17 +104,17 @@ const Progress = () => {
         };
         setEditingIndex(null);
       } else {
-        console.log("id do contrato: ", currentContract.id);
+        console.log("id do contrato: ", currentContract.id,"titulo: ", title, "Description: ", description, "dateHour", dateHour);
+        const newDateHour = new Date(dateHour).toISOString();
         const newStage = await ContratoService.addStage({
           title,
           description,
-          dateHour,
+          dateHour: newDateHour,
           status: false,
           contract: { id: currentContract.id },
         });
         updatedProgressList = [...progressList, newStage];
       }
-  
       setProgressList(updatedProgressList);
       setIsModalVisible(false);
     } catch (error) {
@@ -120,7 +122,7 @@ const Progress = () => {
     }
   };
   
-
+  
 
   const handleEditProgress = async (index) => {
     const item = progressList[index];
@@ -184,7 +186,7 @@ const Progress = () => {
                 onPress={() => handleContractPress(item)}
               />
             )}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => (item.id ? item.id.toString() : "")}
           />
         )}
 
@@ -208,7 +210,7 @@ const Progress = () => {
                 onPress={() => handleStagePress(item)}
               ></TouchableOpacity>
             )}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => (item.id ? item.id.toString() : "")}
           />
         )}
       </View>

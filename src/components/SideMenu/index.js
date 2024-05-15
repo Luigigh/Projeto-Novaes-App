@@ -63,9 +63,9 @@ const SideMenu = ({ navigation, menuSelected }) => {
           <TouchableOpacity
             style={[
               styles.menuItem,
-              menuSelected === "UsersList" && styles.menuItemSelected,
+              menuSelected === "ClientList" && styles.menuItemSelected,
             ]}
-            onPress={() => navigation.navigate("UsersList")}
+            onPress={() => navigation.navigate("ClientList")}
           >
             <Iconlist name="format-list-bulleted" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Lista de clientes</Text>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { format } from "date-fns";
 import Icon_Edit from "react-native-vector-icons/FontAwesome";
 import Icon_Trash from "react-native-vector-icons/Entypo";
 import Icon_Clock from "react-native-vector-icons/Feather";
@@ -10,6 +11,7 @@ import styles from "./Styles";
 
 const ModalRenderStage = ({
   progressList,
+  setProgressList, // Adicione a função para atualizar o estado da lista
   onDeleteProgress,
   onEditProgress,
   onFinishStage,
@@ -24,12 +26,36 @@ const ModalRenderStage = ({
     setConfirmModalVisible(false);
   };
 
+  const formatDate = (date) => {
+    if (!date) return "";
+
+    if (date instanceof Date && !isNaN(date)) {
+      console.log("Date is already a valid Date object:", date);
+      return format(date, "dd/MM/yyyy HH:mm");
+    }
+    const parsedDate = new Date(date);
+    if (!isNaN(parsedDate)) {
+      const formattedDate = format(parsedDate, "dd/MM/yyyy HH:mm");
+      return formattedDate;
+    } else {
+      console.log("Failed to parse date string:", date);
+    }
+    return date;
+  };
+
+  const addNewProgress = () => {
+    // Simplesmente atualiza a lista chamando a função setProgressList
+    setProgressList([...progressList]);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         style={styles.BoxStage}
         data={progressList}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) =>
+          item.id ? item.id.toString() : index.toString()
+        }
         renderItem={({ item, index }) => (
           <View style={styles.progressContainer}>
             <TouchableOpacity
@@ -56,7 +82,7 @@ const ModalRenderStage = ({
                 <Text style={styles.progressText}>
                   {" "}
                   <Icon_Date name="date" size={20} color="#007B8F" />
-                  {` ${item.dateHour}`}
+                  {` ${formatDate(item.dateHour)}`}
                 </Text>
               </View>
               <View style={styles.buttons}>

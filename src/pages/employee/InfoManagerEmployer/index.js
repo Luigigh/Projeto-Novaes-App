@@ -18,9 +18,9 @@ const InfoManagerEmployee = ({ navigation }) => {
   const route = useRoute();
   const PlaceholderImage = require("../../../../src/img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
+  const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
-  const { username } = useUser();
+  const { user } = useUser();
 
   const openModal = () => {
     setModalVisibleEdit(true);
@@ -31,9 +31,15 @@ const InfoManagerEmployee = ({ navigation }) => {
   };
 
   const handleSubmit = (data) => {
-    // Lógica para lidar com os dados atualizados
     console.log("Dados atualizados:", data);
-    // Aqui você pode enviar os dados atualizados para o backend, por exemplo
+    // if (selectedImage) {
+    //   try {
+    //     await saveProfilePhoto(selectedImage, user.id); // Chama a função para salvar a foto
+    //     console.log("Foto salva com sucesso!");
+    //   } catch (error) {
+    //     console.error("Erro ao salvar a foto:", error);
+    //   }
+    // }
     closeModal();
   };
 
@@ -89,9 +95,9 @@ const InfoManagerEmployee = ({ navigation }) => {
             <IconArrow name="arrow-undo-outline" size={33} color={"#007B8F"} />
             <Text style={styles.textBack}>Voltar</Text>
           </TouchableOpacity> */}
+          <Text style={styles.titleInfoContact}>Minhas informações</Text>
 
           <ScrollView>
-            <Text style={styles.titleInfoContact}>Minhas informações</Text>
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Nome</Text>
               <View style={styles.view_input}>
@@ -99,7 +105,7 @@ const InfoManagerEmployee = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
                 <TouchableOpacity
                   style={styles.btn_editarContato}
@@ -117,7 +123,7 @@ const InfoManagerEmployee = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
                 <TouchableOpacity
                   style={styles.btn_editarContato}
@@ -135,7 +141,7 @@ const InfoManagerEmployee = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
                 <TouchableOpacity
                   style={styles.btn_editarContato}
@@ -153,7 +159,7 @@ const InfoManagerEmployee = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
                 <TouchableOpacity
                   style={styles.btn_editarContato}
@@ -170,7 +176,7 @@ const InfoManagerEmployee = ({ navigation }) => {
               visible={modalVisibleEdit}
               onClose={closeModal}
               onSubmit={handleSubmit}
-              initialData={{ name: username, lastName: "", email: "" }}
+              initialData={{ name: user, lastName: "", email: "" }}
             />
           </ScrollView>
         </View>

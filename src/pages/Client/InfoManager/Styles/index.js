@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     position: "relative",
   },
+  imagem_camera: {
+    borderRadius: 100,
+    backgroundColor: "#E56D01",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    padding: 7,
+  },
   main: {
     height: "82.75%",
     flexDirection: "column",
@@ -57,7 +67,8 @@ const styles = StyleSheet.create({
     color: '#083C52',
     fontWeight: "500",
     borderWidth: 1,
-    borderColor: '#083C52'
+    borderColor: '#083C52',
+    width: '100%'
   },
   texto_contato: {
     color: "#000000",
@@ -91,6 +102,14 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 17,
     position: 'relative',
+  },
+  btn_editarContato: {
+    backgroundColor: '#E56D01',
+    borderRadius: 150,
+    padding: 3,
+    position: 'absolute',
+    right: 0,
+    bottom: 5
   },
 });
 

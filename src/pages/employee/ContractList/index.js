@@ -7,7 +7,8 @@ import FileItem from "../../../components/FileItem";
 import ModalFolder from "../../../components/ModalFolder";
 import ContractService from "../../../service/DirectoryService";
 import { useRoute } from "@react-navigation/native";
-import Icon_Plus from "react-native-vector-icons/Entypo";
+import Icon_UploadFolder from "react-native-vector-icons/Feather";
+import Icon_UploadFile from "react-native-vector-icons/Feather";
 import Icon_Back from "react-native-vector-icons/Ionicons";
 import Icon_EmptyFolder from "react-native-vector-icons/Ionicons";
 import Icon_EmptyFile from "react-native-vector-icons/MaterialCommunityIcons";
@@ -180,11 +181,11 @@ const ContractList = () => {
               <View style={styles.emptyMessageContainer}>
                 <Text style={styles.Text}>Não contém arquivos.</Text>
                 <Icon_EmptyFile
-                style={styles.icon_emptyfolder}
-                name="file-question-outline"
-                size={80}
-                color={colors.cinzaClaro}
-              />
+                  style={styles.icon_emptyfolder}
+                  name="file-question-outline"
+                  size={80}
+                  color={colors.cinzaClaro}
+                />
               </View>
             )}
             renderItem={({ item }) => (
@@ -198,7 +199,7 @@ const ContractList = () => {
 
         <View style={styles.Options}>
           <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
-            <Icon_Plus name="plus" size={55} color={"#fff"} />
+            <Icon_UploadFolder name="folder-plus" size={40} color={"#fff"} />
           </TouchableOpacity>
           {navigationHistory.length > 0 && (
             <TouchableOpacity
@@ -208,6 +209,9 @@ const ContractList = () => {
               <Icon_Back name="arrow-back" size={40} color={"#000"} />
             </TouchableOpacity>
           )}
+          <TouchableOpacity style={styles.btnPlus}>
+            <Icon_UploadFile name="file-plus" size={40} color={"#fff"} />
+          </TouchableOpacity>
         </View>
       </View>
 

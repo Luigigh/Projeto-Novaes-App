@@ -34,3 +34,35 @@ const saveImage = async (userData) => {
     throw error;
   }
 };
+
+export async function getClientById(id) {
+  try {
+    console.log(JSON.stringify(userData));
+    const response = await axios.get(`${url}/employee/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar funcionario:", error);
+    throw error;
+  }
+}
+
+export async function saveProfilePhoto(photo, id) {
+  try {
+    const userData = new userData();
+    userData.append("IconProfile", {
+      uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
+      name: "IconProfile.png",
+      type: "image/png",
+    });
+    const response = await axios.put(`${url}/employee/addProfilePhoto/${id}`, userData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao salvar a foto de perfil", error);
+    throw error;
+  }
+}

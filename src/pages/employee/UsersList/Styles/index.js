@@ -15,9 +15,10 @@ const styles = StyleSheet.create({
   },
   title:{
     color: 'black',
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: "500",
     marginBottom: 20,
+    marginTop: 15,
   },
   itemContainer: {
     padding: 10,

@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     color: '#083C52',
     fontWeight: "500",
     borderWidth: 1,
-    borderColor: '#083C52'
+    borderColor: '#083C52',
+    width: '100%'
   },
   texto_contato: {
     color: "#000000",

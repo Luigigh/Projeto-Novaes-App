@@ -18,22 +18,20 @@ const InfoManager = ({ navigation }) => {
   const route = useRoute();
   const PlaceholderImage = require("../../../../src/img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
-  // const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
-  const { username } = useUser();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
+  const { user } = useUser();
 
-  // const openModal = () => {
-  //   setModalVisibleEdit(true);
-  // };
+  const openModal = () => {
+    setModalVisibleEdit(true);
+  };
 
-  // const closeModal = () => {
-  //   setModalVisibleEdit(false);
-  // };
+  const closeModal = () => {
+    setModalVisibleEdit(false);
+  };
 
   const handleSubmit = (data) => {
-    // Lógica para lidar com os dados atualizados
     console.log("Dados atualizados:", data);
-    // Aqui você pode enviar os dados atualizados para o backend, por exemplo
     closeModal();
   };
 
@@ -68,6 +66,11 @@ const InfoManager = ({ navigation }) => {
                 style={styles.imagem_perfil}
               />
             </TouchableOpacity>
+            <View style={styles.imagem_camera}>
+              <TouchableOpacity onPress={pickImage}>
+                <IconCamera name="camera" size={33} color={"#FFF"} />
+              </TouchableOpacity>
+            </View>
             <ModalPhoto
               visible={modalVisible}
               imageURL={selectedImage}
@@ -84,9 +87,9 @@ const InfoManager = ({ navigation }) => {
             <IconArrow name="arrow-undo-outline" size={33} color={"#007B8F"} />
             <Text style={styles.textBack}>Voltar</Text>
           </TouchableOpacity> */}
+          <Text style={styles.titleInfoContact}>Minhas informações</Text>
 
           <ScrollView>
-            <Text style={styles.titleInfoContact}>Informações do usuário:</Text>
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Nome</Text>
               <View style={styles.view_input}>
@@ -94,8 +97,14 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
               </View>
             </View>
 
@@ -106,8 +115,14 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
               </View>
             </View>
 
@@ -118,29 +133,43 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
               </View>
             </View>
 
             <View style={styles.campo_input}>
-              <Text style={styles.text_input}>Cargo</Text>
+              <Text style={styles.text_input}>Empresa</Text>
               <View style={styles.view_input}>
                 <Text
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {username}
+                  {user}
                 </Text>
+                <TouchableOpacity
+                  style={styles.btn_editarContato}
+                  onPress={openModal}
+                >
+                  <IconPencil name="pencil" size={25} color={"#FFF"} />
+                </TouchableOpacity>
               </View>
             </View>
 
-            {/* <ModalEditContact
+            {/* Outros campos de entrada para sobrenome e email */}
+
+            <ModalEditContact
               visible={modalVisibleEdit}
               onClose={closeModal}
               onSubmit={handleSubmit}
-              initialData={{ name: username, lastName: "", email: "" }}
-            /> */}
+              initialData={{ name: user, lastName: "", email: "" }}
+            />
           </ScrollView>
         </View>
       </View>

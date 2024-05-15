@@ -8,6 +8,7 @@ import { useUser } from "../../../context/index.js";
 import { getAllUsers } from "../../../service/UserService";
 import styles from "./Styles";
 import colors from '../../../color';
+import ModalInfoClient from '../../../components/ModalInfoClient';
 
 const UsersList = ({ navigation }) => {
   const route = useRoute();
@@ -28,10 +29,10 @@ const UsersList = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate("InfoManager")}>
       <Text style={styles.itemText}>{item.name} {item.lastname}</Text>
-      <Text style={styles.itemText}>{item.email}</Text>
-      <Text style={styles.itemText}>{item.enterprise_name}</Text>
+      {/* <Text style={styles.itemText}>{item.email}</Text>
+      <Text style={styles.itemText}>{item.enterprise_name}</Text> */}
     </TouchableOpacity>
   );
 

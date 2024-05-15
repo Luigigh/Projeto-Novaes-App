@@ -12,6 +12,7 @@ import Progress from "../pages/employee/Progress";
 import SideMenu from "../components/SideMenu";
 import Register from "../pages/employee/Register";
 import UsersList from "../pages/employee/UsersList";
+import ClientList from "../pages/employee/ClientList";
 import { useUser, UserProvider } from "../context/index.js";
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +50,11 @@ const AppStack = () => {
         <Stack.Screen
           name="UsersList"
           component={UsersList}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ClientList"
+          component={ClientList}
           options={{ headerShown: false }}
         />
         <Stack.Screen

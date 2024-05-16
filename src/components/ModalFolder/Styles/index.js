@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../color";
 const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,

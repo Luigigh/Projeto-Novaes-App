@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import Icon_Folder from "react-native-vector-icons/FontAwesome6";
+import Icon_Folder from "react-native-vector-icons/Ionicons";
 import Icon_Edit from "react-native-vector-icons/AntDesign";
 import Icon_Delete from "react-native-vector-icons/Entypo";
 import Icon_Options from "react-native-vector-icons/SimpleLineIcons";
@@ -21,7 +21,7 @@ const FolderItem = ({
 
   return (
     <View style={styles.container}>
-      <Icon_Folder style={styles.icon_Folder} name="folder-closed" size={35} color={colors.branco} />
+      <Icon_Folder style={styles.icon_Folder} name="folder-open-sharp" size={35} color={colors.folder} />
       
       <View style={styles.content}>
         <TouchableOpacity
@@ -59,8 +59,8 @@ const FolderItem = ({
         <TouchableOpacity style={styles.ButtonOptions} onPress={toggleOptions}>
           <Icon_Options
             name="options-vertical"
-            size={25}
-            color={colors.branco}
+            size={27}
+            color={colors.folder}
           />
         </TouchableOpacity>
       </View>

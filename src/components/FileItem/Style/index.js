@@ -24,9 +24,11 @@ const styles = StyleSheet.create({
     },
     content:{
         height: 60,
-        width: '80%',
+        width: '100%',
         alignItems: 'center',
         flexDirection:'row',
+        justifyContent: 'space-between'
+
     },
     InformationFile:{
         marginLeft:20,

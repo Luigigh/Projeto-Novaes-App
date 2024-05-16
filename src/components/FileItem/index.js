@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Alert, Platform } from "react-native";
 import Icon_Download from "react-native-vector-icons/MaterialIcons";
-import Icon_File from "react-native-vector-icons/Feather";
+import Icon_File from "react-native-vector-icons/FontAwesome5";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import styles from './Style';
@@ -51,7 +51,7 @@ export default function FileItem({ file, onFilePress }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Icon_File name="file" size={40} color={"#6D6D6D"} />
+        <Icon_File name="file-pdf" size={40} color={"#F40F02"} />
 
         <TouchableOpacity
           style={styles.ButtonName}
@@ -59,10 +59,12 @@ export default function FileItem({ file, onFilePress }) {
         >
           <Text style={styles.Text}>{file.name}</Text>
         </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={handleDownload}>
-        <Icon_Download name="file-download" size={30} color={colors.primary} />
+
+        <TouchableOpacity onPress={handleDownload}>
+        <Icon_Download name="file-download" size={35} color={colors.azul_claro} />
       </TouchableOpacity>
+      </View>
+      
     </View>
   );
 }

@@ -199,7 +199,7 @@ const ContractList = () => {
 
         <View style={styles.Options}>
           <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
-            <Icon_UploadFolder name="folder-plus" size={40} color={"#fff"} />
+            <Icon_UploadFolder name="folder-plus" size={40} color={"#FFE9A2"} />
           </TouchableOpacity>
           {navigationHistory.length > 0 && (
             <TouchableOpacity
@@ -210,7 +210,7 @@ const ContractList = () => {
             </TouchableOpacity>
           )}
           <TouchableOpacity style={styles.btnPlus}>
-            <Icon_UploadFile name="file-plus" size={40} color={"#fff"} />
+            <Icon_UploadFile name="file-plus" size={40} color={"#F5665E"} />
           </TouchableOpacity>
         </View>
       </View>

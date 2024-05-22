@@ -11,19 +11,15 @@ import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./Styles";
-import { serviceLogoutMethod } from "../../service/UserService";
+import { serviceLogoutMehtod }  from "../../service/UserService";
 
 const SideMenu = ({ navigation, menuSelected }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleLogout = async () => {
-    let userLogout = await serviceLogoutMethod();
-    if(userLogout){
-      console.log("Usuario deslogado");
+  const handleLogout = () => {
+    if(serviceLogoutMehtod){
       navigation.navigate("Login");
       setShowModal(false);
-    }else{
-      console.log("Não foi possivel deslogar o Usuario");
     }
   };
 
@@ -51,7 +47,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
             <IconUser name="user" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Meu perfil</Text>
           </TouchableOpacity>
-
+{/* 
           <View style={styles.line}></View>
 
           <TouchableOpacity
@@ -63,7 +59,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
           >
             <IconProgress name="progress-clock" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Progresso do cliente</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.line}></View>
 

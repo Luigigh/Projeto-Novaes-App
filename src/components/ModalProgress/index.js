@@ -49,7 +49,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
             placeholder="Descrição"
             value={description}
             onChangeText={text => setDescription(text)}
-            maxLength={70}
+            maxLength={120}
             placeholderTextColor={'#6B6D71'}
             fontSize={15}
           />

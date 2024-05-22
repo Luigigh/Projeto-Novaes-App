@@ -30,11 +30,18 @@ const styles = StyleSheet.create({
     height: 130,
     marginVertical: 15,
   },
+  placeInputs: {
+    fontSize: 17,
+    color: '#083C52',
+    fontWeight: '500'
+  },
   inputs: {
     borderBottomWidth: 1,
-    marginBottom: 20,
+    marginBottom: 25,
+    marginTop: 4,
     fontSize: 15,
-    fontSize: 16
+    color: 'black',
+    paddingLeft: 10
   },
   btnOk: {
     backgroundColor: '#083C52',

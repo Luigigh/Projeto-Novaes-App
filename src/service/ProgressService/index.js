@@ -42,7 +42,6 @@ const ProgressService = {
   }
 },
   
-
   deleteStage: async (stageId) => {
     try {
       const response = await axios.delete(`${url}/stages/${stageId}`);

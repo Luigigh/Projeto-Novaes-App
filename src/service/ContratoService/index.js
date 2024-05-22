@@ -11,6 +11,7 @@ const ContratoService = {
     }
   },
 
+
   getStagesByContractId: async (contractId) => {
     try {
       const response = await axios.get(`${url}/stages/byContract/${contractId}`);

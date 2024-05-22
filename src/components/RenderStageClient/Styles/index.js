@@ -9,10 +9,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  BoxStage: {
-    width: "100%",
-  },
-
   progressContainer: {
     maxHeight: 250,
     width: "100%",
@@ -46,13 +42,7 @@ const styles = StyleSheet.create({
     maxHeight: 240,
     justifyContent: "space-around",
     alignItems: "center",
-    width: "85%",
-  },
-
-  buttons: {
-    height: 'auto',
-    borderRadius: 10,
-    width: "15%",
+    width: "100%",
   },
 
   progressTitle: {
@@ -90,39 +80,6 @@ const styles = StyleSheet.create({
     height: 25,
     fontWeight: 'bold',
     justifyContent: 'flex-end',
-  },
-
-  btnAdd: {
-    height: 60,
-    width: 60,
-    backgroundColor: "#007B8F",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  btnEdit: {
-    height: 45,
-    width: 45,
-    backgroundColor: "lightgrey",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "auto",
-  },
-
-  btnDelete: {
-    height: 45,
-    width: 45,
-    backgroundColor: "lightgrey",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  addButton: {
-    alignItems: "flex-end",
-    paddingRight: 10,
-    justifyContent: "center",
   },
 });
 

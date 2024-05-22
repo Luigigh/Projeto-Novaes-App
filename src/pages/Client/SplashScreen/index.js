@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { View , Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './Styles';
-import { verifyUserAuth } from '../../../service/UserService';
+import { verifyUserAuth } from "../../../service/UserService";
 
 export default function SplashScreen() {
 
 const navigation = useNavigation();
 useEffect(() => {
   setTimeout(async () => {
+    console.log("teste")
     let ifUserAuth = await verifyUserAuth();
     console.log("se usuario esta logado:"+ifUserAuth);
     if(ifUserAuth){

@@ -10,8 +10,8 @@ const Contract = ({ contract, onPress }) => {
       <Icon_Contract
         style={styles.icon_Contract}
         name="document-text"
-        size={45}
-        color={colors.branco}
+        size={50}
+        color={colors.contract}
       />
 
       <TouchableOpacity

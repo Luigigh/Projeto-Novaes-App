@@ -1,3 +1,5 @@
+import axios from "axios";
+
 let ImageList = [];
 const url = process.env.EXPO_PUBLIC_API_URL;
 
@@ -47,22 +49,23 @@ export async function getClientById(id) {
   }
 }
 
-export async function saveProfilePhoto(photo, id) {
+export const saveProfilePhoto = async (photo, id) => {
   try {
-    const userData = new userData();
-    userData.append("IconProfile", {
-      uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
-      name: "IconProfile.png",
-      type: "image/png",
+    let formData = new FormData();
+    formData.append('profilePhoto', {
+      uri: photo,
+      name: 'profile.jpg',
+      type: 'image/jpeg',
     });
-    const response = await axios.put(`${url}/employee/addProfilePhoto/${id}`, userData, {
+
+    const response = await axios.put(`${url}/employee/addProfilePhoto/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
     return response.data;
   } catch (error) {
-    console.error("Erro ao salvar a foto de perfil", error);
+    console.error('Erro ao salvar a foto de perfil:', error);
     throw error;
   }
-}
+};

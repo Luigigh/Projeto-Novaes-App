@@ -21,7 +21,7 @@ const FolderItem = ({
 
   return (
     <View style={styles.container}>
-      <Icon_Folder style={styles.icon_Folder} name="folder-open-sharp" size={35} color={colors.folder} />
+      <Icon_Folder style={styles.icon_Folder} name="folder-open-sharp" size={40} color={colors.folder} />
       
       <View style={styles.content}>
         <TouchableOpacity
@@ -59,8 +59,8 @@ const FolderItem = ({
         <TouchableOpacity style={styles.ButtonOptions} onPress={toggleOptions}>
           <Icon_Options
             name="options-vertical"
-            size={27}
-            color={colors.folder}
+            size={30}
+            color={colors.branco}
           />
         </TouchableOpacity>
       </View>

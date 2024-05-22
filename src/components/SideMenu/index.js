@@ -11,7 +11,7 @@ import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./Styles";
-import { serviceLogoutMethod } from "../../service/UserService";
+import { serviceLogoutMethod }  from "../../service/UserService";
 
 const SideMenu = ({ navigation, menuSelected }) => {
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +51,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
             <IconUser name="user" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Meu perfil</Text>
           </TouchableOpacity>
-
+{/* 
           <View style={styles.line}></View>
 
           <TouchableOpacity
@@ -63,7 +63,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
           >
             <IconProgress name="progress-clock" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Progresso do cliente</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.line}></View>
 

@@ -1,38 +1,11 @@
 import axios from "axios";
 const url = process.env.EXPO_PUBLIC_API_URL;
 
-export const usuarios = [
-  {
-    username: "Luciano",
-    password: "1234",
-    hierarchy: "Administrador",
-    uriImageProfile: "",
-  },
-  {
-    username: "Maria",
-    password: "1234",
-    hierarchy: "Gerente",
-    uriImageProfile: "",
-  },
-  {
-    username: "Lucas",
-    password: "1234",
-    hierarchy: "Funcionario",
-    uriImageProfile: "",
-  },
-  {
-    username: "Águas de Araçoiaba",
-    password: "1234",
-    hierarchy: "Cliente",
-    uriImageProfile: "",
-  },
-];
-
 export async function serviceLoginMethod(username, password) {
   try {
     const response = await axios.post(
       url + "/auth/login",
-      `login=${username}&password=${password}`,
+      `login=${username}&password=${password}&remember-me=`,
       {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       }
@@ -51,6 +24,37 @@ export async function serviceLoginMethod(username, password) {
   }
 
   return false;
+}
+
+
+export async function serviceLogoutMethod(){
+  try{
+    const response = await axios.post(`${url}/auth/logout`);
+    if(response.status == 204){
+      return true;
+    }
+    else{
+      return false;
+    }
+  } catch ( error ){
+    throw error;
+  } 
+}
+
+export async function verifyUserAuth(){
+    try{
+      console.log("Função chamada")
+      const response = await axios.get(`${url}/user/auth`);
+      console.log("teste")
+      if(response.status == 204){
+        return true;
+      }else{
+        return false;
+      }
+      
+    } catch ( error ){
+      console.log(error)
+    }
 }
 
 export async function createClientMehtod(client) {

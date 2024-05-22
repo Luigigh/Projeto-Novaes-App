@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { Modal, View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import styles from "./Styles";
-import * as ImagePicker from "expo-image-picker";
 
 const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);

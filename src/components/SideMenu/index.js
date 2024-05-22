@@ -11,15 +11,19 @@ import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./Styles";
-import { serviceLogoutMehtod }  from "../../service/UserService";
+import { serviceLogoutMethod } from "../../service/UserService";
 
 const SideMenu = ({ navigation, menuSelected }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleLogout = () => {
-    if(serviceLogoutMehtod){
+  const handleLogout = async () => {
+    let userLogout = await serviceLogoutMethod();
+    if(userLogout){
+      console.log("Usuario deslogado");
       navigation.navigate("Login");
       setShowModal(false);
+    }else{
+      console.log("Não foi possivel deslogar o Usuario");
     }
   };
 

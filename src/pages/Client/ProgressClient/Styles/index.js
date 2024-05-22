@@ -2,51 +2,39 @@ import {StyleSheet} from 'react-native';
 import colors from "../../../../color";
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        justifyContent: 'center',
-    },
+  container: {
+    flex: 1,
+  },
+  btnVoltar: {
+    height: 70,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: "center",
+    paddingRight: 10,
+    justifyContent: "space-around",
 
-    BoxStage:{
-        width: '100%',
-    },
+  },
+  btnBack: {
+    height: 50,
+    width: 50,
+    backgroundColor: "lightgrey",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 25,
+    marginTop: 10,
+  },
 
-    progressContainer:{
-      maxHeight: 150,
-      width: '100%',
-      flexDirection: 'row',
-      alignItems: 'center', 
-      marginVertical: 20,
-    },
+  emptyMessageContainer:{
+    height: 250,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
 
-    btnClock:{
-      height: 80,
-      width: 80,
-      backgroundColor: "#007B8F",
-      borderRadius: 40,
-      alignItems: "center",
-      justifyContent: "center",
-      marginHorizontal: 5,
-    },
-
-    content:{
-      flexDirection: 'row',
-      height: 'auto',
-      width: '75%',
-      borderColor: '#007B8F',
-      borderWidth: 1,
-      justifyContent: 'space-between',
-      borderRadius: 5,
-    },
-
-    progressContent:{
-      maxHeight: 150,
-      alignItems: 'center',
-      width: '100%',
-    },
-
+  emptyMessage:{
+    height: 50,
+    alignSelf: "center",
+    fontSize: 20,
+  },
 });
 
 

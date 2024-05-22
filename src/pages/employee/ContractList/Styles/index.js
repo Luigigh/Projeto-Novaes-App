@@ -21,8 +21,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  flatListContent:{
+    minheight: 350,
+    width: "97%",
+  },
+
   flatListContentFile: {
-    height: 250,
+    minheight: 350,
     width: "90%",
     marginTop: 20,
   },

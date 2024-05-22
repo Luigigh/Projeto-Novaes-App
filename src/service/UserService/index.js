@@ -1,10 +1,7 @@
 import axios from "axios";
 const url = process.env.EXPO_PUBLIC_API_URL;
 
-
-
 export async function serviceLoginMethod(username, password) {
-    
   try {
     const response = await axios.post(
       url + "/auth/login",
@@ -16,18 +13,14 @@ export async function serviceLoginMethod(username, password) {
 
     if (response.status === 200) {
       console.log("response: ", response.data);
-      userLogged = response.data
       //const res = await axios.get(`${url}+user/${response.data}`);
-      console.log("UserLogged: ", userLogged)
       
-      console.log("Local Storage: " + localStorage)
       return true;
     } else {
       console.log("response: ", response);
     }
   } catch (error) {
     console.log("error: ", error);
-    console.log(url);
   }
 
   return false;
@@ -63,7 +56,6 @@ export async function verifyUserAuth(){
       console.log(error)
     }
 }
-
 
 export async function createClientMehtod(client) {
   let bodyContent = JSON.stringify({
@@ -109,50 +101,6 @@ export async function getAllUsers() {
     const response = await axios.get(`${url}/client`);
     return response.data;
   } catch (error) {
-    throw error;
-  }
-}
-
-export async function getUserDetails(id) {
-  try {
-    const response = await axios.get(`${url}/client/${id}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-export async function getProfilePhotoUser(id){
-  try{
-    const response = await axios.get(`${url}/employee/getProfilePhoto/${id}`);
-    return response.data;
-  } catch(error){
-    throw error;
-  }
-}
-
-export async function addNewPofilePhotoUser(id,image){
-  try{
-     let formdata = new FormData();
-     formdata.append("profilePhoto", image);
-     
-     let bodyContent =  formdata;
-     
-     let reqOptions = {
-       url: `${url}/employee/addProfilePhoto/${id}`,
-       method: "PUT",
-       data: bodyContent,
-     }
-
-     let response = await axios.request(reqOptions);
-
-    if(response.status == 200){
-      return response.data
-    }else{
-      console.log("error: " + JSON.stringify(response));
-    }
-  } catch(error){
     throw error;
   }
 }

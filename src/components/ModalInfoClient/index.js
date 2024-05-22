@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React, { useState } from "react";
+import { Modal, View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import styles from "./Styles";
 import * as ImagePicker from "expo-image-picker";
 
 const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
-  const [lastName, setLastName] = useState(initialData.lastname);
+  const [lastName, setLastName] = useState(initialData.lastName);
   const [login, setLogin] = useState(initialData.login);
-  const [enterpriseName, setEnterpriseName] = useState(
-    initialData.enterprise_name
+  const [entrerprise_name, setEntrerprise_name] = useState(
+    initialData.entrerprise_name
   );
   const PlaceholderImage = require("../../img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
 
-  useEffect(() => {
-    console.log("Dados iniciais do cliente:", initialData);
-    setName(initialData.name);
-    setLastName(initialData.lastname);
-    setLogin(initialData.login);
-    setEnterpriseName(initialData.entrerprise_name);
-  }, [initialData]);
+  const handleSubmit = () => {
+    onSubmit({ name, lastName, login, entrerprise_name });
+    onClose();
+  };
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
@@ -38,45 +28,30 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
             style={styles.imagem_perfil}
           />
           <View style={styles.containerInputs}>
-            <View style={styles.contInput}>
-              <Text style={styles.placeInputs}>Nome</Text>
-              <TextInput
-                placeholder="Nome"
-                value={name}
-                editable={false}
-                style={styles.inputs}
-              />
-            </View>
-
-            <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Sobrenome</Text>
-              <TextInput
-                placeholder="Sobrenome"
-                value={lastName}
-                editable={false}
-                style={styles.inputs}
-              />
-            </View>
-
-            <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Email</Text>
-              <TextInput
-                placeholder="Email"
-                value={login}
-                editable={false}
-                style={styles.inputs}
-              />
-            </View>
-
-            <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Empresa</Text>
-              <TextInput
-                placeholder="Empresa"
-                value={enterpriseName}
-                editable={false}
-                style={styles.inputs}
-              />
-            </View>
+            <TextInput
+              placeholder="Nome"
+              value={name}
+              onChangeText={setName}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Sobrenome"
+              value={lastName}
+              onChangeText={setLastName}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Email"
+              value={login}
+              onChangeText={setLogin}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Empresa"
+              value={entrerprise_name}
+              onChangeText={setEntrerprise_name}
+              style={styles.inputs}
+            />
           </View>
 
           <TouchableOpacity onPress={onClose} style={styles.btnOk}>

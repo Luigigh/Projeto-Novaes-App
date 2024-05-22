@@ -7,13 +7,12 @@ import styles from "./Styles";
 import IconSearch from "react-native-vector-icons/FontAwesome";
 import colors from "../../../color";
 import ModalInfoClient from "../../../components/ModalInfoClient";
-import { getAllUsers, getUserDetails } from "../../../service/UserService";
+import { getAllUsers } from "../../../service/UserService";
 
 const ClientList = ({ navigation }) => {
   const route = useRoute();
   const [searchQuery, setSearchQuery] = useState("");
   const [clients, setClients] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(null);
   const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
 
   useEffect(() => {
@@ -29,20 +28,12 @@ const ClientList = ({ navigation }) => {
     }
   };
 
-  const fetchClientDetails = async (id) => {
-    try {
-      const clientDetails = await getUserDetails(id);
-      console.log("Detalhes do cliente:", clientDetails);
-      setSelectedClient(clientDetails);
-      setModalVisibleEdit(true);
-    } catch (error) {
-      console.error("Erro ao obter detalhes do cliente:", error);
-    }
-  };  
+  const openModal = () => {
+    setModalVisibleEdit(true);
+  };
 
   const closeModal = () => {
     setModalVisibleEdit(false);
-    setSelectedClient(null);
   };
 
   const handleSubmit = (data) => {
@@ -65,7 +56,7 @@ const ClientList = ({ navigation }) => {
         <View style={styles.search}>
           <TextInput
             style={styles.inputsearch}
-            placeholder="Pesquisar clientes"
+            placeholder="Pesquisar contatos"
             onChangeText={(text) => setSearchQuery(text)}
             value={searchQuery}
           />
@@ -86,7 +77,7 @@ const ClientList = ({ navigation }) => {
             <TouchableOpacity
               key={index}
               style={styles.btnContato}
-              onPress={() => fetchClientDetails(client.id)}
+              onPress={openModal}
             >
               <Text
                 style={styles.textName}
@@ -97,14 +88,12 @@ const ClientList = ({ navigation }) => {
       </View>
       <Footer routeSelected={route.name} />
 
-      {selectedClient && (
-        <ModalInfoClient
-          visible={modalVisibleEdit}
-          onClose={closeModal}
-          onSubmit={handleSubmit}
-          initialData={selectedClient}
-        />
-      )}
+      <ModalInfoClient
+        visible={modalVisibleEdit}
+        onClose={closeModal}
+        onSubmit={handleSubmit}
+        initialData={{ name: "Ola", lastName: "", login: "" }}
+      />
     </View>
   );
 };

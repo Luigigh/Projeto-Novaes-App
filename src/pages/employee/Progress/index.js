@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text, FlatList } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
 import Icon_Question from "react-native-vector-icons/AntDesign";
-import Icon_NoContract from "react-native-vector-icons/AntDesign";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ModalProgress from "../../../components/ModalProgress";
@@ -85,6 +84,7 @@ const Progress = () => {
       );
       return;
     }
+  
     try {
       let updatedProgressList;
       if (editingIndex !== null) {
@@ -104,16 +104,7 @@ const Progress = () => {
         };
         setEditingIndex(null);
       } else {
-        console.log(
-          "id do contrato: ",
-          currentContract.id,
-          "titulo: ",
-          title,
-          "Description: ",
-          description,
-          "dateHour",
-          dateHour
-        );
+        console.log("id do contrato: ", currentContract.id,"titulo: ", title, "Description: ", description, "dateHour", dateHour);
         const newDateHour = new Date(dateHour).toISOString();
         const newStage = await ContratoService.addStage({
           title,
@@ -122,21 +113,16 @@ const Progress = () => {
           status: false,
           contract: { id: currentContract.id },
         });
-        console.log("Nova etapa adicionada:", newStage);
         updatedProgressList = [...progressList, newStage];
       }
-      const updatedStages = await ContratoService.getStagesByContractId(
-        currentContract.id
-      );
-      setProgressList(updatedStages);
+      setProgressList(updatedProgressList);
       setIsModalVisible(false);
-      setTitle("");
-      setDescription("");
-      setDateHour("");
     } catch (error) {
       console.error("Erro ao adicionar ou editar etapa handle:", error);
     }
   };
+  
+  
 
   const handleEditProgress = async (index) => {
     const item = progressList[index];
@@ -192,11 +178,6 @@ const Progress = () => {
             ListEmptyComponent={() => (
               <View style={styles.emptyMessageContainer}>
                 <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                <Icon_NoContract
-                  name="frowno"
-                  size={80}
-                  color={colors.cinzaClaro}
-                />
               </View>
             )}
             renderItem={({ item }) => (
@@ -215,11 +196,11 @@ const Progress = () => {
             ListEmptyComponent={() => (
               <View style={styles.emptyMessageContainer}>
                 <Text style={styles.emptyMessage}>
-                  Não há etapas para este contrato.
+                  Não há estágios para este contrato.
                 </Text>
                 <Icon_Question
                   name="question"
-                  size={120}
+                  size={80}
                   color={colors.cinzaClaro}
                 />
               </View>
@@ -278,7 +259,7 @@ const Progress = () => {
           title="Adicionar"
           onPress={() => setIsModalVisible(true)}
         >
-          <Icon_Plus name="plus" size={60} color={colors.branco} />
+          <Icon_Plus name="plus" size={55} color="#FFF" />
         </TouchableOpacity>
       </View>
       <Footer routeSelected={route.name} />

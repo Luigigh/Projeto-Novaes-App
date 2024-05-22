@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SplashScreen from "../pages/Client/SplashScreen";
 import LoginScreen from "../pages/LoginPage";
-import DirectoryClient from "../pages/Client/DirctoryClient";
 import ContractList from "../pages/employee/ContractList";
 import InfoManager from "../pages/Client/InfoManager";
 import InfoManagerEmployer from "../pages/employee/InfoManagerEmployer";
@@ -31,11 +30,6 @@ const AppStack = () => {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DirectoryClient"
-          component={DirectoryClient}
           options={{ headerShown: false }}
         />
         <Stack.Screen

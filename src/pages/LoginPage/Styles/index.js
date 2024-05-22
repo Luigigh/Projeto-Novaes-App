@@ -67,11 +67,12 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     shadowColor: 'black',
     shadowRadius: 20,
+    
   },
   texto_login: {
     color: "#007B8F",
-    fontSize: 28,
-    marginBottom: 8,
+    fontSize: 21,
+    marginVertical: 8,
   },
   input_login: {
     ...Platform.select({

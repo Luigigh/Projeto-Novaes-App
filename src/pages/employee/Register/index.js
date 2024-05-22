@@ -51,6 +51,7 @@ export default function Register() {
         alert(
           `Funcionário ${nome} ${sobrenome}, email ${email}, com o cargo ${cargo} cadastrado com sucesso!`
         );
+        navigation.navigate("Login");
       } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
         alert("Erro ao cadastrar usuário. Tente novamente mais tarde.");
@@ -69,6 +70,7 @@ export default function Register() {
         alert(
           `Cliente ${nome} ${sobrenome}, email ${email}, da empresa ${nomeEmpresa} cadastrado com sucesso!`
         );
+        navigation.navigate("Login");
       } catch (error) {
         console.error("Erro ao cadastrar cliente:", error);
         alert("Erro ao cadastrar cliente. Tente novamente mais tarde.");

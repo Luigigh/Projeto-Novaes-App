@@ -8,7 +8,7 @@ import { useUser } from "../../context/index.js";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
-    const { setUser } = useUser();
+    const { setUsername: setUsernameContext } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [alertEmpty, setAlertEmpty] = useState('');
@@ -20,9 +20,7 @@ export default function LoginScreen() {
             serviceLoginMethod(username, password)
             .then(function(result) {
                 if(result){
-                    // Aqui, result deve conter o ID do usuário
-                    setUser(prevUser => ({ ...prevUser, id: result }));
-                    navigation.navigate('ContractList');
+                        navigation.navigate('ContractList');
                 } else {
                     setAlertEmpty('Erro no Login... Usuário ou Senha Incorretos');
                 }

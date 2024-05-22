@@ -8,11 +8,10 @@ import Icon_Date from "react-native-vector-icons/Fontisto";
 import Icon_Check from "react-native-vector-icons/FontAwesome";
 import ModalConfirmacao from "../ModalStage";
 import styles from "./Styles";
-import colors from "../../color";
 
 const ModalRenderStage = ({
   progressList,
-  setProgressList,
+  setProgressList, // Adicione a função para atualizar o estado da lista
   onDeleteProgress,
   onEditProgress,
   onFinishStage,
@@ -45,6 +44,7 @@ const ModalRenderStage = ({
   };
 
   const addNewProgress = () => {
+    // Simplesmente atualiza a lista chamando a função setProgressList
     setProgressList([...progressList]);
   };
 
@@ -66,30 +66,25 @@ const ModalRenderStage = ({
               onPress={() => onFinishStage(item.id)}
             >
               {item.status ? (
-                <Icon_Check name="check" size={45} color="white" />
+                <Icon_Check name="check" size={60} color="white" />
               ) : (
-                <Icon_Clock name="clock" size={45} color="#FFF" />
+                <Icon_Clock name="clock" size={60} color="#FFF" />
               )}
             </TouchableOpacity>
 
             <View style={styles.content}>
               <View style={styles.progressContent}>
-                <View style={styles.progressTitle}>
-                  <Text style={styles.title}>{` ${item.title}`}</Text>
-                </View>
-                <View style={styles.progressDescription}>
-                  <Text
-                    style={styles.description}
-                  >{` ${item.description}`}</Text>
-                </View>
-                <View style={styles.progressDate}>
-                <Icon_Date name="date" size={25} color="#007B8F" />
-                  <Text style={styles.dataFormatada}>
-                      {` ${formatDate(item.dateHour)}`}
-                  </Text>
-                </View>
+                <Text style={styles.progressText}>{` ${item.title}`}</Text>
+                <Text>--------------------------------------------</Text>
+                <Text
+                  style={styles.progressText}
+                >{` ${item.description}`}</Text>
+                <Text style={styles.progressText}>
+                  {" "}
+                  <Icon_Date name="date" size={20} color="#007B8F" />
+                  {` ${formatDate(item.dateHour)}`}
+                </Text>
               </View>
-
               <View style={styles.buttons}>
                 <TouchableOpacity
                   style={styles.btnEdit}
@@ -101,13 +96,13 @@ const ModalRenderStage = ({
                     });
                   }}
                 >
-                  <Icon_Edit name="pencil" size={30} color={colors.verde} />
+                  <Icon_Edit name="pencil" size={25} color="#FFF" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.btnDelete}
                   onPress={() => onDeleteProgress(index)}
                 >
-                  <Icon_Trash name="trash" size={30} color={"#E56D01"} />
+                  <Icon_Trash name="trash" size={25} color="#FFF" />
                 </TouchableOpacity>
               </View>
             </View>

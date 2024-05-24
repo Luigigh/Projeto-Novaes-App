@@ -6,6 +6,7 @@ import FolderItem from "../../../components/FolderItem";
 import FileItem from "../../../components/FileItem";
 import ModalFolder from "../../../components/ModalFolder";
 import ContractService from "../../../service/DirectoryService";
+import LoadingScreen from "../../../components/Loading";
 import { useRoute } from "@react-navigation/native";
 import Icon_UploadFolder from "react-native-vector-icons/Feather";
 import Icon_UploadFile from "react-native-vector-icons/Feather";
@@ -24,6 +25,7 @@ const ContractList = () => {
   const [files, setFiles] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editFolderId, setEditFolderId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const route = useRoute();
 
@@ -42,13 +44,16 @@ const ContractList = () => {
       const response = await ContractService.fetchDirectories(
         parentDirectoryId
       );
+      setLoading(false);
       setFolders(response);
     } catch (error) {
       console.error("Erro ao buscar diretórios:", error);
+    } finally {
     }
   };
 
   const fetchFiles = async (id_directory) => {
+    setLoading(true);
     try {
       let response;
       if (id_directory) {
@@ -56,6 +61,7 @@ const ContractList = () => {
       } else {
         response = await ContractService.fetchFiles();
       }
+      setLoading(false);
       setFiles(response);
     } catch (error) {
       console.error("Erro ao buscar arquivos front:", error);
@@ -92,7 +98,7 @@ const ContractList = () => {
         await ContractService.addFolder(newFolderName, 1);
       }
       setModalVisible(false);
-      fetchDirectories();
+      setCurrentDirectory(0);
       console.log("Pasta adicionada:", newFolderName);
     } catch (error) {
       console.error("Erro ao adicionar pasta:", error);
@@ -144,75 +150,91 @@ const ContractList = () => {
   return (
     <View style={styles.container}>
       <Header />
+      <LoadingScreen visible={loading} />
 
-      <View style={styles.body}>
-        <FlatList
-          style={styles.flatListContent}
-          data={currentDirectory ? currentDirectory.subDirectories : folders}
-          ListEmptyComponent={() => (
-            <View style={styles.emptyMessageContainer}>
-              <Text style={styles.Text}>Não contém pastas.</Text>
-              <Icon_EmptyFolder
-                style={styles.icon_emptyfolder}
-                name="folder-open-outline"
-                size={80}
-                color={colors.cinzaClaro}
-              />
-            </View>
-          )}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleFolderPress(item)}>
-              <FolderItem
-                folder={item}
-                onFolderPress={handleFolderPress}
-                onDeleteFolder={handleDeleteFolder}
-                onEditFolder={handleEditFolder}
-              />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item) => item.id_Directory.toString()}
-        />
+      <View style={styles.bodyy}>
+        {loading ? (
+          <View style={styles.loadingContainer}></View>
+        ) : (
+          <View style={styles.body}>
+            <FlatList
+              style={styles.flatListContent}
+              data={
+                currentDirectory ? currentDirectory.subDirectories : folders
+              }
+              ListEmptyComponent={() => (
+                <View style={styles.emptyMessageContainer}>
+                  <Text style={styles.Text}>Não contém pastas.</Text>
+                  <Icon_EmptyFolder
+                    style={styles.icon_emptyfolder}
+                    name="folder-open-outline"
+                    size={80}
+                    color={colors.cinzaClaro}
+                  />
+                </View>
+              )}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleFolderPress(item)}>
+                  <FolderItem
+                    folder={item}
+                    onFolderPress={handleFolderPress}
+                    onDeleteFolder={handleDeleteFolder}
+                    onEditFolder={handleEditFolder}
+                  />
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.id_Directory.toString()}
+            />
 
-        {currentDirectory && currentDirectory.id_Directory && (
-          <FlatList
-            style={styles.flatListContentFile}
-            data={files}
-            ListEmptyComponent={() => (
-              <View style={styles.emptyMessageContainer}>
-                <Text style={styles.Text}>Não contém arquivos.</Text>
-                <Icon_EmptyFile
-                  style={styles.icon_emptyfolder}
-                  name="file-question-outline"
-                  size={80}
-                  color={colors.cinzaClaro}
+            {currentDirectory && currentDirectory.id_Directory && (
+              <FlatList
+                style={styles.flatListContentFile}
+                data={files}
+                ListEmptyComponent={() => (
+                  <View style={styles.emptyMessageContainer}>
+                    <Text style={styles.Text}>Não contém arquivos.</Text>
+                    <Icon_EmptyFile
+                      style={styles.icon_emptyfolder}
+                      name="file-question-outline"
+                      size={80}
+                      color={colors.cinzaClaro}
+                    />
+                  </View>
+                )}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => handleFilePress(item)}>
+                    <FileItem file={item} onFilePress={handleFilePress} />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item.id.toString()}
+              />
+            )}
+
+            <View style={styles.Options}>
+              <TouchableOpacity
+                style={styles.btnPlus}
+                onPress={handleAddFolder}
+              >
+                <Icon_UploadFolder
+                  name="folder-plus"
+                  size={40}
+                  color={"#FFE9A2"}
                 />
-              </View>
-            )}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleFilePress(item)}>
-                <FileItem file={item} onFilePress={handleFilePress} />
               </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item.id.toString()}
-          />
+              {navigationHistory.length > 0 && (
+                <TouchableOpacity
+                  style={styles.btnBack}
+                  onPress={handleNavigateBack}
+                >
+                  <Icon_Back name="arrow-back" size={40} color={"#000"} />
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity style={styles.btnPlus}>
+                <Icon_UploadFile name="file-plus" size={40} color={"#F5665E"} />
+              </TouchableOpacity>
+            </View>
+          </View>
         )}
-
-        <View style={styles.Options}>
-          <TouchableOpacity style={styles.btnPlus} onPress={handleAddFolder}>
-            <Icon_UploadFolder name="folder-plus" size={40} color={"#FFE9A2"} />
-          </TouchableOpacity>
-          {navigationHistory.length > 0 && (
-            <TouchableOpacity
-              style={styles.btnBack}
-              onPress={handleNavigateBack}
-            >
-              <Icon_Back name="arrow-back" size={40} color={"#000"} />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity style={styles.btnPlus}>
-            <Icon_UploadFile name="file-plus" size={40} color={"#F5665E"} />
-          </TouchableOpacity>
-        </View>
       </View>
 
       <ModalFolder

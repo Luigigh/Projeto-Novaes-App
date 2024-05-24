@@ -76,6 +76,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
             <TouchableOpacity
               style={styles.btnAdd}
               onPress={handleAddProgress}
+              testID={"save-button"}
             >
               <Text style={{color: 'white', fontSize: 18}}>Salvar</Text>
             </TouchableOpacity>

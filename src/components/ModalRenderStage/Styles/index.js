@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
   },
 
   progressDescription: {
+    alignContent: 'flex-end',
     textAlign: "center",
     width: "auto",
     marginVertical: 7,
-    maxWidth: '80%',
+    maxWidth: '85%',
   },
 
   description: {
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
   btnEdit: {
     height: 45,
     width: 45,
-    backgroundColor: "lightgrey",
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   btnDelete: {
     height: 45,
     width: 45,
-    backgroundColor: "lightgrey",
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",

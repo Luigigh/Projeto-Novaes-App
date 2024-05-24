@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../color";
+
 const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,
@@ -11,14 +13,14 @@ const styles = StyleSheet.create({
         width: 360,
         backgroundColor: '#fff',
         borderRadius: 10,
-        backgroundColor: '#007B8F',
+        backgroundColor: '#ebebeb',
         elevation: 15,
         alignItems: 'center',
         borderColor: '#083C52',
         borderWidth: 1,
       },
       title:{
-        color: 'white',
+        color: colors.primary,
         fontSize: 25,
         fontWeight: 'bold',
         textDecorationLine: 'underline',

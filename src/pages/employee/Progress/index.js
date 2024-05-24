@@ -11,6 +11,7 @@ import ModalConfirmacao from "../../../components/ModalStage";
 import Contract from "../../../components/Contract";
 import ContratoService from "../../../service/ContratoService";
 import ModalRenderStage from "../../../components/ModalRenderStage";
+import LoadingScreen from "../../../components/Loading";
 import styles from "./Styles";
 import { useRoute } from "@react-navigation/native";
 import colors from "../../../color";
@@ -28,6 +29,7 @@ const Progress = () => {
   const [currentContract, setCurrentContract] = useState(null);
   const [navigationStack, setNavigationStack] = useState([]);
   const [currentContractId, setCurrentContractId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const route = useRoute();
 
@@ -39,6 +41,7 @@ const Progress = () => {
     try {
       const contractsData = await ContratoService.getAllContratos();
       setContracts(contractsData);
+      setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
     }
@@ -48,9 +51,11 @@ const Progress = () => {
     try {
       setCurrentContract(selectedContract);
       setCurrentContractId(selectedContract.id);
+      setLoading(true);
       const stages = await ContratoService.getStagesByContractId(
         selectedContract.id
       );
+      setLoading(false);
       setProgressList(stages);
       setNavigationStack([selectedContract]);
     } catch (error) {
@@ -174,49 +179,57 @@ const Progress = () => {
     <View style={styles.container}>
       <Header />
 
+      <LoadingScreen visible={loading}/>
       <View>
-        {!currentContract && (
-          <FlatList
-            data={contracts}
-            ListEmptyComponent={() => (
-              <View style={styles.emptyMessageContainer}>
-                <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                <Icon_NoContract name="frowno" size={80} color={colors.cinzaClaro}/>
-              </View>
-            )}
-            renderItem={({ item }) => (
-              <Contract
-                contract={item}
-                onPress={() => handleContractPress(item)}
-              />
-            )}
-            keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-          />
-        )}
-
-        {currentContract && (
-          <FlatList
-            data={progressList}
-            ListEmptyComponent={() => (
-              <View style={styles.emptyMessageContainer}>
-                <Text style={styles.emptyMessage}>
-                  Não há etapas para este contrato.
-                </Text>
-                <Icon_Question
-                  name="question"
-                  size={120}
-                  color={colors.cinzaClaro}
+      {loading ? ( 
+        <View style={styles.loadingContainer}>
+        </View>
+      ) : (
+        <View>
+          {!currentContract && (
+            <FlatList
+              data={contracts}
+              ListEmptyComponent={() => (
+                <View style={styles.emptyMessageContainer}>
+                  <Text style={styles.emptyMessage}>Não há contratos.</Text>
+                  <Icon_NoContract name="frowno" size={80} color={colors.cinzaClaro}/>
+                </View>
+              )}
+              renderItem={({ item }) => (
+                <Contract
+                  contract={item}
+                  onPress={() => handleContractPress(item)}
                 />
-              </View>
-            )}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => handleStagePress(item)}
-              ></TouchableOpacity>
-            )}
-            keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-          />
-        )}
+              )}
+              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+            />
+          )}
+
+          {currentContract && (
+            <FlatList
+              data={progressList}
+              ListEmptyComponent={() => (
+                <View style={styles.emptyMessageContainer}>
+                  <Text style={styles.emptyMessage}>
+                    Não há etapas para este contrato.
+                  </Text>
+                  <Icon_Question
+                    name="question"
+                    size={120}
+                    color={colors.cinzaClaro}
+                  />
+                </View>
+              )}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => handleStagePress(item)}
+                ></TouchableOpacity>
+              )}
+              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+            />
+          )}
+        </View>
+      )}
       </View>
 
       <ModalProgress
@@ -262,6 +275,7 @@ const Progress = () => {
           style={styles.btnAdd}
           title="Adicionar"
           onPress={() => setIsModalVisible(true)}
+          testID={"add-Button"}
         >
           <Icon_Plus name="plus" size={60} color={colors.branco} />
         </TouchableOpacity>

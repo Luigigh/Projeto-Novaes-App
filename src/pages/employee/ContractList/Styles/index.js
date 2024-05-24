@@ -9,8 +9,11 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     width: "100%",
+  },
+  bodyy:{
+    flex: 1
   },
 
   Options: {
@@ -23,10 +26,12 @@ const styles = StyleSheet.create({
 
   flatListContent:{
     minheight: 350,
+    maxHeight: 350,
     width: "97%",
   },
 
   flatListContentFile: {
+    maxHeight: 300,
     minheight: 350,
     width: "90%",
     marginTop: 20,

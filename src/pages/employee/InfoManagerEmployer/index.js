@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import IconCamera from "react-native-vector-icons/Entypo";
@@ -11,9 +11,17 @@ import ModalEditContact from "../../../components/ModalEditContact";
 import * as ImagePicker from "expo-image-picker";
 import colors from "../../../color";
 import { LinearGradient } from "expo-linear-gradient";
-import { useUser } from "../../../context/index.js";
 import { saveProfilePhoto } from "../../../service/InfoManagerService";
-import { getProfilePhotoUser, getUserLogged, addNewPofilePhotoUser } from "../../../service/UserService"; 
+import { getProfilePhotoUser, addNewProfilePhoto, userLogged } from "../../../service/UserService"; 
+
+const initDataUser = [
+    id="",
+    nameUser ="",
+    lastname = "",
+    login = "",
+    office = ""
+
+]
 
 function InfoManagerEmployee({ navigation }) {
     const route = useRoute();
@@ -22,15 +30,21 @@ function InfoManagerEmployee({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
     const [idUserLogged , setIdUserLogged] = useState(0);
-    const { user } = useUser();
+    const [user , setUser] = useState(initDataUser);
 
-    useState((() => {
-      console.log("Usuario Logado:"+JSON.stringify(getUserLogged()));
-      const response = getProfilePhotoUser(idUserLogged);
-      if(!response == ''){
-        setSelectedImage(response);
-      }
-    }),[])
+    useEffect(() => {
+        async function fetchProfilePhoto() {
+          const base64Image = await getProfilePhotoUser(userLogged[0].id);
+          if (base64Image) {
+            setSelectedImage(`data:image/png;base64,${base64Image}`);
+            console.log("Usuario logado em InfoManager: "+ JSON.stringify(userLogged[0]));
+            setUser(userLogged[0]);
+            console.log("usuario em infoMaager: "+JSON.stringify(user));
+          }
+        }
+    
+        fetchProfilePhoto();
+      }, []);
 
     const openModal = () => {
         setModalVisibleEdit(true);
@@ -47,29 +61,27 @@ function InfoManagerEmployee({ navigation }) {
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
-            quality: 1,
+          allowsEditing: true,
+          quality: 1,
         });
-
+      
         if (!result.canceled) {
-            const imageUri = result.assets[0].uri;
-            setSelectedImage(imageUri);
+          const image = result.assets[0];
+          
+          console.log("Imagem selecionada: " + JSON.stringify(image));
+          const response = await addNewProfilePhoto(image, userLogged[0].id);
+          if (response) {
+            console.log("Foto adicionada com Sucesso!");
+            setSelectedImage(image.uri);
             setModalVisible(true);
-
-            if (user && user.id) {
-                try {
-                    await addNewPofilePhotoUser(idUserLogged, imageUri);
-                    console.log("Foto salva com sucesso!");
-                } catch (error) {
-                    console.error("Erro ao salvar a foto:", error);
-                }
-            } else {
-                console.error("Erro: user não está definido ou não possui um ID");
-            }
+          } else {
+            console.log("Foto não adicionada!");
+          }
         } else {
-            console.log("Erro ao selecionar a Imagem");
+          console.log("Erro ao selecionar a Imagem");
         }
-    };
+      };
+      
 
     return (
         <View style={styles.container}>
@@ -81,9 +93,12 @@ function InfoManagerEmployee({ navigation }) {
                 >
                     <View style={styles.fotoperfil}>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
+                        {selectedImage && (
                             <Image
-                                source={selectedImage ? { uri: selectedImage } : PlaceholderImage}
-                                style={styles.imagem_perfil} />
+                                source={{ uri: selectedImage }}
+                                style={styles.imagem_perfil}
+                            />
+                        )}
                         </TouchableOpacity>
                         <View style={styles.imagem_camera}>
                             <TouchableOpacity onPress={pickImage}>
@@ -104,7 +119,7 @@ function InfoManagerEmployee({ navigation }) {
                             <Text style={styles.text_input}>Nome</Text>
                             <View style={styles.view_input}>
                                 <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                                    {'user.name'}
+                                    {user.nameUser}
                                 </Text>
                                 <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
                                     <IconPencil name="pencil" size={25} color={'#FFF'} />
@@ -116,7 +131,7 @@ function InfoManagerEmployee({ navigation }) {
                             <Text style={styles.text_input}>Sobrenome</Text>
                             <View style={styles.view_input}>
                                 <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                                    {'user.lastname'}
+                                    {user.lastname}
                                 </Text>
                                 <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
                                     <IconPencil name="pencil" size={25} color={'#FFF'} />
@@ -128,7 +143,7 @@ function InfoManagerEmployee({ navigation }) {
                             <Text style={styles.text_input}>Email</Text>
                             <View style={styles.view_input}>
                                 <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                                    {'user.email'}
+                                    {user.login}
                                 </Text>
                                 <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
                                     <IconPencil name="pencil" size={25} color={'#FFF'} />
@@ -140,7 +155,7 @@ function InfoManagerEmployee({ navigation }) {
                             <Text style={styles.text_input}>Cargo</Text>
                             <View style={styles.view_input}>
                                 <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
-                                    {'user.role'}
+                                    {user.office}
                                 </Text>
                                 <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
                                     <IconPencil name="pencil" size={25} color={'#FFF'} />
@@ -152,7 +167,7 @@ function InfoManagerEmployee({ navigation }) {
                             visible={modalVisibleEdit}
                             onClose={closeModal}
                             onSubmit={handleSubmit}
-                            initialData={{ name: 'user.name', lastName: 'user.lastname', email: 'user.email' }} />
+                            initialData={{ name: user.name, lastName: user.lastname, email: user.email }} />
                     </ScrollView>
                 </View>
             </View>

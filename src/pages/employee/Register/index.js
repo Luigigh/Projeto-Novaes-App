@@ -12,7 +12,6 @@ import RNPickerSelect from "react-native-picker-select";
 export default function Register() {
   const navigation = useNavigation();
   const route = useRoute();
-
   const [tipoCadastro, setTipoCadastro] = useState("funcionario");
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");

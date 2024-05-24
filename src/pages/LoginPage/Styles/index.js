@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
   },
   texto_login: {
     color: "#007B8F",
-    fontSize: 28,
+    fontSize: 25,
     marginBottom: 8,
+    fontWeight: '500'
   },
   input_login: {
     ...Platform.select({
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginVertical: 6,
-    fontSize: 15
+    fontSize: 17
   },
   btn_login: {
     backgroundColor: "#007B8F",
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   },
   text_entrar: {
     color: 'white',
-    fontSize: 16
+    fontSize: 18
   },
   text_descricao: {
     fontSize: 14,

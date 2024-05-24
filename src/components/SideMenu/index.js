@@ -1,5 +1,5 @@
 // SideMenu.js
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import IconUser from "react-native-vector-icons/Feather";
 import IconContract from "react-native-vector-icons/Ionicons";
@@ -11,34 +11,44 @@ import colors from "../../color";
 import ModalLogout from "../ModalLogout";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./Styles";
-import { serviceLogoutMethod } from "../../service/UserService";
+import { serviceLogoutMethod, userLogged, getProfilePhotoUser } from "../../service/UserService";
 
 const SideMenu = ({ navigation, menuSelected }) => {
   const [showModal, setShowModal] = useState(false);
+  const [imageUser , setImageUser] = useState();
+
+  useEffect(async () => {
+    const base64Image = await getProfilePhotoUser(userLogged[0].id);
+    setImageUser(`data:image/png;base64,${base64Image}`);
+  },[])
 
   const handleLogout = async () => {
     let userLogout = await serviceLogoutMethod();
-    if(userLogout){
+    if (userLogout) {
       console.log("Usuario deslogado");
       navigation.navigate("Login");
       setShowModal(false);
-    }else{
+    } else {
       console.log("Não foi possivel deslogar o Usuario");
     }
   };
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        style={styles.header}
-        colors={[colors.primary, "#007B8F"]}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("InfoManagerEmployer")}
       >
-        <Image
-          source={require("../../img/IconProfile.png")}
-          style={styles.userImage}
-        />
-        <Text style={styles.username}>Nome do Usuário</Text>
-      </LinearGradient>
+        <LinearGradient
+          style={styles.header}
+          colors={[colors.primary, "#007B8F"]}
+        >
+          <Image
+            source={{ uri: imageUser }}
+            style={styles.userImage}
+          />
+          <Text style={styles.username}>Nome do Usuário</Text>
+        </LinearGradient>
+      </TouchableOpacity>
       <View style={styles.containerOpcao}>
         <View style={styles.subContainerOpcao}>
           <TouchableOpacity
@@ -51,7 +61,7 @@ const SideMenu = ({ navigation, menuSelected }) => {
             <IconUser name="user" size={20} color={colors.primary} />
             <Text style={styles.textOpcoes}>Meu perfil</Text>
           </TouchableOpacity>
-{/* 
+          {/* 
           <View style={styles.line}></View>
 
           <TouchableOpacity
@@ -74,7 +84,11 @@ const SideMenu = ({ navigation, menuSelected }) => {
             ]}
             onPress={() => navigation.navigate("ClientList")}
           >
-            <Iconlist name="format-list-bulleted" size={20} color={colors.primary} />
+            <Iconlist
+              name="format-list-bulleted"
+              size={20}
+              color={colors.primary}
+            />
             <Text style={styles.textOpcoes}>Lista de clientes</Text>
           </TouchableOpacity>
         </View>

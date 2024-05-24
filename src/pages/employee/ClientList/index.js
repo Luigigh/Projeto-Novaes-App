@@ -7,7 +7,7 @@ import styles from "./Styles";
 import IconSearch from "react-native-vector-icons/FontAwesome";
 import colors from "../../../color";
 import ModalInfoClient from "../../../components/ModalInfoClient";
-import { getAllUsers, getUserDetails } from "../../../service/UserService";
+import { getAllClients, getClientDetails, deleteClient } from "../../../service/UserService";
 
 const ClientList = ({ navigation }) => {
   const route = useRoute();
@@ -22,7 +22,7 @@ const ClientList = ({ navigation }) => {
 
   const fetchUsers = async () => {
     try {
-      const usersList = await getAllUsers();
+      const usersList = await getAllClients();
       setClients(usersList);
     } catch (error) {
       console.error("Erro ao obter lista de clientes:", error);
@@ -31,14 +31,24 @@ const ClientList = ({ navigation }) => {
 
   const fetchClientDetails = async (id) => {
     try {
-      const clientDetails = await getUserDetails(id);
+      const clientDetails = await getClientDetails(id);
       console.log("Detalhes do cliente:", clientDetails);
       setSelectedClient(clientDetails);
       setModalVisibleEdit(true);
     } catch (error) {
       console.error("Erro ao obter detalhes do cliente:", error);
     }
-  };  
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteClient(id);
+      setClients(clients.filter(client => client.id !== id));
+      closeModal();
+    } catch (error) {
+      console.error("Erro ao deletar cliente:", error);
+    }
+  };
 
   const closeModal = () => {
     setModalVisibleEdit(false);
@@ -51,7 +61,7 @@ const ClientList = ({ navigation }) => {
   };
 
   const filteredClients = clients.filter((client) =>
-    client.username.toLowerCase().includes(searchQuery.toLowerCase())
+    `${client.name} ${client.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSearch = () => {
@@ -88,9 +98,7 @@ const ClientList = ({ navigation }) => {
               style={styles.btnContato}
               onPress={() => fetchClientDetails(client.id)}
             >
-              <Text
-                style={styles.textName}
-              >{`${client.name} ${client.lastname}`}</Text>
+              <Text style={styles.textName}>{`${client.name} ${client.lastname}`}</Text>
             </TouchableOpacity>
           ))
         )}
@@ -102,6 +110,7 @@ const ClientList = ({ navigation }) => {
           visible={modalVisibleEdit}
           onClose={closeModal}
           onSubmit={handleSubmit}
+          onDelete={() => handleDelete(selectedClient.id)}
           initialData={selectedClient}
         />
       )}

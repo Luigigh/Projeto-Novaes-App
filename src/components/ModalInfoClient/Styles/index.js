@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingLeft: 10
   },
+  containerBtn: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   btnOk: {
     backgroundColor: '#083C52',
     borderRadius: 5,
@@ -56,6 +62,15 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15,
     fontWeight: '600',
+  },
+  btnExcluir: {
+    backgroundColor: '#E56D01',
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 15,
+    marginHorizontal: 5,
+    justifyContent: 'flex-end',
+    marginTop: 10
   },
 });
 

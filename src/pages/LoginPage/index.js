@@ -20,7 +20,6 @@ export default function LoginScreen() {
             serviceLoginMethod(username, password)
             .then(function(result) {
                 if(result){
-                    // Aqui, result deve conter o ID do usuário
                     setUser(prevUser => ({ ...prevUser, id: result }));
                     navigation.navigate('ContractList');
                 } else {
@@ -50,7 +49,6 @@ export default function LoginScreen() {
                         style={styles.input_login}
                         placeholder="Email"
                         onChangeText={text => setUsername(text)}
-                        // onChangeText={text => setUsernameState(text)}
                     ></TextInput>
 
                     <TextInput

@@ -1,24 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { Modal, View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert
+} from "react-native";
 import styles from "./Styles";
 
-const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
+const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) => {
   const [name, setName] = useState(initialData.name);
   const [lastName, setLastName] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
-  const [enterpriseName, setEnterpriseName] = useState(
-    initialData.enterprise_name
-  );
+  const [enterpriseName, setEnterpriseName] = useState(initialData.enterprise_name);
   const PlaceholderImage = require("../../img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    console.log("Dados iniciais do cliente:", initialData);
     setName(initialData.name);
     setLastName(initialData.lastname);
     setLogin(initialData.login);
-    setEnterpriseName(initialData.entrerprise_name);
+    setEnterpriseName(initialData.enterprise_name);
   }, [initialData]);
+
+  const handleDelete = () => {
+    Alert.alert(
+      "Confirmar Exclusão",
+      "Tem certeza que deseja excluir este cliente?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Excluir",
+          onPress: () => {
+            onDelete(initialData.id);
+            Alert.alert(
+              "Deletado com sucesso",
+              "O cliente foi deletado com sucesso",
+              [
+                {
+                  text: "Fechar",
+                  style: "cancel",
+                },
+              ]
+            );
+          },
+          style: "destructive",
+        },
+      ]
+    );
+  };
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
@@ -41,7 +76,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
             </View>
 
             <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Sobrenome</Text>
+              <Text style={styles.placeInputs}>Sobrenome</Text>
               <TextInput
                 placeholder="Sobrenome"
                 value={lastName}
@@ -51,7 +86,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
             </View>
 
             <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Email</Text>
+              <Text style={styles.placeInputs}>Email</Text>
               <TextInput
                 placeholder="Email"
                 value={login}
@@ -61,7 +96,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
             </View>
 
             <View style={styles.contInput}>
-            <Text style={styles.placeInputs}>Empresa</Text>
+              <Text style={styles.placeInputs}>Empresa</Text>
               <TextInput
                 placeholder="Empresa"
                 value={enterpriseName}
@@ -70,10 +105,14 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, initialData }) => {
               />
             </View>
           </View>
-
-          <TouchableOpacity onPress={onClose} style={styles.btnOk}>
-            <Text style={styles.txtButton}>OK</Text>
-          </TouchableOpacity>
+          <View style={styles.containerBtn}>
+            <TouchableOpacity onPress={handleDelete} style={styles.btnExcluir}>
+              <Text style={styles.txtButton}>Excluir</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onClose} style={styles.btnOk}>
+              <Text style={styles.txtButton}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

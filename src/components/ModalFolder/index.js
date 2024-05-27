@@ -4,7 +4,7 @@ import React from "react";
 import { View, Modal, TextInput, TouchableOpacity, Text } from "react-native";
 import styles from "./Styles";
 
-const ModalFolder = ({ visible, onClose, newFolderName, onNewFolderNameChange, onConfirm, isEditMode }) => {
+const ModalFolder = ({ visible, onClose, newFolderName="", onNewFolderNameChange="", onConfirm, isEditMode }) => {
   return (
     <Modal
       transparent

@@ -37,12 +37,10 @@ function InfoManagerEmployee({ navigation }) {
           const base64Image = await getProfilePhotoUser(userLogged[0].id);
           if (base64Image) {
             setSelectedImage(`data:image/png;base64,${base64Image}`);
-            console.log("Usuario logado em InfoManager: "+ JSON.stringify(userLogged[0]));
             setUser(userLogged[0]);
-            console.log("usuario em infoMaager: "+JSON.stringify(user));
           }
         }
-    
+        
         fetchProfilePhoto();
       }, []);
 

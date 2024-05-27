@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import colors from "../../color";
 
@@ -9,7 +9,7 @@ const LoadingScreen = ({ visible }) => {
   useEffect(() => {
     if (visible) {
       const interval = setInterval(() => {
-        setRotationAngle((angle) => angle + 15);
+        setRotationAngle((angle) => angle + 5);
       }, 1);
 
       return () => clearInterval(interval);
@@ -17,12 +17,22 @@ const LoadingScreen = ({ visible }) => {
   }, [visible]);
 
   const iconStyle = {
-    transform: [{ rotate: `${rotationAngle}deg` }],
+    width: 150,
+    height: 150,
+    tintColor: colors.primary,
+    transform: [
+      {
+        rotate: `${rotationAngle}deg`,
+      },
+    ],
   };
 
   return visible ? (
     <View style={styles.loadingContainer}>
-      <Icon name="loading1" size={80} color={colors.primary} style={iconStyle} />
+      <Image
+        source={require("../../img/LogoDesenhoBranca.png")}
+        style={iconStyle}
+      />
     </View>
   ) : null;
 };
@@ -32,8 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-
+  }
 });
 
 export default LoadingScreen;

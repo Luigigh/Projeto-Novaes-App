@@ -98,10 +98,11 @@ const ContractList = () => {
         await ContractService.addFolder(newFolderName, 1);
       }
       setModalVisible(false);
-      setCurrentDirectory(0);
       console.log("Pasta adicionada:", newFolderName);
+      fetchDirectories();
+      setCurrentDirectory(null);
     } catch (error) {
-      console.error("Erro ao adicionar pasta:", error);
+      console.error("Erro ao adicionar pasta, requisição:", error);
     }
   };
 
@@ -114,8 +115,9 @@ const ContractList = () => {
   const handleDeleteFolder = async (folder) => {
     try {
       await ContractService.deleteFolder(folder.id_Directory);
-      fetchDirectories();
       console.log("Pasta excluída:", folder.name);
+      fetchDirectories();
+      setCurrentDirectory(null);
     } catch (error) {
       console.error("Erro ao excluir pasta:", error);
     }
@@ -133,8 +135,9 @@ const ContractList = () => {
         await ContractService.updateFolder(editFolderId, newFolderName, 1);
       }
       setModalVisible(false);
-      fetchDirectories();
       console.log("Pasta editada:", newFolderName);
+      fetchDirectories();
+      setCurrentDirectory(null);
     } catch (error) {
       console.error("Erro ao editar pasta ContractList:", error);
     }

@@ -12,7 +12,7 @@ const colors ={
     folder:'#F8D775',
     contract:'#555555',
     file:'#F8D775',
-    contract:'#0E91F0',
+    contract:'#B3DFE7',
     contractComponent: '#0D3444'
 }
 

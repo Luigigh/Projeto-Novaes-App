@@ -10,7 +10,6 @@ import InfoManagerEmployer from "../pages/employee/InfoManagerEmployer";
 import Contacts from "../pages/Client/Contacts";
 import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
-import SideMenu from "../components/SideMenu";
 import Register from "../pages/employee/Register";
 import UsersList from "../pages/employee/UsersList";
 import ClientList from "../pages/employee/ClientList";
@@ -55,11 +54,6 @@ const AppStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="UsersList"
-          component={UsersList}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="ClientList"
           component={ClientList}
           options={{ headerShown: false }}
@@ -67,11 +61,6 @@ const AppStack = () => {
         <Stack.Screen
           name="EmployeeList"
           component={EmployeeList}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Contacts"
-          component={Contacts}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -94,16 +83,4 @@ const AppStack = () => {
   );
 };
 
-const DrawerNavigator = () => (
-  <Drawer.Navigator drawerContent={(props) => <SideMenu {...props} />}>
-    <Drawer.Screen
-      name="Meu perfil"
-      component={AppStack}
-      options={{ headerShown: false }}
-    />
-  </Drawer.Navigator>
-);
-
-const Routes = () => <DrawerNavigator />;
-
-export default Routes;
+export default AppStack;

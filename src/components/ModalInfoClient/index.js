@@ -14,7 +14,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) 
   const [name, setName] = useState(initialData.name);
   const [lastName, setLastName] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
-  const [enterpriseName, setEnterpriseName] = useState(initialData.enterprise_name);
+  const [enterpriseName, setEnterpriseName] = useState(initialData.entrerprise_name);
   const PlaceholderImage = require("../../img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -22,7 +22,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) 
     setName(initialData.name);
     setLastName(initialData.lastname);
     setLogin(initialData.login);
-    setEnterpriseName(initialData.enterprise_name);
+    setEnterpriseName(initialData.entrerprise_name);
   }, [initialData]);
 
   const handleDelete = () => {
@@ -36,19 +36,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) 
         },
         {
           text: "Excluir",
-          onPress: () => {
-            onDelete(initialData.id);
-            Alert.alert(
-              "Deletado com sucesso",
-              "O cliente foi deletado com sucesso",
-              [
-                {
-                  text: "Fechar",
-                  style: "cancel",
-                },
-              ]
-            );
-          },
+          onPress: () => onDelete(initialData.id),
           style: "destructive",
         },
       ]

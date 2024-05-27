@@ -34,7 +34,7 @@ export default function Register() {
     if (cargo === "adm" || cargo === "gestor") {
       isAdmin = true;
     }
-     
+
     if (tipoCadastro === "funcionario") {
       userData = {
         name: nome,
@@ -44,7 +44,7 @@ export default function Register() {
         admin: isAdmin,
         login: email,
       };
-      
+
       try {
         await RegisterService.createFuncionario(userData);
         alert(
@@ -104,10 +104,7 @@ export default function Register() {
             </TouchableOpacity>
           </View>
 
-          <LinearGradient
-            style={styles.linear}
-            colors={["#B3DFE7", "#EEEEEE", "#FFFFFF"]}
-          >
+          <View style={styles.modal}>
             <Text style={styles.texto_cadastro}>
               {tipoCadastro === "funcionario"
                 ? "Cadastro de Funcionário"
@@ -120,18 +117,23 @@ export default function Register() {
                 placeholder="Nome"
                 value={nome}
                 onChangeText={setNome}
+                placeholderTextColor={'#6B6D71'}
+                fontSize={15}
               />
               <TextInput
                 style={styles.inputNomeSobrenome}
                 placeholder="Sobrenome"
                 value={sobrenome}
                 onChangeText={setSobrenome}
+                placeholderTextColor={'#6B6D71'}
+                fontSize={15}
               />
             </View>
 
             {tipoCadastro === "funcionario" ? (
               <View style={styles.cargoPicker}>
                 <RNPickerSelect
+                  style={styles.picker}
                   onValueChange={(value) => setCargo(value)}
                   items={[
                     { label: "Administrativo", value: "adm" },
@@ -147,6 +149,8 @@ export default function Register() {
                 placeholder="Nome da Empresa"
                 value={nomeEmpresa}
                 onChangeText={setNomeEmpresa}
+                placeholderTextColor={'#6B6D71'}
+                fontSize={15}
               />
             )}
 
@@ -155,6 +159,8 @@ export default function Register() {
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
+              placeholderTextColor={'#6B6D71'}
+              fontSize={15}
             />
 
             <TextInput
@@ -163,6 +169,8 @@ export default function Register() {
               secureTextEntry={true}
               value={senha}
               onChangeText={setSenha}
+              placeholderTextColor={'#6B6D71'}
+              fontSize={15}
             />
             <TextInput
               style={styles.input}
@@ -170,6 +178,8 @@ export default function Register() {
               secureTextEntry={true}
               value={confirmarSenha}
               onChangeText={setConfirmarSenha}
+              placeholderTextColor={'#6B6D71'}
+              fontSize={15}
             />
 
             <TouchableOpacity
@@ -178,7 +188,7 @@ export default function Register() {
             >
               <Text style={styles.text_cadastrar}>Cadastrar</Text>
             </TouchableOpacity>
-          </LinearGradient>
+          </View>
         </View>
       </View>
       <Footer routeSelected={route.name} />

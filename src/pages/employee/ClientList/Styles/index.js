@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../../color";
 
 const styles = StyleSheet.create({
   main: {
@@ -13,6 +14,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     alignItems: 'center',
+    position: 'relative',
   },
   search: {
     backgroundColor: "transparent",
@@ -31,6 +33,10 @@ const styles = StyleSheet.create({
     position: "relative",
     borderWidth: 1,
     borderColor: '#083C52'
+  },
+  clientList: {
+    width: '90%',
+    marginRight: '-8%'
   },
   iconcamera: {
     position: "absolute",
@@ -64,6 +70,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "400",
     color: '#083C52',
+  },
+  btnAdd: {
+    backgroundColor: colors.laranja,
+    borderRadius: 50,
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
   },
 });
 

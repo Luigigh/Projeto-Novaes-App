@@ -17,7 +17,7 @@ export async function serviceLoginMethod(username, password) {
     if (response.status === 200) {
       console.log("response: ", response.data);
         const user = await findUserById(response.data);
-        setUserLogged(user);
+        await setUserLogged(user);
       return true;
     } else {
       console.log("response: ", response);
@@ -31,16 +31,16 @@ export async function serviceLoginMethod(username, password) {
 }
 
 
-function setUserLogged(user) {
+async function setUserLogged(user) {
   userLogged[0]={
     id: user.id,
     nameUser: user.name,
     lastname: user.lastname,
     login: user.login,
-    office: user.role,
+    role: user.role,
   };
 
-  console.log("usuarios logados: "+JSON.stringify(userLogged));
+  
 }
 
 
@@ -65,7 +65,7 @@ export async function verifyUserAuth(){
       console.log("teste")
       if(response.status == 204){
         const user = await axios.get(`${url}/user/currentUser`);
-        setUserLogged(user.data);
+        await setUserLogged(user.data);
         return true;
       }else{
         return false;
@@ -178,7 +178,6 @@ export async function getAllEmployee() {
 export async function getProfilePhotoUser(id_user) {
   try {
     const response = await axios.get(`${url}/employee/getProfilePhoto/${id_user}`);
-    console.log(JSON.stringify(response.data));
     return response.data.base64Image;
   } catch (error) {
     console.log("erro: " + error);

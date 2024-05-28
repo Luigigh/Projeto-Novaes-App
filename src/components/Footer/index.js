@@ -8,7 +8,7 @@ import Icon_InfoManager from "react-native-vector-icons/FontAwesome";
 import Icon_List from "react-native-vector-icons/FontAwesome6";
 import styles from "./Styles";
 import { useNavigation } from "@react-navigation/native";
-import { userLogged } from "../../service/UserService";
+import { userLogged , pathUser} from "../../service/UserService";
 
 export default function Footer({ routeSelected }) {
   const [ifHomeSelected, setIfHomeSelected] = useState(false);
@@ -16,44 +16,21 @@ export default function Footer({ routeSelected }) {
   const [ifInfoManagerEmployeeSelected, setIfInfoManagerEmployeeSelected] = useState(false);
   const [ifClientListSelected, setIfClientListSelected] = useState(false);
   const navigator = useNavigation();
-  const [ pages , setPages ] = useState([]);
-  const admPages = [
-    "ContractList", //Lista Diretorios
-    "InfoManagerEmployee", //Tela de perfil
-    "ClientList", // Listagem de contatos
-    "Progress" // listar progresso
-  ];
-  const clientPages = [
-    "DirectoryClient", //Lista Diretorios
-    "InfoManager", //Tela de perfil
-    "EmployeeList",
-    "ProgressClient"
-  ]
-
+  const [profileScreen , setProfileScreen] = useState("");
+  
 
   useEffect(() => {
-    console.log("usuario em footer"+JSON.stringify(userLogged[0]))
-    if(userLogged[0].role = "ADMIN"){
-      setPages(admPages);
-    }else{
-      setPages(clientPages);
-    }
-  }, [])
+    console.log("Route selected: " + routeSelected);
 
-  useEffect(() => {
-    console.log("Route relected: " + routeSelected);
-    if (routeSelected === "ContractList") {
-      setIfHomeSelected(true);
-    }
-    if (routeSelected === "ProgressClient") {
-      setIfProgressSelected(true);
-    }
-    if (routeSelected === "InfoManagerEmployee") {
-      setIfInfoManagerEmployeeSelected(true);
-    }
-    if (routeSelected === "ClientList") {
-      setIfClientListSelected(true);
-    }
+    setIfHomeSelected(routeSelected === "ContractList" || routeSelected === "DirectoryClient");
+    setIfProgressSelected(routeSelected === "ProgressClient" || routeSelected === "Progress");
+    setIfInfoManagerEmployeeSelected(routeSelected === "InfoManagerEmployer" || routeSelected === "InfoManager");
+    setIfClientListSelected(routeSelected === "ClientList" || routeSelected === "EmployeeList");
+    setProfileScreen(userLogged[1]);
+
+    
+
+    console.log("Array setado para os caminhos: " + pathUser);
   }, [routeSelected]);
 
   return (
@@ -61,7 +38,7 @@ export default function Footer({ routeSelected }) {
       <TouchableOpacity
         style={ifClientListSelected ? styles.btnSelected : styles.btnNotSelected}
         onPress={() => {
-          navigator.navigate(pages[2]);
+          navigator.navigate(pathUser[2]);
         }}
       >
         <Icon_List name="list" size={35} color={"#fff"} />
@@ -70,7 +47,7 @@ export default function Footer({ routeSelected }) {
       <TouchableOpacity
         style={ifHomeSelected ? styles.btnSelected : styles.btnNotSelected}
         onPress={() => {
-          navigator.navigate(pages[0]);
+          navigator.navigate(pathUser[0]);
         }}
       >
         <Icon_Home name="home" size={35} color={"#fff"} />
@@ -79,7 +56,7 @@ export default function Footer({ routeSelected }) {
       <TouchableOpacity
         style={ifProgressSelected ? styles.btnSelected : styles.btnNotSelected}
         onPress={() => {
-          navigator.navigate(pages[3]);
+          navigator.navigate(pathUser[3]);
         }}
       >
         <Icon_Timeline name="timeline-clock" size={35} color={"#fff"} />
@@ -91,7 +68,8 @@ export default function Footer({ routeSelected }) {
             : styles.btnNotSelected
         }
         onPress={() => {
-          navigator.navigate(pages[1]);
+          console.log("depois de pressionado: "+pathUser[1]);
+          navigator.navigate(pathUser[1]);
         }}
       >
         <Icon_InfoManager name="user" size={35} color={"#fff"} />

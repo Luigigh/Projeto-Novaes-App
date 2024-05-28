@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, TextInput, Text } from "react-native";
+import { View, TouchableOpacity, TextInput, Text, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -78,7 +78,7 @@ const EmployeeList = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-
+        
         {filteredEmployee.length === 0 ? (
           <Text style={styles.notFoundText}>Contato não encontrado</Text>
         ) : (

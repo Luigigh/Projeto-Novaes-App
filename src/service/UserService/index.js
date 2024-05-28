@@ -4,6 +4,8 @@ const url = process.env.EXPO_PUBLIC_API_URL;
 
 export const userLogged = [];
 
+export const pathUser = [];
+
 export async function serviceLoginMethod(username, password) {
   try {
     const response = await axios.post(
@@ -18,6 +20,7 @@ export async function serviceLoginMethod(username, password) {
       console.log("response: ", response.data);
         const user = await findUserById(response.data);
         await setUserLogged(user);
+        console.log("usuario dps de logar: "+JSON.stringify(userLogged))
       return true;
     } else {
       console.log("response: ", response);
@@ -40,7 +43,22 @@ async function setUserLogged(user) {
     role: user.role,
   };
 
-  
+  if(user.role === "ADMIN"){
+    pathUser[0]= "ContractList";
+    pathUser[1]= "InfoManagerEmployer";
+    pathUser[2]= "ClientList";
+    pathUser[3]= "Progress";
+  }
+  else{
+    pathUser[0]= "DirectoryClient";
+    pathUser[1]= "InfoManager";
+    pathUser[2]= "EmployeeList";
+    pathUser[3]= "ProgressClient";
+  }
+}
+
+async function clearUserLogged(){
+  userLogged[0] = {};
 }
 
 
@@ -48,6 +66,7 @@ export async function serviceLogoutMethod(){
   try{
     const response = await axios.post(`${url}/auth/logout`);
     if(response.status == 204){
+      clearUserLogged();
       return true;
     }
     else{

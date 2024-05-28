@@ -5,6 +5,7 @@ import styles from "./Styles";
 import { serviceLoginMethod } from "../../service/UserService";
 import { LinearGradient } from "expo-linear-gradient";
 import { useUser } from "../../context/index.js";
+import { userLogged } from "../../service/UserService";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
@@ -20,8 +21,13 @@ export default function LoginScreen() {
             serviceLoginMethod(username, password)
             .then(function(result) {
                 if(result){
-                    setUser(prevUser => ({ ...prevUser, id: result }));
-                    navigation.navigate('ContractList');
+                    
+                    if(userLogged[0].role == "ADMIN"){
+                        navigation.navigate('ContractList');
+                      }
+                    else{
+                        navigation.navigate('DirectoryClient');
+                    }
                 } else {
                     setAlertEmpty('Erro no Login... Usuário ou Senha Incorretos');
                 }

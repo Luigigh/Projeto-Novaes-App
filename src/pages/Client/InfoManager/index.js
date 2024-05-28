@@ -12,7 +12,7 @@ import ModalEditContact from "../../../components/ModalEditContact"; // Importe 
 import * as ImagePicker from "expo-image-picker";
 import colors from "../../../color";
 import { LinearGradient } from "expo-linear-gradient";
-import { useUser } from "../../../context/index.js";
+import { userLogged } from "../../../service/UserService";
 
 const InfoManager = ({ navigation }) => {
   const route = useRoute();
@@ -20,7 +20,6 @@ const InfoManager = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
-  const { user } = useUser();
 
   const openModal = () => {
     setModalVisibleEdit(true);
@@ -97,17 +96,10 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {user}
+                  {userLogged[0].nameUser}
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
-
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Sobrenome</Text>
               <View style={styles.view_input}>
@@ -115,17 +107,10 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {user}
-                </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
+                  {userLogged[0].lastname}
+                </Text>        
               </View>
             </View>
-
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Email</Text>
               <View style={styles.view_input}>
@@ -133,43 +118,20 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {user}
-                </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
+                  {userLogged[0].login}
+                </Text>               
               </View>
             </View>
-
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Empresa</Text>
               <View style={styles.view_input}>
                 <Text
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
-                >
-                  {user}
+                >                  
                 </Text>
-                <TouchableOpacity
-                  style={styles.btn_editarContato}
-                  onPress={openModal}
-                >
-                  <IconPencil name="pencil" size={25} color={"#FFF"} />
-                </TouchableOpacity>
               </View>
             </View>
-
-            {/* Outros campos de entrada para sobrenome e email */}
-
-            <ModalEditContact
-              visible={modalVisibleEdit}
-              onClose={closeModal}
-              onSubmit={handleSubmit}
-              initialData={{ name: user, lastName: "", email: "" }}
-            />
           </ScrollView>
         </View>
       </View>

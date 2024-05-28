@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
 
   },
   abaSelecionada: {
-    borderTopWidth: 1.5,
-    borderLeftWidth: 1.5,
-    borderRightWidth: 1.5,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
     borderColor: colors.primary,
-    backgroundColor: "#B3DFE7",
+    // backgroundColor: "#B3DFE7",
   },
   textAba: {
     fontWeight: "bold",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import Header from "../../../components/Header";
@@ -23,7 +23,16 @@ export default function Register() {
 
   const handleRegister = async () => {
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
+      Alert.alert(
+        "As senhas não coincidem!",
+        "Utilize a senha correta em ambos os campos.",
+        [
+          {
+            text: "Fechar",
+            style: "cancel",
+          },
+        ]
+      );
       return;
     }
 
@@ -47,12 +56,28 @@ export default function Register() {
 
       try {
         await RegisterService.createFuncionario(userData);
-        alert(
-          `Funcionário ${nome} ${sobrenome}, email ${email}, com o cargo ${cargo} cadastrado com sucesso!`
+        Alert.alert(
+          "Cadastrado realizado!",
+          `Funcionário ${nome} ${sobrenome} (${email}), com o cargo ${cargo} cadastrado com sucesso!`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
         );
       } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
-        alert("Erro ao cadastrar usuário. Tente novamente mais tarde.");
+        Alert.alert(
+          "Erro no sistema!",
+          `Erro ao cadastrar funcionário. Tente novamente mais tarde.`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
+        );
       }
     } else {
       userData = {
@@ -65,12 +90,28 @@ export default function Register() {
 
       try {
         await RegisterService.createCliente(userData);
-        alert(
-          `Cliente ${nome} ${sobrenome}, email ${email}, da empresa ${nomeEmpresa} cadastrado com sucesso!`
+        Alert.alert(
+          "Cadastrado realizado!",
+          `Cliente ${nome} ${sobrenome} (${email}), da empresa ${nomeEmpresa} cadastrado com sucesso!`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
         );
       } catch (error) {
         console.error("Erro ao cadastrar cliente:", error);
-        alert("Erro ao cadastrar cliente. Tente novamente mais tarde.");
+        Alert.alert(
+          "Erro no sistema!",
+          `Erro ao cadastrar cliente. Tente novamente mais tarde.`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
+        );
       }
     }
   };

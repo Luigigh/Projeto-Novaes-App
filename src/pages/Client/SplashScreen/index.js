@@ -3,6 +3,7 @@ import { View , Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './Styles';
 import { verifyUserAuth } from '../../../service/UserService';
+import { userLogged } from '../../../service/UserService';
 
 export default function SplashScreen() {
 
@@ -12,8 +13,14 @@ useEffect(() => {
     let ifUserAuth = await verifyUserAuth();
     console.log("se usuario esta logado:"+ifUserAuth);
     if(ifUserAuth){
-      console.log("usuario logado")
-      navigation.navigate('ContractList'); 
+      console.log("role do usuario logado: " + userLogged[0].role);
+      
+      if(userLogged[0].role == "ADMIN"){
+        navigation.navigate('ContractList');
+        
+      }else{
+        navigation.navigate('DirectoryClient');
+      }
     }else{
       console.log("Usuario nao logado");
       navigation.navigate('Login'); 

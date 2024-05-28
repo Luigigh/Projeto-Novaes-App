@@ -9,6 +9,7 @@ import {
   Alert
 } from "react-native";
 import styles from "./Styles";
+import { getProfilePhotoUser } from '../../service/UserService';
 
 const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) => {
   const [name, setName] = useState(initialData.name);

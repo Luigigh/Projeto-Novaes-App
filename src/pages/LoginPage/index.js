@@ -4,12 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import { serviceLoginMethod } from "../../service/UserService";
 import { LinearGradient } from "expo-linear-gradient";
-import { useUser } from "../../context/index.js";
 import { userLogged } from "../../service/UserService";
 
 export default function LoginScreen() {
     const navigation = useNavigation();
-    const { setUser } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [alertEmpty, setAlertEmpty] = useState('');

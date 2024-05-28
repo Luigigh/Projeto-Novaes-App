@@ -14,14 +14,13 @@ import Register from "../pages/employee/Register";
 import UsersList from "../pages/employee/UsersList";
 import ClientList from "../pages/employee/ClientList";
 import EmployeeList from "../pages/Client/EmployeeList";
-import { useUser, UserProvider } from "../context/index.js";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
   return (
-    <UserProvider>
+    
       <Stack.Navigator>
         <Stack.Screen
           name="SplashScreen"
@@ -79,7 +78,7 @@ const AppStack = () => {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-    </UserProvider>
+    
   );
 };
 

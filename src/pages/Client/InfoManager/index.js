@@ -79,13 +79,6 @@ const InfoManager = ({ navigation }) => {
         </LinearGradient>
 
         <View style={styles.container_info_user}>
-          {/* <TouchableOpacity
-            style={styles.containerBack}
-            onPress={() => navigation.navigate("Contacts")}
-          >
-            <IconArrow name="arrow-undo-outline" size={33} color={"#007B8F"} />
-            <Text style={styles.textBack}>Voltar</Text>
-          </TouchableOpacity> */}
           <Text style={styles.titleInfoContact}>Minhas informações</Text>
 
           <ScrollView>

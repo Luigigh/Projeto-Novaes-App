@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert, Platform } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, Alert, Platform, Linking } from "react-native";
 import Icon_Download from "react-native-vector-icons/MaterialIcons";
 import Icon_File from "react-native-vector-icons/FontAwesome5";
 import * as FileSystem from "expo-file-system";
@@ -13,19 +13,21 @@ export default function FileItem({ file, onFilePress }) {
 
   async function handleDownload() {
     try {
-      const fileUri = FileSystem.documentDirectory + file.name + '.pdf';
-      const downloadResumable = FileSystem.createDownloadResumable(
-        `${url}/archive/${file.id}`,
-        fileUri,
-        {},
-        (downloadProgress) => {
-          console.log(`Progresso de download: ${downloadProgress.totalBytesWritten} de ${downloadProgress.totalBytesExpectedToWrite}`);
-        }
-      );
-      const downloadResponse = await downloadResumable.downloadAsync();
+      const fileUri = `${url}/archive/${file.id}`;
+      const response = await fetch(fileUri);
+      if (!response.ok) {
+        throw new Error("Erro ao baixar o arquivo");
+      }
 
-      if (downloadResponse?.uri) {
-        await handleOpenFile(downloadResponse.uri);
+      const blob = await response.blob();
+      const blobString = await blobToBase64(blob);
+      const localUri = `${FileSystem.documentDirectory}${file.name}.pdf`;
+      await FileSystem.writeAsStringAsync(localUri, blobString, { encoding: FileSystem.EncodingType.Base64 });
+
+      if (Platform.OS === 'android') {
+        await Sharing.shareAsync(localUri);
+      } else if (Platform.OS === 'ios') {
+        Linking.openURL(localUri);
       }
     } catch (error) {
       Alert.alert("Download", "Não foi possível realizar o download.");
@@ -33,19 +35,16 @@ export default function FileItem({ file, onFilePress }) {
     }
   }
 
-  async function handleOpenFile(uri) {
-    try {
-      if (Platform.OS === 'android' && Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(uri);
-      } else if (Platform.OS === 'ios' && Sharing.shareAsync) {
-        await Sharing.shareAsync(uri);
-      } else {
-        Alert.alert("Abrir arquivo", "Não é possível abrir o arquivo diretamente neste dispositivo.");
-      }
-    } catch (error) {
-      Alert.alert("Erro", "Não foi possível abrir o arquivo.");
-      console.error(error);
-    }
+  async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        const base64String = reader.result.split(",")[1];
+        resolve(base64String);
+      };
+      reader.readAsDataURL(blob);
+    });
   }
   
   return (
@@ -61,10 +60,9 @@ export default function FileItem({ file, onFilePress }) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleDownload}>
-        <Icon_Download name="file-download" size={35} color={colors.azul_claro} />
-      </TouchableOpacity>
+          <Icon_Download name="file-download" size={35} color={colors.azul_claro} />
+        </TouchableOpacity>
       </View>
-      
     </View>
   );
 }

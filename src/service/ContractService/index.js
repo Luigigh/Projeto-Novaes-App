@@ -38,9 +38,8 @@ const fetchFiles = async (id_directory) => {
   }
 };
 
-addFile = async () => {
 
-}
+
 
 
 
@@ -86,4 +85,4 @@ const updateFolder = async (folderId, folderName) => {
   }
 };
 
-export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder};
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder };

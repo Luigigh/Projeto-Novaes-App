@@ -39,7 +39,6 @@ const saveImage = async (userData) => {
 
 export async function getClientById(id) {
   try {
-    console.log(JSON.stringify(userData));
     const response = await axios.get(`${url}/employee/${id}`);
 
     return response.data;

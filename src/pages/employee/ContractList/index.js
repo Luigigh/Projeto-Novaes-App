@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, FlatList, Text } from "react-native";
+import { View, TouchableOpacity, FlatList, Text, Alert } from "react-native";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FolderItem from "../../../components/FolderItem";
@@ -15,6 +15,8 @@ import Icon_EmptyFolder from "react-native-vector-icons/Ionicons";
 import Icon_EmptyFile from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./Styles";
 import colors from "../../../color";
+import { documentDirectory } from "expo-file-system";
+import { getDocumentAsync } from "expo-document-picker";
 
 const ContractList = () => {
   const [currentDirectory, setCurrentDirectory] = useState(null);
@@ -150,6 +152,26 @@ const ContractList = () => {
     setModalVisible(true);
   };
 
+
+  const handleAddArchive = async () => {
+    console.log("Função para subir arquivo chamada...")
+    try {
+      const file = await getDocumentAsync({
+        type: "*/*",
+        copyToCacheDirectory: false,
+      });
+
+      if (!file.canceled) {
+        const response = await ContractService.uploadFile(file,currentDirectory);
+      } else {
+        console.log("Seleção de arquivo cancelada");
+      }
+    } catch (error) {
+      console.error("Erro durante o envio do arquivo:", error);
+      Alert.alert("Erro", "Não foi possível enviar o arquivo.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -232,7 +254,7 @@ const ContractList = () => {
                   <Icon_Back name="arrow-back" size={40} color={"#000"} />
                 </TouchableOpacity>
               )}
-              <TouchableOpacity style={styles.btnPlus}>
+              <TouchableOpacity style={styles.btnPlus} onPress={handleAddArchive}>
                 <Icon_UploadFile name="file-plus" size={40} color={"#F5665E"} />
               </TouchableOpacity>
             </View>

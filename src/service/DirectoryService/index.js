@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as FileSystem from 'expo-file-system';
 const url = process.env.EXPO_PUBLIC_API_URL;
 
 const fetchDirectories = async (parentDirectoryId = null) => {
@@ -62,6 +63,34 @@ const addFolder = async (folderName, parentDirectoryId) => {
   }
 };
 
+async function uploadFile(file, directoryID) {
+  try {
+    const formdata = new FormData();
+    formdata.append("contentArchive", {
+      uri: file.assets[0].uri,
+      name: file.assets[0].name,
+      type: file.assets[0].mimeType
+    });
+    formdata.append("name", file.assets[0].name);
+    formdata.append("directoryID", 3);
+    formdata.append("type", file.assets[0].mimeType); 
+
+    const response = await fetch(`${url}/archive`, {
+      method: 'POST',
+      body: formdata
+    });
+
+    const data = await response.json();
+    console.log("response -> " + JSON.stringify(data));
+    return data;
+  } catch (error) {
+    console.error('Erro durante o upload do arquivo:', error);
+  }
+}
+
+
+
+
 
 
 const deleteFolder = async (folderId) => {
@@ -71,7 +100,7 @@ const deleteFolder = async (folderId) => {
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir pasta:", error);
-    throw error;
+    
   }
 };
 
@@ -86,4 +115,4 @@ const updateFolder = async (folderId, folderName) => {
   }
 };
 
-export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder};
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile};

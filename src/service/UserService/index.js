@@ -43,6 +43,14 @@ async function setUserLogged(user) {
     role: user.role,
   };
 
+  if (user.role === "EMPLOYEE" || user.role === "ADMIN") {
+    const employeeDetails = await getEmployeeDetails(user.id);
+    userLogged[0].office = employeeDetails.office;
+  } else if (user.role === "USER") {
+    const clientDetails = await getClientDetails(user.id);
+    userLogged[0].entrerprise_name = clientDetails.entrerprise_name;
+  }
+
   if(user.role === "ADMIN"){
     pathUser[0]= "ContractList";
     pathUser[1]= "InfoManagerEmployer";

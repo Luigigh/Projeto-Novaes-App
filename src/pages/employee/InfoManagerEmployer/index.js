@@ -20,7 +20,6 @@ const initDataUser = [
     lastname = "",
     login = "",
     office = ""
-
 ]
 
 function InfoManagerEmployee({ navigation }) {
@@ -65,8 +64,6 @@ function InfoManagerEmployee({ navigation }) {
       
         if (!result.canceled) {
           const image = result.assets[0];
-          
-          console.log("Imagem selecionada: " + JSON.stringify(image));
           const response = await addNewProfilePhoto(image, userLogged[0].id);
           if (response) {
             console.log("Foto adicionada com Sucesso!");

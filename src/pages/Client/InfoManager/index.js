@@ -89,7 +89,7 @@ const InfoManager = ({ navigation }) => {
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
                 >
-                  {userLogged[0].nameUser}
+                  {userLogged[0].name}
                 </Text>
               </View>
             </View>
@@ -121,7 +121,8 @@ const InfoManager = ({ navigation }) => {
                 <Text
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
-                >                  
+                >  
+                  {userLogged[0].entrerprise_name}                
                 </Text>
               </View>
             </View>

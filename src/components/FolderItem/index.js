@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import Icon_Folder from "react-native-vector-icons/Ionicons";
 import Icon_Edit from "react-native-vector-icons/AntDesign";
 import Icon_Delete from "react-native-vector-icons/Entypo";
@@ -46,8 +46,25 @@ const FolderItem = ({
           <TouchableOpacity
             style={styles.ButtonDelete}
             onPress={() => {
-              onDeleteFolder(folder);
-              toggleOptions();
+
+              Alert.alert(
+                "Deseja Excluir esta pasta?",
+                "AVISO:todo o conteudo sera deletado!",
+                [
+                  {
+                    text:"Cancelar",
+                    style:"cancel"
+                  },
+                  {
+                    text:"Excluir",
+                    onPress: () => {
+                      onDeleteFolder(folder);
+                      toggleOptions();},
+                    style:"destructive"
+                  }
+                ]
+              
+              )
             }}
           >
             <Icon_Delete name="trash" size={25} color={colors.branco} />

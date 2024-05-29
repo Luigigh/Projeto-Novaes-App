@@ -11,6 +11,7 @@ import ModalConfirmacao from "../../../components/ModalStage";
 import Contract from "../../../components/Contract";
 import ContratoService from "../../../service/ContratoService";
 import ModalRenderStage from "../../../components/ModalRenderStage";
+import ModalAddContract from "../../../components/ModalAddContract";
 import LoadingScreen from "../../../components/Loading";
 import styles from "./Styles";
 import { useRoute } from "@react-navigation/native";
@@ -18,6 +19,8 @@ import colors from "../../../color";
 
 const Progress = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalAddProgressVisible, setIsModalAddProgressVisible] =
+    useState(false);
   const [progressList, setProgressList] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -109,7 +112,16 @@ const Progress = () => {
         };
         setEditingIndex(null);
       } else {
-        console.log("id do contrato: ", currentContract.id,"titulo: ", title, "Description: ", description, "dateHour", dateHour);
+        console.log(
+          "id do contrato: ",
+          currentContract.id,
+          "titulo: ",
+          title,
+          "Description: ",
+          description,
+          "dateHour",
+          dateHour
+        );
         const newDateHour = new Date(dateHour).toISOString();
         const newStage = await ContratoService.addStage({
           title,
@@ -118,10 +130,12 @@ const Progress = () => {
           status: false,
           contract: { id: currentContract.id },
         });
-        console.log("Nova etapa adicionada:", newStage); 
+        console.log("Nova etapa adicionada:", newStage);
         updatedProgressList = [...progressList, newStage];
       }
-      const updatedStages = await ContratoService.getStagesByContractId(currentContract.id);
+      const updatedStages = await ContratoService.getStagesByContractId(
+        currentContract.id
+      );
       setProgressList(updatedStages);
       setIsModalVisible(false);
       setTitle("");
@@ -131,7 +145,7 @@ const Progress = () => {
       console.error("Erro ao adicionar ou editar etapa handle:", error);
     }
   };
-  
+
   const handleEditProgress = async (index) => {
     const item = progressList[index];
     setTitle(item.title);
@@ -179,57 +193,60 @@ const Progress = () => {
     <View style={styles.container}>
       <Header />
 
-      <LoadingScreen visible={loading}/>
+      <LoadingScreen visible={loading} />
       <View>
-      {loading ? ( 
-        <View style={styles.loadingContainer}>
-        </View>
-      ) : (
-        <View>
-          {!currentContract && (
-            <FlatList
-              data={contracts}
-              ListEmptyComponent={() => (
-                <View style={styles.emptyMessageContainer}>
-                  <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                  <Icon_NoContract name="frowno" size={80} color={colors.cinzaClaro}/>
-                </View>
-              )}
-              renderItem={({ item }) => (
-                <Contract
-                  contract={item}
-                  onPress={() => handleContractPress(item)}
-                />
-              )}
-              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-            />
-          )}
-
-          {currentContract && (
-            <FlatList
-              data={progressList}
-              ListEmptyComponent={() => (
-                <View style={styles.emptyMessageContainer}>
-                  <Text style={styles.emptyMessage}>
-                    Não há etapas para este contrato.
-                  </Text>
-                  <Icon_Question
-                    name="question"
-                    size={120}
-                    color={colors.cinzaClaro}
+        {loading ? (
+          <View style={styles.loadingContainer}></View>
+        ) : (
+          <View>
+            {!currentContract && (
+              <FlatList
+                data={contracts}
+                ListEmptyComponent={() => (
+                  <View style={styles.emptyMessageContainer}>
+                    <Text style={styles.emptyMessage}>Não há contratos.</Text>
+                    <Icon_NoContract
+                      name="frowno"
+                      size={80}
+                      color={colors.cinzaClaro}
+                    />
+                  </View>
+                )}
+                renderItem={({ item }) => (
+                  <Contract
+                    contract={item}
+                    onPress={() => handleContractPress(item)}
                   />
-                </View>
-              )}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => handleStagePress(item)}
-                ></TouchableOpacity>
-              )}
-              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-            />
-          )}
-        </View>
-      )}
+                )}
+                keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+              />
+            )}
+
+            {currentContract && (
+              <FlatList
+                data={progressList}
+                ListEmptyComponent={() => (
+                  <View style={styles.emptyMessageContainer}>
+                    <Text style={styles.emptyMessage}>
+                      Não há etapas para este contrato.
+                    </Text>
+                    <Icon_Question
+                      name="question"
+                      size={120}
+                      color={colors.cinzaClaro}
+                    />
+                  </View>
+                )}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    onPress={() => handleStagePress(item)}
+                  ></TouchableOpacity>
+                )}
+                keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+              />
+            )}
+          </View>
+        )}
       </View>
 
       <ModalProgress
@@ -244,6 +261,11 @@ const Progress = () => {
         dateHour={dateHour}
         setDateHour={setDateHour}
         currentContractId={currentContractId}
+      />
+
+      <ModalAddContract
+        visible={isModalAddProgressVisible}
+        onClose={() => setIsModalAddProgressVisible(false)}
       />
 
       <ModalConfirmacao
@@ -271,6 +293,15 @@ const Progress = () => {
             <Icon_Back name="arrow-back" size={40} color={"#000"} />
           </TouchableOpacity>
         )}
+        <TouchableOpacity
+          style={styles.btnAdd}
+          title="Adicionar"
+          onPress={() => setIsModalAddProgressVisible(true)}
+          testID={"add-Button"}
+        >
+          <Icon_Plus name="plus" size={60} color={colors.contract} />
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.btnAdd}
           title="Adicionar"

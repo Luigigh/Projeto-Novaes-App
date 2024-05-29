@@ -11,6 +11,7 @@ import Contract from "../../../components/Contract";
 import RenderStage from "../../../components/RenderStageClient"
 import styles from "./Styles";
 import colors from "../../../color";
+import { userLogged } from "../../../service/UserService";
 
 const ProgressClient = () => {
   progressList;
@@ -27,16 +28,17 @@ const ProgressClient = () => {
   const [navigationStack, setNavigationStack] = useState([]);
   const [currentContractId, setCurrentContractId] = useState(null);
 
+
   const route = useRoute();
 
   useEffect(() => {
     fetchContracts();
   }, []);
 
-  const fetchContracts = async (client_id) => {
-    if(client_id>0){
+  const fetchContracts = async () => {
+    if(userLogged[0].id>0){
       try {
-        const contracts = await ProgressServiceClient.getAllContratos(client_id);
+        const contracts = await ProgressServiceClient.getAllContratos(userLogged[0].id);
         console.log("Contratos do cliente: ", contracts.client_id);
         setContracts(contracts);
       } catch (error) {

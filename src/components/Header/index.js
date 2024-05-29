@@ -3,6 +3,7 @@ import styles from "./Style";
 import { useNavigation } from "@react-navigation/native";
 import { serviceLogoutMethod } from "../../service/UserService";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { pathUser } from "../../service/UserService";
 
 export default function Header() {
   const navigation = useNavigation();
@@ -34,10 +35,12 @@ export default function Header() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../../img/LogoDesenhoBranca.png")}
-        style={styles.image}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate(pathUser[0])}>
+        <Image
+          source={require("../../img/LogoDesenhoBranca.png")}
+          style={styles.image}
+        />
+      </TouchableOpacity>
       <TouchableOpacity onPress={confirmLogout}>
                  <Icon name="logout" size={35} color="#fff"/>
             </TouchableOpacity>

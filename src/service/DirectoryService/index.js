@@ -72,7 +72,7 @@ async function uploadFile(file, directoryID) {
       type: file.assets[0].mimeType
     });
     formdata.append("name", file.assets[0].name);
-    formdata.append("directoryID", 3);
+    formdata.append("directoryID", directoryID);
     formdata.append("type", file.assets[0].mimeType); 
 
     const response = await fetch(`${url}/archive`, {

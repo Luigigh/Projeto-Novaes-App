@@ -9,7 +9,6 @@ import {
   Alert
 } from "react-native";
 import styles from "./Styles";
-import { getProfilePhotoUser } from '../../service/UserService';
 
 const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) => {
   const [name, setName] = useState(initialData.name);
@@ -17,7 +16,30 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) 
   const [login, setLogin] = useState(initialData.login);
   const [enterpriseName, setEnterpriseName] = useState(initialData.entrerprise_name);
   const PlaceholderImage = require("../../img/IconProfile.png");
+
+  const profilesPhotos = [
+    require("../../img/DefaultProfilePhoto/Multiavatar-4c20efcf17464cabf8.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-88d2609dca8910ff12.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-89f075505dfe766b1e.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-a14cf2e0b1e9a13a82.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-a22f502b50d950084b.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-a460932e85bb01f49f.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-aff8351b734d0f57d5.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-dbddfc9d50e6c316b0.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-dd5be944b9c288c2e4.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-e60aa374c5e5e4f052.png"),
+    require("../../img/DefaultProfilePhoto/Multiavatar-fa144b635ab6f2a901.png"),
+
+  ];
+
   const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    if (visible) {
+      const randomIndex = Math.floor(Math.random() * profilesPhotos.length);
+      setSelectedImage(profilesPhotos[randomIndex]);
+    }
+  }, [visible]);
 
   useEffect(() => {
     setName(initialData.name);
@@ -50,7 +72,7 @@ const ModalInfoClient = ({ visible, onClose, onSubmit, onDelete, initialData }) 
         <View style={styles.subContainer}>
           <Text style={styles.titleModal}>Informações do cliente</Text>
           <Image
-            source={selectedImage ? { uri: selectedImage } : PlaceholderImage}
+            source={selectedImage ? selectedImage : PlaceholderImage}
             style={styles.imagem_perfil}
           />
           <View style={styles.containerInputs}>

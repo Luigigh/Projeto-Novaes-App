@@ -87,12 +87,14 @@ const DirectoryClient = () => {
         type: "*/*",
         copyToCacheDirectory: false,
       });
-
+      console.log(currentDirectory.id_Directory);
       if (!file.canceled) {
-        const response = await ContractService.uploadFile(file,currentDirectory);
+        const response = await ContractService.uploadFile(file,currentDirectory.id_Directory);
       } else {
         console.log("Seleção de arquivo cancelada");
       }
+
+      handleNavigateBack();
     } catch (error) {
       console.error("Erro durante o envio do arquivo:", error);
       Alert.alert("Erro", "Não foi possível enviar o arquivo.");

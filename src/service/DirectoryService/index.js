@@ -80,9 +80,9 @@ async function uploadFile(file, directoryID) {
       body: formdata
     });
 
-    const data = await response.json();
-    console.log("response -> " + JSON.stringify(data));
-    return data;
+    
+    console.log("response -> " + JSON.stringify(response));
+    return response;
   } catch (error) {
     console.error('Erro durante o upload do arquivo:', error);
   }

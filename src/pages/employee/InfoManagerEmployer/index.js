@@ -30,14 +30,16 @@ function InfoManagerEmployee({ navigation }) {
     const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
     const [idUserLogged , setIdUserLogged] = useState(0);
     const [user , setUser] = useState(initDataUser);
+    const [ profilePhotoExist , setProfilePhotoExist] = useState(false);
 
     useEffect(() => {
         async function fetchProfilePhoto() {
           const base64Image = await getProfilePhotoUser(userLogged[0].id);
           if (base64Image) {
             setSelectedImage(`data:image/png;base64,${base64Image}`);
-            setUser(userLogged[0]);
+            setProfilePhotoExist(true);
           }
+          setUser(userLogged[0]);
         }
         
         fetchProfilePhoto();
@@ -88,12 +90,17 @@ function InfoManagerEmployee({ navigation }) {
                 >
                     <View style={styles.fotoperfil}>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
-                        {selectedImage && (
-                            <Image
-                                source={{ uri: selectedImage }}
-                                style={styles.imagem_perfil}
-                            />
-                        )}
+                        {profilePhotoExist ? 
+                        <Image
+                            source={{ uri: selectedImage }}
+                            style={styles.imagem_perfil}
+                        />
+                        :
+                        <Image
+                            source={require("../../../../src/img/IconProfile.png")}
+                            style={styles.imagem_perfil}
+                        />
+                    }
                         </TouchableOpacity>
                         <View style={styles.imagem_camera}>
                             <TouchableOpacity onPress={pickImage}>

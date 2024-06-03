@@ -1,19 +1,17 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import SplashScreen from "../pages/Client/SplashScreen";
+import SplashScreen from "../pages/SplashScreen";
 import LoginScreen from "../pages/LoginPage";
-import DirectoryClient from "../pages/Client/DirctoryClient";
-import ContractList from "../pages/employee/ContractList";
-import InfoManager from "../pages/Client/InfoManager";
-import InfoManagerEmployer from "../pages/employee/InfoManagerEmployer";
-import Contacts from "../pages/Client/Contacts";
+import DirectoryClient from "../pages/Client/ListDirectoryClient";
+import ContractList from "../pages/employee/ListDirectoryEmployee";
+import InfoManager from "../pages/Client/ProfileScreenClient";
+import InfoManagerEmployer from "../pages/employee/ProfileScreenEmployee";
 import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
 import Register from "../pages/employee/Register";
-import UsersList from "../pages/employee/UsersList";
-import ClientList from "../pages/employee/ClientList";
-import EmployeeList from "../pages/Client/EmployeeList";
+import ClientList from "../pages/employee/ListClient";
+import EmployeeList from "../pages/Client/ListEmployeeClient";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();

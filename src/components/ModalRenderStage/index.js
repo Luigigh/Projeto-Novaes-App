@@ -57,60 +57,65 @@ const ModalRenderStage = ({
           item.id ? item.id.toString() : index.toString()
         }
         renderItem={({ item, index }) => (
-          <View style={styles.progressContainer}>
-            <TouchableOpacity
-              style={[
-                styles.btnClock,
-                { backgroundColor: item.status ? "#00A148" : "#007B8F" },
-              ]}
-              onPress={() => onFinishStage(item.id)}
-            >
-              {item.status ? (
-                <Icon_Check name="check" size={45} color="white" />
-              ) : (
-                <Icon_Clock name="clock" size={45} color="#FFF" />
-              )}
-            </TouchableOpacity>
+          <View style={styles.progressWrapper}>
+            <View style={styles.progressContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.btnClock,
+                  { backgroundColor: item.status ? "#00A148" : "#007B8F" },
+                ]}
+                onPress={() => onFinishStage(item.id)}
+              >
+                {item.status ? (
+                  <Icon_Check name="check" size={45} color="white" />
+                ) : (
+                  <Icon_Clock name="clock" size={45} color="#FFF" />
+                )}
+              </TouchableOpacity>
 
-            <View style={styles.content}>
-              <View style={styles.progressContent}>
-                <View style={styles.progressTitle}>
-                  <Text style={styles.title}>{` ${item.title}`}</Text>
-                </View>
-                <View style={styles.progressDescription}>
-                  <Text
-                    style={styles.description}
-                  >{` ${item.description}`}</Text>
-                </View>
-                <View style={styles.progressDate}>
-                <Icon_Date name="date" size={25} color="#007B8F" />
-                  <Text style={styles.dataFormatada}>
+              <View style={styles.content}>
+                <View style={styles.progressContent}>
+                  <View style={styles.progressTitle}>
+                    <Text style={styles.title}>{` ${item.title}`}</Text>
+                  </View>
+                  <View style={styles.progressDescription}>
+                    <Text
+                      style={styles.description}
+                    >{` ${item.description}`}</Text>
+                  </View>
+                  <View style={styles.progressDate}>
+                    <Icon_Date name="date" size={25} color="#007B8F" />
+                    <Text style={styles.dataFormatada}>
                       {` ${formatDate(item.dateHour)}`}
-                  </Text>
+                    </Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.buttons}>
-                <TouchableOpacity
-                  style={styles.btnEdit}
-                  onPress={() => {
-                    onEditProgress(index, {
-                      title: item.title,
-                      description: item.description,
-                      dateHour: item.dateHour,
-                    });
-                  }}
-                >
-                  <Icon_Edit name="pencil" size={30} color={colors.verde} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.btnDelete}
-                  onPress={() => onDeleteProgress(index)}
-                >
-                  <Icon_Trash name="trash" size={30} color={"#E56D01"} />
-                </TouchableOpacity>
+                <View style={styles.buttons}>
+                  <TouchableOpacity
+                    style={styles.btnEdit}
+                    onPress={() => {
+                      onEditProgress(index, {
+                        title: item.title,
+                        description: item.description,
+                        dateHour: item.dateHour,
+                      });
+                    }}
+                  >
+                    <Icon_Edit name="pencil" size={30} color={colors.verde} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.btnDelete}
+                    onPress={() => onDeleteProgress(index)}
+                  >
+                    <Icon_Trash name="trash" size={30} color={"#E56D01"} />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
+            {index < progressList.length - 1 && (
+              <View style={styles.line} />
+            )}
           </View>
         )}
       />

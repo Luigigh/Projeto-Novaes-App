@@ -1,21 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import styles from "./Styles";
+import { getProfilePhotoUser } from '../../service/UserService';
 
-const ModalInfoEmployee = ({ visible, onClose, onSubmit, initialData }) => {
+const ModalInfoEmployee = ({ visible, onClose, initialData }) => {
   const [name, setName] = useState(initialData.name);
-  const [lastName, setLastName] = useState(initialData.lastname);
+  const [lastname, setLastName] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
   const [office, setOffice] = useState(initialData.office);
   const PlaceholderImage = require("../../img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [profilePhotoExist, setProfilePhotoExist] = useState(false);
 
   useEffect(() => {
     setName(initialData.name);
     setLastName(initialData.lastname);
     setLogin(initialData.login);
     setOffice(initialData.office);
+
+    const fetchProfilePhoto = async () => {
+      try {
+        const base64Image = await getProfilePhotoUser(initialData.id);
+        if (base64Image) {
+          setSelectedImage(`data:image/png;base64,${base64Image}`);
+          setProfilePhotoExist(true);
+        } else {
+          setSelectedImage(null);
+          setProfilePhotoExist(false);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar a imagem do perfil:", error);
+        setSelectedImage(null);
+        setProfilePhotoExist(false);
+      }
+    };
+
+    if (initialData.id) {
+      fetchProfilePhoto();
+    }
   }, [initialData]);
+
+  const handleSubmit = async (data) => {
+    console.log("Dados a serem enviados:", data);
+    try {
+      const response = await updateEmployee(user.id, data);
+      console('Estou aqui')
+      if (response) {
+        setUser({ ...user, ...data });
+        console.log("Dados atualizados com sucesso!");
+      } else {
+        console.error("Erro ao atualizar os dados");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar dados atualizados:", error);
+    } finally {
+      closeModal();
+    }
+  };  
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
@@ -23,7 +64,7 @@ const ModalInfoEmployee = ({ visible, onClose, onSubmit, initialData }) => {
         <View style={styles.subContainer}>
           <Text style={styles.titleModal}>Informações do gestor</Text>
           <Image
-            source={selectedImage ? { uri: selectedImage } : PlaceholderImage}
+            source={profilePhotoExist ? { uri: selectedImage } : PlaceholderImage}
             style={styles.imagem_perfil}
           />
           <View style={styles.containerInputs}>
@@ -41,7 +82,7 @@ const ModalInfoEmployee = ({ visible, onClose, onSubmit, initialData }) => {
               <Text style={styles.placeInputs}>Sobrenome</Text>
               <TextInput
                 placeholder="Sobrenome"
-                value={lastName}
+                value={lastname}
                 editable={false}
                 style={styles.inputs}
               />

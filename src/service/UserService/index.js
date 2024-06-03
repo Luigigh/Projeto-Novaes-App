@@ -55,7 +55,7 @@ async function setUserLogged(user) {
     pathUser[0]= "ContractList";
     pathUser[1]= "InfoManagerEmployer";
     pathUser[2]= "ClientList";
-    pathUser[3]= "Progress";
+    pathUser[3]= "ListContractEmployee";
   }
   else{
     pathUser[0]= "DirectoryClient";
@@ -195,7 +195,7 @@ export async function getAllClients() {
 
 export async function getAllEmployee() {
   try {
-    const response = await axios.get(`${url}/employee`);
+    const response = await axios.get(`${url}/employee/getAllContacts`);
     return response.data;
   } catch (error) {
     throw error;

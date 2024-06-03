@@ -14,7 +14,7 @@ import ModalRenderStage from "../../../components/ModalRenderStage";
 import ModalAddContract from "../../../components/ModalAddContract";
 import LoadingScreen from "../../../components/Loading";
 import styles from "./Styles";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import colors from "../../../color";
 
 const Progress = () => {
@@ -33,11 +33,13 @@ const Progress = () => {
   const [navigationStack, setNavigationStack] = useState([]);
   const [currentContractId, setCurrentContractId] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation();
   const route = useRoute();
+  const { id_contract } = route.params;
 
   useEffect(() => {
-    fetchContracts();
+    fetchStages();
+    console.log("id sendo recebido: " + id_contract);
   }, []);
 
   const fetchContracts = async () => {
@@ -48,6 +50,13 @@ const Progress = () => {
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
     }
+  };
+
+  const fetchStages = async () => {
+    setLoading(true);
+    const stages = await ContratoService.getStagesByContractId(id_contract);
+    setLoading(false);
+    setProgressList(stages);
   };
 
   const handleContractPress = async (selectedContract) => {
@@ -67,41 +76,20 @@ const Progress = () => {
   };
 
   const handleNavigateBack = async () => {
-    try {
-      if (navigationStack.length > 1) {
-        const previousContract = navigationStack[navigationStack.length - 2];
-        const stages = await ContratoService.getStagesByContractId(
-          previousContract.id
-        );
-        setProgressList(stages);
-        setNavigationStack(navigationStack.slice(0, -1));
-        setCurrentContract(previousContract);
-      } else {
-        setCurrentContract(null);
-        setProgressList([]);
-        setNavigationStack([]);
-      }
-    } catch (error) {
-      console.error("Erro ao navegar de volta:", error);
-    }
+    console.log("Funcao chamada");
+    navigation.navigate("ListContractEmployee");
   };
 
   const handleAddProgress = async () => {
-    if (!title || !description || !dateHour || !currentContract) {
-      console.error(
-        "Todos os campos devem ser preenchidos e um contrato deve ser selecionado."
-      );
-      return;
-    }
     try {
       let updatedProgressList;
       if (editingIndex !== null) {
-        console.log("Editing id do contrato: ", currentContract.id);
+        console.log("Editing id do contrato: ", id_contract);
         await ContratoService.editStage(progressList[editingIndex].id, {
           title,
           description,
           dateHour: new Date(dateHour).toISOString(),
-          contract: { id: currentContract.id },
+          contract: { id: id_contract },
         });
         updatedProgressList = [...progressList];
         updatedProgressList[editingIndex] = {
@@ -114,7 +102,7 @@ const Progress = () => {
       } else {
         console.log(
           "id do contrato: ",
-          currentContract.id,
+          id_contract,
           "titulo: ",
           title,
           "Description: ",
@@ -128,13 +116,13 @@ const Progress = () => {
           description,
           dateHour: newDateHour,
           status: false,
-          contract: { id: currentContract.id },
+          contract: { id: id_contract },
         });
         console.log("Nova etapa adicionada:", newStage);
         updatedProgressList = [...progressList, newStage];
       }
       const updatedStages = await ContratoService.getStagesByContractId(
-        currentContract.id
+        id_contract
       );
       setProgressList(updatedStages);
       setIsModalVisible(false);
@@ -199,29 +187,6 @@ const Progress = () => {
           <View style={styles.loadingContainer}></View>
         ) : (
           <View>
-            {!currentContract && (
-              <FlatList
-                data={contracts}
-                ListEmptyComponent={() => (
-                  <View style={styles.emptyMessageContainer}>
-                    <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                    <Icon_NoContract
-                      name="frowno"
-                      size={80}
-                      color={colors.cinzaClaro}
-                    />
-                  </View>
-                )}
-                renderItem={({ item }) => (
-                  <Contract
-                    contract={item}
-                    onPress={() => handleContractPress(item)}
-                  />
-                )}
-                keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-              />
-            )}
-
             {currentContract && (
               <FlatList
                 data={progressList}
@@ -288,20 +253,12 @@ const Progress = () => {
       />
 
       <View style={styles.addButton}>
-        {currentContract && (
-          <TouchableOpacity style={styles.btnBack} onPress={handleNavigateBack}>
-            <Icon_Back name="arrow-back" size={40} color={"#000"} />
-          </TouchableOpacity>
-        )}
         <TouchableOpacity
-          style={styles.btnAdd}
-          title="Adicionar"
-          onPress={() => setIsModalAddProgressVisible(true)}
-          testID={"add-Button"}
+          onPress={() => handleNavigateBack()}
+          style={styles.btnBack}
         >
-          <Icon_Plus name="plus" size={60} color={colors.contract} />
+          <Icon_Back name={"arrow-back"} size={35} />
         </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.btnAdd}
           title="Adicionar"

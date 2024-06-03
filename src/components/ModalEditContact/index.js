@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./Styles";
 
 const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
-  const [lastName, setLastName] = useState(initialData.lastName);
-  const [email, setEmail] = useState(initialData.email);
-  const [cargo, setCargo] = useState(initialData.cargo);
+  const [lastName, setLastName] = useState(initialData.lastname);
+  const [login, setLogin] = useState(initialData.login);
+  const [office, setOffice] = useState(initialData.office);
+
+  useEffect(() => {
+    setName(initialData.name);
+    setLastName(initialData.lastname);
+    setLogin(initialData.login);
+    setOffice(initialData.office);
+  }, [initialData]);
 
   const handleSubmit = () => {
-    onSubmit({ name, lastName, email, cargo });
+    onSubmit({ name, lastName, login, office });
     onClose();
   };
 
@@ -33,16 +40,11 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
             />
             <TextInput
               placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
+              value={login}
+              onChangeText={setLogin}
               style={styles.inputs}
             />
-            <TextInput
-              placeholder="Cargo"
-              value={cargo}
-              onChangeText={setCargo}
-              style={styles.inputs}
-            />
+            <Text style={styles.inputOffice}>{office}</Text>
             <View style={styles.buttons}>
               <TouchableOpacity onPress={handleSubmit} style={styles.btnEnviar}>
                 <Text style={styles.txtButton}>Enviar</Text>

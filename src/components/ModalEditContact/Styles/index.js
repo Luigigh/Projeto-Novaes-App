@@ -19,39 +19,48 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   titleModal: {
-    fontSize: 20,
+    fontSize: 22,
     color: '#083C52',
-    marginBottom: 10,
+    marginBottom: 20,
+    fontWeight: '500'
   },
   inputs: {
     borderBottomWidth: 1,
-    marginBottom: 10,
-    fontSize: 15,
+    marginBottom: 15,
+    fontSize: 18,
+    color: 'black',
+  },
+  inputOffice: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#a1a1a1',
+    color: '#a1a1a1',
+    marginBottom: 15,
+    fontSize: 18,
   },
   buttons: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: 20,
   },
   btnEnviar: {
     backgroundColor: "#00A148",
     color: "white",
     borderRadius: 5,
-    padding: 5,
+    padding: 7,
     marginHorizontal: 5,
   },
   btnCancelar: {
     backgroundColor: "#E56D01",
     borderRadius: 5,
-    padding: 5,
+    padding: 7,
     fontSize: 15,
     marginHorizontal: 5,
   },
   txtButton: {
     color: "white",
-    fontSize: 15,
+    fontSize: 17,
   },
 });
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Alert } from "react-native";
 
 let ImageList = [];
 const url = process.env.EXPO_PUBLIC_API_URL;
@@ -66,5 +67,33 @@ export const saveProfilePhoto = async (photo, id) => {
   } catch (error) {
     console.error('Erro ao salvar a foto de perfil:', error);
     throw error;
+  }
+};
+
+export const updateEmployee = async (userId, data) => {
+  try {
+    console.log("Enviando dados para atualização:", data);
+    const response = await axios.put(`${url}/employee/${userId}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log("Resposta:", response.data);
+    if(response) {
+      Alert.alert(
+        "Alteração feita!",
+        "Se não mostrar a alteração, saia e entre novamente no aplicativo.",
+        [
+          {
+            text: "Fechar",
+            style: "cancel",
+          },
+        ]
+      );
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar os dados do funcionário:", error.response?.data || error.message);
+    return null;
   }
 };

@@ -123,6 +123,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: "center",
   },
+  line: {
+    height: 2,
+    backgroundColor: colors.verde, // ou a cor que você deseja para a linha
+    marginVertical: 10, // ajuste conforme necessário
+    alignSelf: 'stretch',
+  },
 });
 
 export default styles;

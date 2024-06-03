@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     color: '#083C52',
     fontWeight: "500",
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#083C52',
     width: '100%'
   },

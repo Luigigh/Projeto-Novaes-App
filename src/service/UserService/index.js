@@ -8,26 +8,24 @@ export const pathUser = [];
 
 export async function serviceLoginMethod(username, password) {
   try {
-    const response = await axios.post(
+    const  response = await axios.post(
       `${url}/auth/login`,
       `login=${username}&password=${password}&remember-me=`,
       {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       }
     );
-
     if (response.status === 200) {
       console.log("response: ", response.data);
         const user = await findUserById(response.data);
         await setUserLogged(user);
-        console.log("usuario dps de logar: "+JSON.stringify(userLogged))
       return true;
     } else {
       console.log("response: ", response);
       return false;
     }
   } catch (error) {
-    console.log("error: ", error);
+    console.log("error em login: ", error);
   }
 
   return null;
@@ -48,7 +46,9 @@ async function setUserLogged(user) {
     userLogged[0].office = employeeDetails.office;
   } else if (user.role === "USER") {
     const clientDetails = await getClientDetails(user.id);
+    console.log(JSON.stringify(clientDetails))
     userLogged[0].entrerprise_name = clientDetails.entrerprise_name;
+    userLogged[0].references_directory = clientDetails.references_directory;
   }
 
   if(user.role === "ADMIN"){

@@ -19,8 +19,7 @@ import colors from "../../../color";
 
 const Progress = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModalAddProgressVisible, setIsModalAddProgressVisible] =
-    useState(false);
+  const [isModalAddProgressVisible, setIsModalAddProgressVisible]=useState(false);
   const [progressList, setProgressList] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -44,16 +43,6 @@ const Progress = () => {
     })();
     }, []));
 
-  const fetchContracts = async () => {
-    try {
-      const contractsData = await ContratoService.getAllContratos();
-      setContracts(contractsData);
-      setLoading(false);
-    } catch (error) {
-      console.error("Erro ao buscar contratos:", error);
-    }
-  };
-
   const fetchStages = async () => {
     setLoading(true);
     const stages = await ContratoService.getStagesByContractId(id_contract);
@@ -61,24 +50,7 @@ const Progress = () => {
     setProgressList(stages);
   };
 
-  const handleContractPress = async (selectedContract) => {
-    try {
-      setCurrentContract(selectedContract);
-      setCurrentContractId(selectedContract.id);
-      setLoading(true);
-      const stages = await ContratoService.getStagesByContractId(
-        selectedContract.id
-      );
-      setLoading(false);
-      setProgressList(stages);
-      setNavigationStack([selectedContract]);
-    } catch (error) {
-      console.error("Erro ao carregar etapas do contrato:", error);
-    }
-  };
-
   const handleNavigateBack = async () => {
-    console.log("Funcao chamada");
     navigation.navigate("ListContractEmployee");
   };
 
@@ -189,28 +161,28 @@ const Progress = () => {
           <View style={styles.loadingContainer}></View>
         ) : (
           <View>
-            {currentContract && (
+            {progressList && (
               <FlatList
-                data={progressList}
-                ListEmptyComponent={() => (
-                  <View style={styles.emptyMessageContainer}>
-                    <Text style={styles.emptyMessage}>
-                      Não há etapas para este contrato.
-                    </Text>
-                    <Icon_Question
-                      name="question"
-                      size={120}
-                      color={colors.cinzaClaro}
-                    />
-                  </View>
-                )}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() => handleStagePress(item)}
-                  ></TouchableOpacity>
-                )}
-                keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-              />
+              data={progressList}
+              ListEmptyComponent={() => (
+                <View style={styles.emptyMessageContainer}>
+                  <Text style={styles.emptyMessage}>
+                    Não há etapas para este contrato.
+                  </Text>
+                  <Icon_Question
+                    name="question"
+                    size={120}
+                    color={colors.cinzaClaro}
+                  />
+                </View>
+              )}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => handleStagePress(item)}
+                ></TouchableOpacity>
+              )}
+              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+            />
             )}
           </View>
         )}

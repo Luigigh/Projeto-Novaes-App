@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../../../color'
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
   },
   imagem_camera: {
     borderRadius: 100,
-    backgroundColor: "#E56D01",
+    backgroundColor: colors.verde,
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   btn_editarContato: {
-    backgroundColor: '#E56D01',
+    backgroundColor: colors.verde,
     borderRadius: 150,
     padding: 3,
     position: 'absolute',

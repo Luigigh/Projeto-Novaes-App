@@ -13,7 +13,12 @@ const colors ={
     contract:'#555555',
     file:'#F8D775',
     contract:'#B3DFE7',
-    contractComponent: '#0D3444'
+    contractComponent: '#0D3444',
+
+    verde_claro1:'#2CA060',
+    laranja1:'#C06F26',
+    folder1:'#F4CC53',
+    azul_claro1: '#27A9BE',
 }
 
 export default colors;

@@ -14,15 +14,15 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.laranja,
+        backgroundColor: '#ededed',
         alignItems:'center',
         justifyContent:'center'
     },
     btnNotSelected:{
-        width:70,
-        height:70,
+        width:60,
+        height:60,
         borderRadius:50,
-        backgroundColor:colors.primary,
+        backgroundColor:colors.azu,
         alignItems:'center',
         justifyContent:'center'
     }

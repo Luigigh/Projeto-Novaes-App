@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import Footer from "../../../components/Footer";
 import { LinearGradient } from "expo-linear-gradient";
 import RegisterService from "../../../service/RegisterService";
 import RNPickerSelect from "react-native-picker-select";
+import DirectoryService from "../../../service/DirectoryService";
 
 export default function Register() {
   const navigation = useNavigation();
@@ -20,6 +21,26 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [pickerItems, setPickerItems] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const createPickerItems = (directoryNames) => {
+    return directoryNames.map(name => ({ label: name, value: name }));
+  };
+
+  useEffect(() => {
+    const fetchDirectoryNames = async () => {
+        const directoryNames = await DirectoryService.getDirectoryNames();
+        console.log("nomes: "+JSON.stringify(directoryNames))
+        if (directoryNames) {
+            const items = createPickerItems(directoryNames);
+            setPickerItems(items);
+        }
+    };
+
+    fetchDirectoryNames();
+}, []);
+
 
   const handleRegister = async () => {
     if (senha !== confirmarSenha) {
@@ -189,7 +210,8 @@ export default function Register() {
                 />
               </View>
             ) : (
-              <TextInput
+              <View>
+                <TextInput
                 style={styles.input}
                 placeholder="Nome da Empresa"
                 value={nomeEmpresa}
@@ -197,6 +219,14 @@ export default function Register() {
                 placeholderTextColor={'#6B6D71'}
                 fontSize={15}
               />
+
+              <RNPickerSelect
+                style={styles.picker}
+                onValueChange={(value) => setSelectedValue(value)}
+                items={pickerItems}
+                placeholder={{ label: "Selecione um Diretório:", value: null }}
+            />
+              </View>
             )}
 
             <TextInput

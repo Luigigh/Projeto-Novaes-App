@@ -2,7 +2,7 @@ import axios from "axios";
 import * as FileSystem from 'expo-file-system';
 const url = process.env.EXPO_PUBLIC_API_URL;
 
-const fetchDirectories = async (parentDirectoryId = null) => {
+const fetchDirectories = async (parentDirectoryId) => {
   try {
     const response = await axios.get(`${url}/archive/directory`, {
       params: {
@@ -21,6 +21,37 @@ const fetchDirectories = async (parentDirectoryId = null) => {
     return [];
   }
 };
+
+const fetchDirectoriesClient = async (parentDirectoryId) => {
+  try {
+    const response = await axios.get(`${url}/archive/directory/${parentDirectoryId}`);
+    
+    if (response.data) {
+      return response.data;
+    } else {
+      console.log("Nenhuma pasta encontrada na resposta da API.");
+      return [];
+    }
+  } catch (error) {
+    console.error("Erro ao buscar diretórios:", error);
+    return [];
+  }
+};
+
+const getDirectoryNames = async () => {
+  try {
+      const response = await axios.get(`${url}/archive/directory/getNameDirectoryInRoot`);
+      if (!response.ok) {
+          console.log("Erro na requisição")
+      }
+      return response.data;
+  } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+  }
+};
+
+
+
 
 const fetchFiles = async (id_directory) => {
   console.log(id_directory);
@@ -115,4 +146,4 @@ const updateFolder = async (folderId, folderName) => {
   }
 };
 
-export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile};
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile , fetchDirectoriesClient , getDirectoryNames};

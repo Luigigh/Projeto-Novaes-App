@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, FlatList, Text } from "react-native";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FolderClient from "../../../components/FolderClient";
 import FileItem from "../../../components/FileItem";
 import ContractService from "../../../service/DirectoryService";
-import { useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 import Icon_UploadFile from "react-native-vector-icons/Feather";
 import Icon_Back from "react-native-vector-icons/Ionicons";
 import Icon_EmptyFolder from "react-native-vector-icons/Ionicons";
@@ -13,6 +13,7 @@ import Icon_EmptyFile from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./Styles";
 import colors from "../../../color";
 import { getDocumentAsync } from "expo-document-picker";
+import { userLogged } from "../../../service/UserService";
 
 
 
@@ -24,9 +25,13 @@ const DirectoryClient = () => {
   
   const route = useRoute();
 
-  useEffect(() => {
-    fetchDirectories();
-  }, []);
+  useFocusEffect(useCallback(() => {
+    (async() => {
+      console.log("id referencia: " + userLogged[0].references_directory)
+      fetchDirectories(userLogged[0].references_directory);
+      
+    })();
+    }, []));
 
   useEffect(() => {
     if (currentDirectory) {
@@ -34,9 +39,11 @@ const DirectoryClient = () => {
     }
   }, [currentDirectory]);
 
-  const fetchDirectories = async (parentDirectoryId = null) => {
+  const fetchDirectories = async (parentDirectoryId) => {
+
     try {
-      const response = await ContractService.fetchDirectories(
+      console.log("parent directory:"+parentDirectoryId)
+      const response = await ContractService.fetchDirectoriesClient(
         parentDirectoryId
       );
       setFolders(response);

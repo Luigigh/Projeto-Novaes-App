@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 // import Icon_Contacts from "react-native-vector-icons/MaterialIcons";
 import Icon_AddUser from "react-native-vector-icons/Ionicons";
-import Icon_Home from "react-native-vector-icons/Entypo";
+import Icon_Home from "react-native-vector-icons/Ionicons";
 import Icon_Timeline from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon_InfoManager from "react-native-vector-icons/FontAwesome";
-import Icon_List from "react-native-vector-icons/FontAwesome6";
+import Icon_List from "react-native-vector-icons/FontAwesome";
 import styles from "./Styles";
 import { useNavigation } from "@react-navigation/native";
 import { userLogged , pathUser} from "../../service/UserService";
+import colors from "../../color";
 
 export default function Footer({ routeSelected }) {
   const [ifHomeSelected, setIfHomeSelected] = useState(false);
@@ -39,7 +40,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[2]);
         }}
       >
-        <Icon_List name="list" size={35} color={"#fff"} />
+        <Icon_List name="users" size={35} color={colors.laranja1} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -48,7 +49,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[0]);
         }}
       >
-        <Icon_Home name="home" size={35} color={"#fff"} />
+        <Icon_Home name="folder-open-sharp" size={35} color={colors.folder1} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -57,7 +58,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[3]);
         }}
       >
-        <Icon_Timeline name="timeline-clock" size={35} color={"#fff"} />
+        <Icon_Timeline name="timeline-clock" size={35} color={colors.azul_claro1} />
       </TouchableOpacity>
       <TouchableOpacity
         style={
@@ -70,7 +71,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[1]);
         }}
       >
-        <Icon_InfoManager name="user" size={35} color={"#fff"} />
+        <Icon_InfoManager name="user" size={35} color={colors.verde_claro} />
       </TouchableOpacity>
     </View>
   );

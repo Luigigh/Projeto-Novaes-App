@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: '#083C52',
   },
   btnAdd: {
-    backgroundColor: colors.laranja,
+    backgroundColor: colors.secondary,
     borderRadius: 50,
     padding: 15,
     alignItems: 'center',

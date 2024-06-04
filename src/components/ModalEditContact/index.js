@@ -4,19 +4,19 @@ import styles from "./Styles";
 
 const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
-  const [lastName, setLastName] = useState(initialData.lastname);
+  const [lastname, setLastname] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
   const [office, setOffice] = useState(initialData.office);
 
   useEffect(() => {
     setName(initialData.name);
-    setLastName(initialData.lastname);
+    setLastname(initialData.lastname);
     setLogin(initialData.login);
     setOffice(initialData.office);
   }, [initialData]);
 
   const handleSubmit = () => {
-    onSubmit({ name, lastName, login, office });
+    onSubmit({ name, lastname, login, office });
     onClose();
   };
 
@@ -34,8 +34,8 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
             />
             <TextInput
               placeholder="Sobrenome"
-              value={lastName}
-              onChangeText={setLastName}
+              value={lastname}
+              onChangeText={setLastname}
               style={styles.inputs}
             />
             <TextInput

@@ -67,17 +67,19 @@ export default function Register() {
           ]
         );
       } catch (error) {
+        if (error == 400 || error == 'AxiosError: Request failed with status code 400') {
+          Alert.alert(
+            "Erro ao cadastrar!",
+            `O email já está cadastrado.`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          )
+        }
         console.error("Erro ao cadastrar usuário:", error);
-        Alert.alert(
-          "Erro no sistema!",
-          `Erro ao cadastrar funcionário. Tente novamente mais tarde.`,
-          [
-            {
-              text: "Fechar",
-              style: "cancel",
-            },
-          ]
-        );
       }
     } else {
       userData = {
@@ -101,17 +103,19 @@ export default function Register() {
           ]
         );
       } catch (error) {
+        if (error == 400 || error == 'AxiosError: Request failed with status code 400') {
+          Alert.alert(
+            "Erro ao cadastrar!",
+            `O email já está cadastrado.`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          )
+        }
         console.error("Erro ao cadastrar cliente:", error);
-        Alert.alert(
-          "Erro no sistema!",
-          `Erro ao cadastrar cliente. Tente novamente mais tarde.`,
-          [
-            {
-              text: "Fechar",
-              style: "cancel",
-            },
-          ]
-        );
       }
     }
   };

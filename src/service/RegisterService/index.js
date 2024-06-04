@@ -9,6 +9,18 @@ const RegisterService = {
       const response = await axios.post(`${url}/employee`, userData);
       return response.data;
     } catch (error) {
+      if (error === 400){
+        Alert.alert(
+          "Erro ao cadastrar!",
+          `O email já está cadastrado.`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
+        )
+      }
       console.error("Erro ao adicionar funcionário:", error);
       throw error;
     }
@@ -21,6 +33,18 @@ const RegisterService = {
       
       return response.data;
     } catch (error) {
+      if (error === 400){
+        Alert.alert(
+          "Erro ao cadastrar!",
+          `O email já está cadastrado.`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]
+        )
+      }
       console.error("Erro ao adicionar cliente:", error);
       throw error;
     }

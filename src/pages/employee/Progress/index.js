@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
@@ -14,7 +14,7 @@ import ModalRenderStage from "../../../components/ModalRenderStage";
 import ModalAddContract from "../../../components/ModalAddContract";
 import LoadingScreen from "../../../components/Loading";
 import styles from "./Styles";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import colors from "../../../color";
 
 const Progress = () => {
@@ -37,10 +37,12 @@ const Progress = () => {
   const route = useRoute();
   const { id_contract } = route.params;
 
-  useEffect(() => {
-    fetchStages();
-    console.log("id sendo recebido: " + id_contract);
-  }, []);
+  useFocusEffect(useCallback(() => {
+    (async() => {
+      fetchStages();
+      console.log("id sendo recebido: " + id_contract);
+    })();
+    }, []));
 
   const fetchContracts = async () => {
     try {
@@ -169,10 +171,10 @@ const Progress = () => {
         }
       });
       setProgressList(updatedProgressList);
-      console.log("Etapa concluída com sucesso!");
-      fetchContracts();
+      console.log("Etapa alterada com sucesso!");
+      fetchStages();
     } catch (error) {
-      console.error("Erro ao concluir a etapa:", error);
+      console.error("Erro ao alterar status da etapa:", error);
     }
     setConfirmModalVisible(false);
   };

@@ -23,12 +23,10 @@ export default function Footer({ routeSelected }) {
     console.log("Route selected: " + routeSelected);
 
     setIfHomeSelected(routeSelected === "ContractList" || routeSelected === "DirectoryClient");
-    setIfProgressSelected(routeSelected === "ProgressClient" || routeSelected === "Progress");
+    setIfProgressSelected(routeSelected === "ProgressClient" || routeSelected === "ListContractEmployee" || routeSelected === "Progress");
     setIfInfoManagerEmployeeSelected(routeSelected === "InfoManagerEmployer" || routeSelected === "InfoManager");
     setIfClientListSelected(routeSelected === "ClientList" || routeSelected === "EmployeeList");
     setProfileScreen(userLogged[1]);
-
-    
 
     console.log("Array setado para os caminhos: " + pathUser);
   }, [routeSelected]);

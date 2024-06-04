@@ -82,7 +82,7 @@ export const updateEmployee = async (userId, data) => {
     if(response) {
       Alert.alert(
         "Alteração feita!",
-        "Se não mostrar a alteração, saia e entre novamente no aplicativo.",
+        "Caso não seja alterado em imediato, saia e entre novamente no aplicativo.",
         [
           {
             text: "Fechar",

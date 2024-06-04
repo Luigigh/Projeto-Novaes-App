@@ -50,7 +50,7 @@ const ListContractEmployee = () => {
       console.log("teste")
       console.log(JSON.stringify(contractsData))
       setContracts(contractsData);
-      console.log(contracts)
+      console.log("contratos:"+JSON.stringify(contracts))
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
@@ -59,38 +59,9 @@ const ListContractEmployee = () => {
 
   const handleContractPress = async (selectedContract) => {
     try {
-      setCurrentContract(selectedContract);
-      setCurrentContractId(selectedContract.id);
-      setLoading(true);
-      const stages = await ContratoService.getStagesByContractId(
-        selectedContract.id
-      );
-      setLoading(false);
-      setProgressList(stages);
-      setNavigationStack([selectedContract]);
       navigation.navigate('Progress', { id_contract: selectedContract.id });
     } catch (error) {
       console.error("Erro ao carregar etapas do contrato:", error);
-    }
-  };
-
-  const handleNavigateBack = async () => {
-    try {
-      if (navigationStack.length > 1) {
-        const previousContract = navigationStack[navigationStack.length - 2];
-        const stages = await ContratoService.getStagesByContractId(
-          previousContract.id
-        );
-        setProgressList(stages);
-        setNavigationStack(navigationStack.slice(0, -1));
-        setCurrentContract(previousContract);
-      } else {
-        setCurrentContract(null);
-        setProgressList([]);
-        setNavigationStack([]);
-      }
-    } catch (error) {
-      console.error("Erro ao navegar de volta:", error);
     }
   };
 
@@ -135,16 +106,6 @@ const ListContractEmployee = () => {
     setTime(item.time);
     setEditingIndex(index);
     setIsModalVisible(true);
-  };
-
-  const handleDeleteProgress = async (index) => {
-    try {
-      await ContratoService.deleteStage(progressList[index].id);
-      const updatedProgressList = progressList.filter((_, i) => i !== index);
-      setProgressList(updatedProgressList);
-    } catch (error) {
-      console.error("Erro ao deletar a etapa:", error);
-    }
   };
 
   const handleFinishStage = async (stageId) => {

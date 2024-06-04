@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import { format } from "date-fns";
 import Icon_Edit from "react-native-vector-icons/FontAwesome";
 import Icon_Trash from "react-native-vector-icons/Entypo";
@@ -106,16 +106,29 @@ const ModalRenderStage = ({
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.btnDelete}
-                    onPress={() => onDeleteProgress(index)}
+                    onPress={() => Alert.alert(
+                      "Deseja Excluir esta Etapa?",
+                      "AVISO: Será excluída permanentemente!",
+                      [
+                        {
+                          text:"Cancelar",
+                          style:"cancel"
+                        },
+                        {
+                          text:"Excluir",
+                          onPress: () => {
+                            onDeleteProgress(index);},
+                          style:"destructive"
+                        }
+                      ]
+                    
+                    )}
                   >
                     <Icon_Trash name="trash" size={30} color={"#E56D01"} />
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
-            {index < progressList.length - 1 && (
-              <View style={styles.line} />
-            )}
           </View>
         )}
       />

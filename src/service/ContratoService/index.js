@@ -11,6 +11,23 @@ const ContratoService = {
     }
   },
 
+  editContractById: async (contractId, contractData) =>{
+    try{
+      const response = await axios.put(`${url}/contract/${contractId}`, contractData);
+      return response.data;
+    }catch(error){
+      console.log("Erro ao editar contrato requisição: ", error);
+    }
+  },
+
+  deleteContractById: async (contractId) => {
+    try{
+      const response = await axios.delete(`${url}/contract/${contractId}`);
+      return response.data;
+    }catch(error){
+      console.log("Erro ao deletar Contrato Requisição: ", error);
+    }
+  },
 
   getStagesByContractId: async (contractId) => {
     try {

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../../color'
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +18,13 @@ const styles = StyleSheet.create({
   },
   containerInputs:{
     width: "90%",
+  },
+  conjuntoInputs: {
+    position: 'relative'
+  },
+  contInput: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   titleModal: {
     fontSize: 25,
@@ -48,6 +56,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  btnEdit: {
+    backgroundColor: colors.verde,
+    borderRadius: 100,
+    padding: 2,
+    position: 'absolute',
+    bottom: 30,
+    right: 0
   },
   btnOk: {
     backgroundColor: '#083C52',

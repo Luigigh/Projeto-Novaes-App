@@ -1,4 +1,5 @@
 import axios from "axios";
+import { id } from "date-fns/locale";
 import * as FileSystem from 'expo-file-system';
 const url = process.env.EXPO_PUBLIC_API_URL;
 
@@ -21,6 +22,18 @@ const fetchDirectories = async (parentDirectoryId) => {
     return [];
   }
 };
+
+const getNameOfDirectoryById = async(id_directory) => {
+  console.log("id sendo recebido na requisiçao: "+id_directory);
+  try{
+    const response = await axios.get(`${url}/archive/directory/getNameOfDirectoryById/${id_directory}`);
+    console.log(response.data);
+    return response.data
+    
+  }catch ( error ){
+    console.log(JSON.stringify(error))
+  }
+}
 
 const fetchDirectoriesClient = async (parentDirectoryId) => {
   try {
@@ -146,4 +159,4 @@ const updateFolder = async (folderId, folderName) => {
   }
 };
 
-export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile , fetchDirectoriesClient , getDirectoryNames};
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile , fetchDirectoriesClient , getDirectoryNames , getNameOfDirectoryById};

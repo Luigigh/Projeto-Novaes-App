@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import Icon_Folder from "react-native-vector-icons/Ionicons";
-import Icon_Edit from "react-native-vector-icons/AntDesign";
+import Icon_Edit from "react-native-vector-icons/FontAwesome";
 import Icon_Delete from "react-native-vector-icons/Entypo";
 import Icon_Options from "react-native-vector-icons/SimpleLineIcons";
 import styles from "./Styles";
 import colors from "../../color";
+
 
 const FolderItem = ({
   folder,
@@ -18,6 +19,7 @@ const FolderItem = ({
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
+  
 
   return (
     <View style={styles.container}>
@@ -41,7 +43,7 @@ const FolderItem = ({
               toggleOptions();
             }}
           >
-            <Icon_Edit name="edit" size={25} color={colors.branco} />
+            <Icon_Edit name="pencil" size={25} color={colors.branco} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.ButtonDelete}

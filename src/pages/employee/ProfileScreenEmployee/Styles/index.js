@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     paddingBottom: 70,
   },
   imagem_perfil: {
-    width: 150,
-    height: 150,
+    width: 160,
+    height: 160,
     borderRadius: 100,
     position: "relative",
   },
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   btn_editarContato: {
+    height: 35,
+    width: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.verde,
     borderRadius: 150,
     padding: 3,

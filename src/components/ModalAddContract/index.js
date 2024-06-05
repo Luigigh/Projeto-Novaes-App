@@ -13,6 +13,7 @@ const ModalAddContract = ({
   setTitle,
   email,
   setEmail,
+  contract
 }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [time, setTime] = useState(0);
@@ -31,22 +32,23 @@ const ModalAddContract = ({
   };
 
   const handleAddContract = async () => {
-    console.log("data hora em hanlde for add-> "+time);
+    console.log("data hora em hanlde for add-> " + time);
     try {
       const newContractData = {
         title: title,
-        concluded: false, 
+        concluded: false,
         time: time,
         client: {
-          login: email
-        }
+          login: email,
+        },
       };
-  
+
+      
       const newContract = await ContratoService.addContract(newContractData);
       console.log("Novo contrato adicionado:", newContract);
-      setTitle("")
-      setEmail("")
-      setTime("")
+      setTitle("");
+      setEmail("");
+      setTime("");
       onClose();
     } catch (error) {
       console.error("Erro ao adicionar contrato:", error);

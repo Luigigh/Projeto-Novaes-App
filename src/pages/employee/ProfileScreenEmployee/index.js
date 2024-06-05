@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import IconCamera from "react-native-vector-icons/Entypo";
-import IconPencil from "react-native-vector-icons/MaterialCommunityIcons";
+import IconPencil from "react-native-vector-icons/FontAwesome";
 import styles from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";

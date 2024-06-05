@@ -157,6 +157,10 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     borderWidth: 1.5,
   },
+  containerSelectClient:{
+    width:300,
+    marginLeft:55
+  }
 });
 
 export default styles;

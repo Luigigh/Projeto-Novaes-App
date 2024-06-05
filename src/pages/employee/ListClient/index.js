@@ -8,7 +8,8 @@ import IconSearch from "react-native-vector-icons/FontAwesome";
 import Icon_AddUser from "react-native-vector-icons/Ionicons";
 import colors from "../../../color";
 import ModalInfoClient from "../../../components/ModalInfoClient";
-import { getAllClients, getClientDetails, deleteClient } from "../../../service/UserService";
+import ModalEditClient from "../../../components/ModalEditClient";
+import { getAllClients, getClientDetails, deleteClient, editClient } from "../../../service/UserService";
 
 const ClientList = () => {
   const route = useRoute();
@@ -16,6 +17,8 @@ const ClientList = () => {
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [modalVisibleEdit, setModalVisibleEdit] = useState(false);
+  const [editClientData, setEditClientData] = useState(null);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const navigator = useNavigation();
 
   useEffect(() => {
@@ -34,7 +37,6 @@ const ClientList = () => {
   const fetchClientDetails = async (id) => {
     try {
       const clientDetails = await getClientDetails(id);
-      console.log("Detalhes do cliente:", clientDetails);
       setSelectedClient(clientDetails);
       setModalVisibleEdit(true);
     } catch (error) {
@@ -57,11 +59,23 @@ const ClientList = () => {
   const closeModal = () => {
     setModalVisibleEdit(false);
     setSelectedClient(null);
+    setEditModalVisible(false); // Ensure the edit modal is closed
   };
 
-  const handleSubmit = (data) => {
-    console.log("Dados atualizados:", data);
-    closeModal();
+  const handleEditSubmit = async (data) => {
+    try {
+      await editClient(selectedClient.id, data);
+      setClients((prevClients) =>
+        prevClients.map((client) =>
+          client.id === selectedClient.id ? { ...client, ...data } : client
+        )
+      );
+      setSelectedClient((prevClient) => ({ ...prevClient, ...data }));
+      setEditModalVisible(false);
+      setModalVisibleEdit(false); // Close the client info modal after edit
+    } catch (error) {
+      console.error("Erro ao editar cliente:", error);
+    }
   };
 
   const filteredClients = clients.filter((client) =>
@@ -121,9 +135,19 @@ const ClientList = () => {
         <ModalInfoClient
           visible={modalVisibleEdit}
           onClose={closeModal}
-          onSubmit={handleSubmit}
+          onSubmit={handleEditSubmit}
           onDelete={() => handleDelete(selectedClient.id)}
           initialData={selectedClient}
+          onEdit={() => setEditModalVisible(true)}
+        />
+      )}
+
+      {editClientData && (
+        <ModalEditClient
+          visible={editModalVisible}
+          onClose={() => setEditModalVisible(false)}
+          onSubmit={handleEditSubmit}
+          initialData={editClientData}
         />
       )}
     </View>

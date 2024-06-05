@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, TouchableOpacity, Text, FlatList, ScrollView } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
 import Icon_Question from "react-native-vector-icons/AntDesign";
@@ -15,13 +21,17 @@ import ModalAddContract from "../../../components/ModalAddContract";
 import LoadingScreen from "../../../components/Loading";
 import styles from "./Styles";
 import colors from "../../../color";
-import { useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
+import {
+  useRoute,
+  useNavigation,
+  useFocusEffect,
+} from "@react-navigation/native";
 import { id } from "date-fns/locale";
-
 
 const ListContractEmployee = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModalAddProgressVisible, setIsModalAddProgressVisible] = useState(false);
+  const [isModalAddProgressVisible, setIsModalAddProgressVisible] =
+    useState(false);
   const [progressList, setProgressList] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -37,20 +47,21 @@ const ListContractEmployee = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  useFocusEffect(useCallback(() => {
-    (async() => {   
-      await fetchContracts();  
-    })();
-    }, []));
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        await fetchContracts();
+      })();
+    }, [])
+  );
 
   const fetchContracts = async () => {
     try {
-      
       const contractsData = await ContratoService.getAllContratos();
-      console.log("teste")
-      console.log(JSON.stringify(contractsData))
+      console.log("teste");
+      console.log(JSON.stringify(contractsData));
       setContracts(contractsData);
-      console.log("contratos:"+JSON.stringify(contracts))
+      console.log("contratos:" + JSON.stringify(contracts));
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
@@ -59,77 +70,52 @@ const ListContractEmployee = () => {
 
   const handleContractPress = async (selectedContract) => {
     try {
-      navigation.navigate('Progress', { id_contract: selectedContract.id });
+      navigation.navigate("Progress", { id_contract: selectedContract.id });
     } catch (error) {
       console.error("Erro ao carregar etapas do contrato:", error);
     }
   };
 
   function verifyIfEmpty() {
-    if(title.trim() == "" || email.trim() == "" ||time.trim() == ""){
-      console.log("Todos os campos devem ser Preenchidos...")
+    if (title.trim() == "" || email.trim() == "" || time.trim() == "") {
+      console.log("Todos os campos devem ser Preenchidos...");
     }
   }
 
   const handleAddContract = async () => {
     verifyIfEmpty();
-    console.log("data hora em hanlde for add-> "+time);
+    console.log("data hora em hanlde for add-> " + time);
     try {
       const newContractData = {
         title: title,
-        concluded: false, 
+        concluded: false,
         time: time,
         client: {
-          login: email
-        }
+          login: email,
+        },
       };
-  
+
       const newContract = await ContratoService.addContract(newContractData);
       console.log("Novo contrato adicionado:", newContract);
-  
+
       setTitle("");
       setEmail("");
       setTime("");
       setIsModalAddProgressVisible(false);
-  
+
       fetchContracts();
     } catch (error) {
       console.error("Erro ao adicionar contrato:", error);
     }
   };
-  
 
-  const handleEditProgress = async (index) => {
-    const item = progressList[index];
-    setTitle(item.nomeContracto);
-    setEmail(item.email);
-    setTime(item.time);
-    setEditingIndex(index);
-    setIsModalVisible(true);
-  };
-
-  const handleFinishStage = async (stageId) => {
-    setSelectedStageId(stageId);
-    setConfirmModalVisible(true);
-  };
-
-  const handleConfirm = async () => {
+  const handleDeleteContract = async (contractId) => {
     try {
-      await ContratoService.updateStageStatus(selectedStageId);
-      const updatedProgressList = progressList.map((stage) => {
-        if (stage.id === selectedStageId) {
-          return { ...stage, status: true };
-        } else {
-          return stage;
-        }
-      });
-      setProgressList(updatedProgressList);
-      console.log("Etapa concluída com sucesso!");
-      fetchContracts();
+      await ContratoService.deleteContractById(contractId);
+      await fetchContracts(); // Atualiza a lista após excluir o contrato
     } catch (error) {
-      console.error("Erro ao concluir a etapa:", error);
+      console.error("Erro ao deletar contrato:", error);
     }
-    setConfirmModalVisible(false);
   };
 
   return (
@@ -137,38 +123,36 @@ const ListContractEmployee = () => {
       <Header />
 
       <LoadingScreen visible={loading} />
-        
+
       {loading ? (
-          <View style={styles.loadingContainer}></View>
-        ) : (
-          <View
-            style={styles.listContainer}
-          >
-            {!currentContract && (
-              <FlatList
-                data={contracts}
-                ListEmptyComponent={() => (
-                  <View style={styles.emptyMessageContainer}>
-                    <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                    <Icon_NoContract
-                      name="frowno"
-                      size={80}
-                      color={colors.cinzaClaro}
-                    />
-                  </View>
-                )}
-                renderItem={({ item }) => (
-                  <Contract
-                    contract={item}
-                    onPress={() => handleContractPress(item)}
+        <View style={styles.loadingContainer}></View>
+      ) : (
+        <View style={styles.listContainer}>
+          {!currentContract && (
+            <FlatList
+              data={contracts}
+              ListEmptyComponent={() => (
+                <View style={styles.emptyMessageContainer}>
+                  <Text style={styles.emptyMessage}>Não há contratos.</Text>
+                  <Icon_NoContract
+                    name="frowno"
+                    size={80}
+                    color={colors.cinzaClaro}
                   />
-                )}
-                keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-              />
-            )}
-          </View>
-        )}
-        
+                </View>
+              )}
+              renderItem={({ item }) => (
+                <Contract
+                  contract={item}
+                  onPress={() => handleContractPress(item)}
+                  onDeleteContract={() => handleDeleteContract(item.id)}
+                />
+              )}
+              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+            />
+          )}
+        </View>
+      )}
 
       <ModalAddContract
         visible={isModalAddProgressVisible}
@@ -180,19 +164,16 @@ const ListContractEmployee = () => {
         setEmail={setEmail}
         time={time}
         setTime={setTime}
-        
       />
 
-      <View style={styles.addButton}>
-        <TouchableOpacity
-          style={styles.btnAdd}
-          nomeContracto="Adicionar"
-          onPress={() => setIsModalAddProgressVisible(true)}
-          testID={"add-Button"}
-        >
-          <Icon_Plus name="plus" size={60} color={colors.contract} />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.btnAdd}
+        nomeContracto="Adicionar"
+        onPress={() => setIsModalAddProgressVisible(true)}
+        testID={"add-Button"}
+      >
+        <Icon_Plus name="plus" size={60} color={colors.azul_claro1} />
+      </TouchableOpacity>
       <Footer routeSelected={route.name} />
     </View>
   );

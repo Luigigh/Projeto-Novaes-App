@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, FlatList, Text } from "react-native";
+import { View, TouchableOpacity, FlatList, Text, Alert } from "react-native";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FolderClient from "../../../components/FolderClient";
@@ -15,23 +15,21 @@ import colors from "../../../color";
 import { getDocumentAsync } from "expo-document-picker";
 import { userLogged } from "../../../service/UserService";
 
-
-
 const DirectoryClient = () => {
   const [currentDirectory, setCurrentDirectory] = useState(null);
   const [folders, setFolders] = useState([]);
   const [navigationHistory, setNavigationHistory] = useState([]);
   const [files, setFiles] = useState([]);
-  
   const route = useRoute();
 
-  useFocusEffect(useCallback(() => {
-    (async() => {
-      console.log("id referencia: " + userLogged[0].references_directory)
-      fetchDirectories(userLogged[0].references_directory);
-      
-    })();
-    }, []));
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        console.log("id referencia: " + userLogged[0].references_directory);
+        await fetchDirectories(userLogged[0].references_directory);
+      })();
+    }, [])
+  );
 
   useEffect(() => {
     if (currentDirectory) {
@@ -40,12 +38,9 @@ const DirectoryClient = () => {
   }, [currentDirectory]);
 
   const fetchDirectories = async (parentDirectoryId) => {
-
     try {
-      console.log("parent directory:"+parentDirectoryId)
-      const response = await ContractService.fetchDirectoriesClient(
-        parentDirectoryId
-      );
+      console.log("parent directory:" + parentDirectoryId);
+      const response = await ContractService.fetchDirectoriesClient(parentDirectoryId);
       setFolders(response);
     } catch (error) {
       console.error("Erro ao buscar diretórios:", error);
@@ -80,15 +75,20 @@ const DirectoryClient = () => {
     console.log("Arquivo selecionado:", file.name);
   };
 
-
-  const handleNavigateBack = () => {
+  const handleNavigateBack = async () => {
     const previousDirectory = navigationHistory.pop();
     setCurrentDirectory(previousDirectory);
     setNavigationHistory([...navigationHistory]);
+
+    if (previousDirectory) {
+      await fetchDirectories(previousDirectory.id_Directory);
+    } else {
+      await fetchDirectories(userLogged[0].references_directory);
+    }
   };
 
   const handleAddArchive = async () => {
-    console.log("Função para subir arquivo chamada...")
+    console.log("Função para subir arquivo chamada...");
     try {
       const file = await getDocumentAsync({
         type: "*/*",
@@ -96,12 +96,11 @@ const DirectoryClient = () => {
       });
       console.log(currentDirectory.id_Directory);
       if (!file.canceled) {
-        const response = await ContractService.uploadFile(file,currentDirectory.id_Directory);
+        await ContractService.uploadFile(file, currentDirectory.id_Directory);
+        await fetchFiles(currentDirectory.id_Directory); // Refresh the file list after upload
       } else {
         console.log("Seleção de arquivo cancelada");
       }
-
-      handleNavigateBack();
     } catch (error) {
       console.error("Erro durante o envio do arquivo:", error);
       Alert.alert("Erro", "Não foi possível enviar o arquivo.");
@@ -111,11 +110,10 @@ const DirectoryClient = () => {
   return (
     <View style={styles.container}>
       <Header />
-
       <View style={styles.body}>
         <FlatList
           style={styles.flatListContent}
-          data={currentDirectory ? currentDirectory.subDirectories : folders}
+          data={folders}
           ListEmptyComponent={() => (
             <View style={styles.emptyMessageContainer}>
               <Text style={styles.Text}>Não contém pastas.</Text>
@@ -129,10 +127,7 @@ const DirectoryClient = () => {
           )}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleFolderPress(item)}>
-              <FolderClient
-                folder={item}
-                onFolderPress={handleFolderPress}
-              />
+              <FolderClient folder={item} onFolderPress={handleFolderPress} />
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id_Directory.toString()}
@@ -164,10 +159,7 @@ const DirectoryClient = () => {
 
         <View style={styles.Options}>
           {navigationHistory.length > 0 && (
-            <TouchableOpacity
-              style={styles.btnBack}
-              onPress={handleNavigateBack}
-            >
+            <TouchableOpacity style={styles.btnBack} onPress={handleNavigateBack}>
               <Icon_Back name="arrow-back" size={40} color={"#000"} />
             </TouchableOpacity>
           )}
@@ -176,7 +168,6 @@ const DirectoryClient = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       <Footer routeSelected={route.name} />
     </View>
   );

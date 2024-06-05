@@ -154,24 +154,28 @@ const ContractList = () => {
 
 
   const handleAddArchive = async () => {
-    console.log("Função para subir arquivo chamada...")
-    try {
-      const file = await getDocumentAsync({
-        type: "*/*",
-        copyToCacheDirectory: false,
-      });
-      console.log(currentDirectory.id_Directory);
-      if (!file.canceled) {
 
-        const response = await ContractService.uploadFile(file,currentDirectory.id_Directory);
-      } else {
-        console.log("Seleção de arquivo cancelada");
+    if(!currentDirectory == ""){
+      try {
+        const file = await getDocumentAsync({
+          type: "*/*",
+          copyToCacheDirectory: false,
+        });
+        console.log(currentDirectory.id_Directory);
+        if (!file.canceled) {
+  
+          const response = await ContractService.uploadFile(file,currentDirectory.id_Directory);
+        } else {
+          console.log("Seleção de arquivo cancelada");
+        }
+  
+        handleNavigateBack();
+      } catch (error) {
+        console.error("Erro durante o envio do arquivo:", error);
+        Alert.alert("Erro", "Não foi possível enviar o arquivo. Tente novamente mais tarde");
       }
-
-      handleNavigateBack();
-    } catch (error) {
-      console.error("Erro durante o envio do arquivo:", error);
-      Alert.alert("Erro", "Não foi possível enviar o arquivo.");
+    }else{
+      Alert.alert("Voce não pode adicionar um arquivo", "Selecione uma pasta primeiro");
     }
   };
 

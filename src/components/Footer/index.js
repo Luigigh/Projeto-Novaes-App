@@ -35,35 +35,35 @@ export default function Footer({ routeSelected }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={ifClientListSelected ? styles.btnSelected : styles.btnNotSelected}
+        style={ifClientListSelected ? styles.btnSelectedList : styles.btnNotSelected}
         onPress={() => {
           navigator.navigate(pathUser[2]);
         }}
       >
-        <Icon_List name="users" size={35} color={colors.laranja1} />
+        <Icon_List name="users" size={35} color={colors.secondary} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={ifHomeSelected ? styles.btnSelected : styles.btnNotSelected}
+        style={ifHomeSelected ? styles.btnSelectedDirectory : styles.btnNotSelected}
         onPress={() => {
           navigator.navigate(pathUser[0]);
         }}
       >
-        <Icon_Home name="folder-open-sharp" size={35} color={colors.folder1} />
+        <Icon_Home name="folder-open-sharp" size={35} color={colors.folder1} style={ifHomeSelected ? styles.colorIcon : styles.colorNot}/>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={ifProgressSelected ? styles.btnSelected : styles.btnNotSelected}
+        style={ifProgressSelected ? styles.btnSelectedContract : styles.btnNotSelected}
         onPress={() => {
           navigator.navigate(pathUser[3]);
         }}
       >
-        <Icon_Timeline name="timeline-clock" size={35} color={colors.azul_claro1} />
+        <Icon_Timeline name="timeline-clock" size={35} color={colors.azul_claro1} style={ifProgressSelected ? styles.colorIcon : styles.colorNot}/>
       </TouchableOpacity>
       <TouchableOpacity
         style={
           ifInfoManagerEmployeeSelected
-            ? styles.btnSelected
+            ? styles.btnSelectedProfile
             : styles.btnNotSelected
         }
         onPress={() => {
@@ -71,7 +71,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[1]);
         }}
       >
-        <Icon_InfoManager name="user" size={35} color={colors.verde_claro} />
+        <Icon_InfoManager name="user" size={35} color={colors.verde} style={ifInfoManagerEmployeeSelected ? styles.colorIcon : styles.colorNot}/>
       </TouchableOpacity>
     </View>
   );

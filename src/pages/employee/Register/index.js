@@ -1,14 +1,13 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import { LinearGradient } from "expo-linear-gradient";
-import RegisterService from "../../../service/RegisterService";
 import RNPickerSelect from "react-native-picker-select";
 import DirectoryService from "../../../service/DirectoryService";
+import RegisterService from "../../../service/RegisterService";
 
 export default function Register() {
   const navigation = useNavigation();
@@ -23,24 +22,32 @@ export default function Register() {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [pickerItems, setPickerItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [idReferences, setIdReferences] = useState(null);
 
   const createPickerItems = (directoryNames) => {
-    return directoryNames.map(name => ({ label: name, value: name }));
+    return directoryNames.map(directory => ({
+      label: directory.nameDirectory,
+      value: directory.idReferencesDirectory
+    }));
   };
 
   useEffect(() => {
     const fetchDirectoryNames = async () => {
-        const directoryNames = await DirectoryService.getDirectoryNames();
-        console.log("nomes: "+JSON.stringify(directoryNames))
-        if (directoryNames) {
-            const items = createPickerItems(directoryNames);
-            setPickerItems(items);
-        }
+      const directoryNames = await DirectoryService.getDirectoryNames();
+      if (directoryNames) {
+        const items = createPickerItems(directoryNames);
+        setPickerItems(items);
+      }
     };
 
     fetchDirectoryNames();
-}, []);
+  }, []);
 
+  useEffect(() => {
+    if (selectedValue !== null) {
+      setIdReferences(selectedValue);
+    }
+  }, [selectedValue]);
 
   const handleRegister = async () => {
     if (senha !== confirmarSenha) {
@@ -109,6 +116,7 @@ export default function Register() {
         password: senha,
         entrerprise_name: nomeEmpresa,
         login: email,
+        references_directory: idReferences,
       };
 
       try {
@@ -210,22 +218,24 @@ export default function Register() {
                 />
               </View>
             ) : (
-              <View>
+              <View style={styles.containerSelectClient}>
                 <TextInput
-                style={styles.input}
-                placeholder="Nome da Empresa"
-                value={nomeEmpresa}
-                onChangeText={setNomeEmpresa}
-                placeholderTextColor={'#6B6D71'}
-                fontSize={15}
-              />
+                  style={styles.input}
+                  placeholder="Nome da Empresa"
+                  value={nomeEmpresa}
+                  onChangeText={setNomeEmpresa}
+                  placeholderTextColor={'#6B6D71'}
+                  fontSize={15}
+                />
 
-              <RNPickerSelect
-                style={styles.picker}
-                onValueChange={(value) => setSelectedValue(value)}
-                items={pickerItems}
-                placeholder={{ label: "Selecione um Diretório:", value: null }}
-            />
+                <View style={styles.cargoPicker}>
+                  <RNPickerSelect
+                    style={styles.input}
+                    onValueChange={(value) => setSelectedValue(value)}
+                    items={pickerItems}
+                    placeholder={{ label: "Selecione um Diretório:", value: null }}
+                  />
+                </View>
               </View>
             )}
 

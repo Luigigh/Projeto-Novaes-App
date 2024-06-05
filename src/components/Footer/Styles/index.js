@@ -25,6 +25,41 @@ const styles = StyleSheet.create({
         backgroundColor:colors.azu,
         alignItems:'center',
         justifyContent:'center'
+    },
+    btnSelectedList:{
+        width:65,
+        height:50,
+        borderRadius:100,
+        backgroundColor: colors.secondary,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    btnSelectedDirectory:{
+        width:65,
+        height:50,
+        borderRadius:100,
+        backgroundColor: colors.folder1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    btnSelectedContract:{
+        width:65,
+        height:50,
+        borderRadius:100,
+        backgroundColor: colors.azul_claro1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    btnSelectedProfile:{
+        width:65,
+        height:50,
+        borderRadius:100,
+        backgroundColor: colors.verde,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    colorIcon: {
+        color: 'white'
     }
     
 });

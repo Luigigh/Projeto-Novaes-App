@@ -4,7 +4,7 @@ import colors from "../../../../color";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent:'space-between'
+    justifyContent:'space-between',
   },
 
   BoxStage: {
@@ -50,14 +50,18 @@ const styles = StyleSheet.create({
   },
 
   btnAdd: {
-    height: 65,
-    width: 65,
+    height: 80,
+    width: 80,
     backgroundColor: colors.primary,
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "#052A39",
+    borderWidth: 5,
+    borderColor: colors.contract,
+    position: 'absolute',
+    bottom: 80,
+    left: 10,
+    elevation: 20,
   },
 
   btnEdit: {
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingRight: 10,
     justifyContent: "space-around",
+    
   },
   btnBack: {
     height: 50,
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   listContainer:{
-    height:570
+    height:650
   }
 });
 

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Platform } from "react-native";
+import { Alert } from "react-native";
+
 const url = process.env.EXPO_PUBLIC_API_URL;
 
 export const userLogged = [];
@@ -183,6 +185,24 @@ export async function deleteClient(id) {
     throw error;
   }
 }
+
+export async function editClient(idUser, data){
+  console.log("id usuario: "+idUser);
+  console.log("Data em userService: " + JSON.stringify(data))
+  try {
+    const response = await axios.put(`${url}/client/${idUser}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log("Resposta:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o cliente', error)
+    throw error;
+  }
+}
+
 
 export async function getAllClients() {
   try {

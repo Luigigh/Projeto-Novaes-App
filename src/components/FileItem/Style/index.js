@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     Text:{
         fontSize: 16,
         maxWidth:200,
-        maxHeight:20
+        maxHeight:25
     }
     
 });

@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
 
   flatListContentFile: {
     Height: 350,
-    minHeight: 350,
+    minHeight: 300,
     width: "90%",
     marginTop: 20,
+    maxHeight: 300,
   },
 
   emptyMessageContainer: {

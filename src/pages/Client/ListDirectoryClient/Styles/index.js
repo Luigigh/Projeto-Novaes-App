@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 
   flatListContent:{
     minheight: 350,
+    maxHeight: 300,
     width: "97%",
   },
 

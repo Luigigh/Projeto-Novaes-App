@@ -8,7 +8,7 @@ import Icon_Options from "react-native-vector-icons/Entypo";
 import styles from "./Styles";
 import colors from "../../color";
 
-const Contract = ({ contract, onPress, onDeleteContract }) => {
+const Contract = ({ contract, onPress, onDeleteContract, onEditContract }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   const toggleOptions = () => {
@@ -68,6 +68,7 @@ const Contract = ({ contract, onPress, onDeleteContract }) => {
           <TouchableOpacity
             style={styles.btnEdit}
             onPress={() => {
+              onEditContract(contract);
               toggleOptions();
             }}
           >

@@ -7,7 +7,7 @@ import Icon_NoContract from "react-native-vector-icons/AntDesign";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ProgressServiceClient from "../../../service/ProgressServiceClient";
-import Contract from "../../../components/Contract";
+import Contract from "../../../components/ContractClient";
 import RenderStage from "../../../components/RenderStageClient"
 import styles from "./Styles";
 import colors from "../../../color";
@@ -91,6 +91,7 @@ const ProgressClient = () => {
         {!currentContract && (
           <FlatList
             data={contracts}
+            style={styles.flatList}
             ListEmptyComponent={() => (
               <View style={styles.emptyMessageContainer}>
                 <Text style={styles.emptyMessage}>Não há contratos.</Text>

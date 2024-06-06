@@ -24,7 +24,7 @@ const InfoManager = ({ navigation }) => {
     "Multiavatar-dbddfc9d50e6c316b0.png",
     "Multiavatar-dd5be944b9c288c2e4.png",
     "Multiavatar-e60aa374c5e5e4f052.png",
-    "Multiavatar-fa144b635ab6f2a901.png"
+    "Multiavatar-fa144b635ab6f2a901.png",
   ];
 
   const profileImages = {
@@ -48,9 +48,8 @@ const InfoManager = ({ navigation }) => {
     React.useCallback(() => {
       const randomNumber = Math.floor(Math.random() * profilesPhotos.length);
       setSelectedImage(profilesPhotos[randomNumber]);
-    }, [profilesPhotos,selectedImage])
+    }, [profilesPhotos, selectedImage])
   );
-  
 
   return (
     <View style={styles.container}>
@@ -102,7 +101,7 @@ const InfoManager = ({ navigation }) => {
                   placeholderTextColor="#ABABAB"
                 >
                   {userLogged[0].lastname}
-                </Text>        
+                </Text>
               </View>
             </View>
             <View style={styles.campo_input}>
@@ -113,17 +112,21 @@ const InfoManager = ({ navigation }) => {
                   placeholderTextColor="#ABABAB"
                 >
                   {userLogged[0].login}
-                </Text>               
+                </Text>
               </View>
             </View>
             <View style={styles.campo_input}>
-              <Text style={styles.text_input}>Empresa</Text>
+              <Text style={styles.text_input}>
+                {userLogged[0].role === "USER" ? "Empresa" : "Cargo"}
+              </Text>
               <View style={styles.view_input}>
                 <Text
                   style={styles.input_contato}
                   placeholderTextColor="#ABABAB"
-                >  
-                  {userLogged[0].entrerprise_name}                
+                >
+                  {userLogged[0].role === "USER"
+                    ? userLogged[0].entrerprise_name
+                    : userLogged[0].office}
                 </Text>
               </View>
             </View>

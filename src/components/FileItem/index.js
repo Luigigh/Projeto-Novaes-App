@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Alert, Platform, Linking } from "react-native";
-import Icon_Download from "react-native-vector-icons/MaterialIcons";
 import Icon_File from "react-native-vector-icons/FontAwesome5";
+import Icon_Trash from 'react-native-vector-icons/Fontisto';
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import styles from './Style';
 import colors from "../../color";
+import DirectoryService from "../../service/DirectoryService";
 
 const url = process.env.EXPO_PUBLIC_API_URL;
 
@@ -21,7 +22,7 @@ export default function FileItem({ file, onFilePress }) {
 
       const blob = await response.blob();
       const blobString = await blobToBase64(blob);
-      const localUri = `${FileSystem.documentDirectory}${file.name}.pdf`;
+      const localUri = `${FileSystem.documentDirectory}${file.name}`;
       await FileSystem.writeAsStringAsync(localUri, blobString, { encoding: FileSystem.EncodingType.Base64 });
 
       if (Platform.OS === 'android') {
@@ -32,6 +33,22 @@ export default function FileItem({ file, onFilePress }) {
     } catch (error) {
       Alert.alert("Download", "Não foi possível realizar o download.");
       console.error(error);
+    }
+  }
+
+  async function handleDeleteFile() {
+    try {
+      const response = await DirectoryService.deleteFile(file.id);
+      if (response) {
+        Alert.alert("Arquivo deletado com sucesso", "");
+        console.log("teste: " + JSON.stringify(onFilePress));
+        onFilePress();
+      } else {
+        Alert.alert("Erro", "Arquivo não foi deletado!");
+      }
+    } catch (error) {
+      console.error("Erro ao deletar arquivo:", error);
+      Alert.alert("Erro", "Não foi possível deletar o arquivo.");
     }
   }
 
@@ -46,23 +63,21 @@ export default function FileItem({ file, onFilePress }) {
       reader.readAsDataURL(blob);
     });
   }
-  
+
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+      <TouchableOpacity style={styles.content} onPress={handleDownload}>
         <Icon_File name="file-pdf" size={40} color={"#F40F02"} />
-
         <TouchableOpacity
           style={styles.ButtonName}
           onPress={() => onFilePress(file)}
         >
-          <Text style={styles.Text}>{file.name}</Text>
+          <Text style={styles.Text} onPress={handleDownload}>{file.name}</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleDownload}>
-          <Icon_Download name="file-download" size={35} color={colors.azul_claro} />
+        <TouchableOpacity onPress={handleDeleteFile}>
+          <Icon_Trash name="trash" size={35} color={colors.azul_claro} />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

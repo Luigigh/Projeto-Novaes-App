@@ -80,8 +80,8 @@ const ContractList = () => {
     }
   };
 
-  const handleFilePress = (file) => {
-    console.log("Arquivo selecionado:", file.name);
+  const handleFilePress = () => {
+    fetchFiles(currentDirectory.id_Directory);
   };
 
   const handleAddFolder = () => {
@@ -175,7 +175,7 @@ const ContractList = () => {
         Alert.alert("Erro", "Não foi possível enviar o arquivo. Tente novamente mais tarde");
       }
     }else{
-      Alert.alert("Voce não pode adicionar um arquivo", "Selecione uma pasta primeiro");
+      Alert.alert("Voce não pode adicionar um arquivo aqui", "Entre em uma pasta já existente primeiro ou crie uma nova.");
     }
   };
 

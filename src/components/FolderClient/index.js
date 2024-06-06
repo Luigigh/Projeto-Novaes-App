@@ -23,13 +23,7 @@ const FolderClient = ({
         </TouchableOpacity>
       </View>
 
-      <View style={styles.BtnOption}>
-          <Icon_Options
-            name="options-vertical"
-            size={30}
-            color={colors.branco}
-          />
-      </View>
+      
     </View>
   );
 };

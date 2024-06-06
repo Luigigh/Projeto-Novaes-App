@@ -148,6 +148,20 @@ const deleteFolder = async (folderId) => {
   }
 };
 
+const deleteFile = async (fileId) => {
+  try{
+    const response = await axios.delete(`${url}/archive/${fileId}`);
+    console.log("response delete file: "+JSON.stringify(response));
+    if(response.status == 200){
+      return true;
+    }else{
+      return false;
+    }
+  } catch ( error ){
+    console.log("Erro: "+ error);
+  }
+}
+
 const updateFolder = async (folderId, folderName) => {
   try {
     const response = await axios.put(`${url}/archive/directory/${folderId}`, { name: folderName });
@@ -159,4 +173,4 @@ const updateFolder = async (folderId, folderName) => {
   }
 };
 
-export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile , fetchDirectoriesClient , getDirectoryNames , getNameOfDirectoryById};
+export default {fetchFiles, fetchDirectories, addFolder, deleteFolder, updateFolder , uploadFile , fetchDirectoriesClient , getDirectoryNames , getNameOfDirectoryById , deleteFile};

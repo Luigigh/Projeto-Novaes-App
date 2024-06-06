@@ -12,7 +12,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingRight: 10,
     justifyContent: "space-around",
-
+  },
+  contratos: {
+    alignItems: 'center',
+    marginRight: -38,
+    marginLeft: -30,
+  },
+  flatList:{
+    width: '85%',
   },
   btnBack: {
     height: 50,

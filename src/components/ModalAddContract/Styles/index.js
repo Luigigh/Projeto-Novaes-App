@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
       },
       modalContent: {
-        height: 400,
-        width: 300,
+        height: 450,
+        width: 350,
         backgroundColor: '#ebebeb',
         padding: 20,
         borderRadius: 10,
@@ -53,6 +53,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderColor: 'grey',
         borderWidth: 1.5,
+      },
+      inputStatus:{
+        width: "80%",
+        backgroundColor: "white",
+        borderColor: "grey",
+        borderWidth: 1.5,
+        height: 55,
+        borderRadius: 5,
+        marginVertical: 6,
       },
       buttonContainer: {
         height: 50,

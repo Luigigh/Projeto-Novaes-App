@@ -11,7 +11,7 @@ const colors ={
     laranja:'#C06F26',
     folder:'#F8D775',
     contract:'#555555',
-    file:'#F8D775',
+    file:'#F5665E',
     contract:'#B3DFE7',
     contractComponent: '#0D3444',
 

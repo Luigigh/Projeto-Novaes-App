@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 5,
   },
+
 });
 
 export default styles;

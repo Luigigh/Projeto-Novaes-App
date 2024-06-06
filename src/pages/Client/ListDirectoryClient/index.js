@@ -3,7 +3,7 @@ import { View, TouchableOpacity, FlatList, Text, Alert } from "react-native";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FolderClient from "../../../components/FolderClient";
-import FileItem from "../../../components/FileItem";
+import FileItemForClient from "../../../components/FileItemForClient";
 import ContractService from "../../../service/DirectoryService";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import Icon_UploadFile from "react-native-vector-icons/Feather";
@@ -69,10 +69,6 @@ const DirectoryClient = () => {
     } catch (error) {
       console.error("Erro ao navegar para a pasta:", error);
     }
-  };
-
-  const handleFilePress = (file) => {
-    console.log("Arquivo selecionado:", file.name);
   };
 
   const handleNavigateBack = async () => {
@@ -149,8 +145,8 @@ const DirectoryClient = () => {
               </View>
             )}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleFilePress(item)}>
-                <FileItem file={item} onFilePress={handleFilePress} />
+              <TouchableOpacity>
+                <FileItemForClient file={item}/>
               </TouchableOpacity>
             )}
             keyExtractor={(item) => item.id.toString()}

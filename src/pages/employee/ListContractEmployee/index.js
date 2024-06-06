@@ -5,6 +5,7 @@ import {
   Text,
   FlatList,
   ScrollView,
+  Modal,
 } from "react-native";
 import Icon_Plus from "react-native-vector-icons/Entypo";
 import Icon_Back from "react-native-vector-icons/Ionicons";
@@ -34,7 +35,7 @@ const ListContractEmployee = () => {
     useState(false);
   const [progressList, setProgressList] = useState([]);
   const [contracts, setContracts] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingContract, setEditingContract] = useState(null);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
@@ -44,6 +45,7 @@ const ListContractEmployee = () => {
   const [navigationStack, setNavigationStack] = useState([]);
   const [currentContractId, setCurrentContractId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -58,10 +60,7 @@ const ListContractEmployee = () => {
   const fetchContracts = async () => {
     try {
       const contractsData = await ContratoService.getAllContratos();
-      console.log("teste");
-      console.log(JSON.stringify(contractsData));
       setContracts(contractsData);
-      console.log("contratos:" + JSON.stringify(contracts));
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
@@ -76,15 +75,41 @@ const ListContractEmployee = () => {
     }
   };
 
-  function verifyIfEmpty() {
-    if (title.trim() == "" || email.trim() == "" || time.trim() == "") {
-      console.log("Todos os campos devem ser Preenchidos...");
+  const handleEditContract = (contract) => {
+    setEditingContract(contract);
+    setIsModalAddProgressVisible(true);
+    setIsEditing(true);
+  };
+
+  const handleDeleteContract = async (contractId) => {
+    try {
+      await ContratoService.deleteContractById(contractId);
+      await fetchContracts(); 
+    } catch (error) {
+      console.error("Erro ao deletar contrato:", error);
     }
-  }
+  };
+
+  const handleSaveEditedContract = async () => {
+    try {
+      await ContratoService.editContractById(editingContract.id, {
+        title: title,
+        concluded: false, 
+        time: time,
+        client: {
+          login: email,
+        },
+      });
+
+      setIsModalAddProgressVisible(false);
+      fetchContracts();
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Erro ao editar contrato:", error);
+    }
+  };
 
   const handleAddContract = async () => {
-    verifyIfEmpty();
-    console.log("data hora em hanlde for add-> " + time);
     try {
       const newContractData = {
         title: title,
@@ -97,7 +122,6 @@ const ListContractEmployee = () => {
 
       const newContract = await ContratoService.addContract(newContractData);
       console.log("Novo contrato adicionado:", newContract);
-
       setTitle("");
       setEmail("");
       setTime("");
@@ -109,61 +133,58 @@ const ListContractEmployee = () => {
     }
   };
 
-  const handleDeleteContract = async (contractId) => {
-    try {
-      await ContratoService.deleteContractById(contractId);
-      await fetchContracts(); // Atualiza a lista após excluir o contrato
-    } catch (error) {
-      console.error("Erro ao deletar contrato:", error);
-    }
-  };
-
   return (
     <View style={styles.container}>
       <Header />
 
       <LoadingScreen visible={loading} />
 
-      {loading ? (
-        <View style={styles.loadingContainer}></View>
-      ) : (
+      {!loading && (
         <View style={styles.listContainer}>
-          {!currentContract && (
-            <FlatList
-              data={contracts}
-              ListEmptyComponent={() => (
-                <View style={styles.emptyMessageContainer}>
-                  <Text style={styles.emptyMessage}>Não há contratos.</Text>
-                  <Icon_NoContract
-                    name="frowno"
-                    size={80}
-                    color={colors.cinzaClaro}
-                  />
-                </View>
-              )}
-              renderItem={({ item }) => (
-                <Contract
-                  contract={item}
-                  onPress={() => handleContractPress(item)}
-                  onDeleteContract={() => handleDeleteContract(item.id)}
+          <FlatList
+            data={contracts}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyMessageContainer}>
+                <Text style={styles.emptyMessage}>Não há contratos.</Text>
+                <Icon_NoContract
+                  name="frowno"
+                  size={80}
+                  color={colors.cinzaClaro}
                 />
-              )}
-              keyExtractor={(item) => (item.id ? item.id.toString() : "")}
-            />
-          )}
+              </View>
+            )}
+            renderItem={({ item }) => (
+              <Contract
+                contract={item}
+                onPress={() => handleContractPress(item)}
+                onDeleteContract={() => handleDeleteContract(item.id)}
+                onEditContract={() => handleEditContract(item)}
+              />
+            )}
+            keyExtractor={(item) => (item.id ? item.id.toString() : "")}
+          />
         </View>
       )}
 
       <ModalAddContract
         visible={isModalAddProgressVisible}
-        onAdd={handleAddContract}
-        onClose={() => setIsModalAddProgressVisible(false)}
+        onClose={() => {
+          setIsModalAddProgressVisible(false);
+          setIsEditing(false);
+        }}
+        onSave={() => {
+          setIsModalAddProgressVisible(false);
+          setIsEditing(false);
+          fetchContracts();
+        }}
+        isEditing={isEditing}
         title={title}
         setTitle={setTitle}
         email={email}
         setEmail={setEmail}
         time={time}
         setTime={setTime}
+        contract={editingContract}
       />
 
       <TouchableOpacity

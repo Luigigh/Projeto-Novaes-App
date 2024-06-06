@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TextInput, TouchableOpacity } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import RNPickerSelect from "react-native-picker-select";
 import ContratoService from "../../service/ContratoService";
 import styles from "./Styles";
+import {UserService} from '../../service/UserService';
 
 const ModalAddContract = ({
   visible,
   onClose,
   onAdd,
+  onSave,
   isEditing,
   title,
   setTitle,
   email,
   setEmail,
-  contract
+  contract,
 }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(null);
+  const [status, setStatus] = useState(
+    contract?.concluded ? "Concluído" : "Em andamento"
+  );
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -31,27 +37,30 @@ const ModalAddContract = ({
     hideDatePicker();
   };
 
-  const handleAddContract = async () => {
-    console.log("data hora em hanlde for add-> " + time);
+  const handleAction = async () => {
     try {
-      const newContractData = {
+      const contractData = {
         title: title,
-        concluded: false,
+        concluded: status === "Concluído",
         time: time,
         client: {
           login: email,
         },
       };
 
-      
-      const newContract = await ContratoService.addContract(newContractData);
-      console.log("Novo contrato adicionado:", newContract);
+      if (isEditing) {
+        await ContratoService.editContractById(contract.id, contractData);
+      } else {
+        await ContratoService.addContract(contractData);
+      }
+
+      onSave();
       setTitle("");
       setEmail("");
-      setTime("");
-      onClose();
+      setTime("Duração do Contrato");
+      setStatus("");
     } catch (error) {
-      console.error("Erro ao adicionar contrato:", error);
+      console.error("Erro ao salvar contrato:", error);
     }
   };
 
@@ -100,10 +109,21 @@ const ModalAddContract = ({
             onCancel={hideDatePicker}
           />
 
+          <View style={styles.inputStatus}>
+            <RNPickerSelect
+              onValueChange={(value) => setStatus(value)}
+              items={[
+                { label: "Em andamento", value: "Em andamento" },
+                { label: "Concluído", value: "Concluído" },
+              ]}
+              value={status}
+            />
+          </View>
+
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.btnAdd}
-              onPress={handleAddContract}
+              onPress={handleAction}
               testID={"save-button"}
             >
               <Text style={{ color: "white", fontSize: 18 }}>Salvar</Text>

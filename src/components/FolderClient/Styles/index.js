@@ -4,7 +4,7 @@ import colors from "../../../color";
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    width: "98%",
+    width: "100%",
     flexDirection: "row",
     backgroundColor: colors.primary,
     borderRadius: 5,
@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     justifyContent: "space-between",
   },
+  icon_Folder:{
+    marginLeft: 10
+  },
   content: {
     flexDirection: "row",
-    width: "55%",
+    width: "90%",
     alignItems: "center",
   },
   ButtonName: {
@@ -28,7 +31,6 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontSize: 19,
-    marginLeft: 10,
     color: colors.branco,
   },
   BtnOption: {

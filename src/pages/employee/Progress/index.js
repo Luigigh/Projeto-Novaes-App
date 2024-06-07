@@ -218,6 +218,7 @@ const Progress = () => {
 
       <ModalRenderStage
         progressList={progressList}
+        setProgressList={setProgressList}
         onDeleteProgress={handleDeleteProgress}
         onEditProgress={handleEditProgress}
         onFinishStage={handleFinishStage}

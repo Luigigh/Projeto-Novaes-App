@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     position: 'relative',
+    justifyContent: 'center',
   },
   search: {
     backgroundColor: "transparent",
@@ -34,9 +35,42 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#083C52'
   },
+  tabContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5
+  },
+  tabButton: {
+    backgroundColor: '#ededed',
+    width: '50%',
+    alignItems: 'center',
+    padding: 7,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomWidth: 2,
+    borderColor: 'black'
+  },
+  tabText: {
+    fontSize: 20,
+    fontWeight: '600'
+  },
+  activeTab: {
+    borderWidth: 4,
+    borderColor: 'black'
+  },
   clientList: {
     width: '90%',
-    marginRight: '-8%'
+    backgroundColor: '#ededed',
+    borderBottomLeftRadius: 7,
+    borderBottomRightRadius: 7,
+    padding: 7,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
   },
   iconcamera: {
     position: "absolute",
@@ -44,13 +78,13 @@ const styles = StyleSheet.create({
     right: 15,
   },
   btnContato: {
-    width: '90%',
+    width: '100%',
     paddingLeft: 5,
     paddingRight: 5,
     paddingBottom: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#083C52',
-    marginVertical: 10
+    marginVertical: 10,
   },
   contato: {
     backgroundColor: '#F3F3F3',

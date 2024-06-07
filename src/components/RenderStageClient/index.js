@@ -7,11 +7,7 @@ import Icon_Check from "react-native-vector-icons/FontAwesome";
 import styles from "./Styles";
 import colors from "../../color";
 
-const RenderStage = ({
-  progressList,
-  onFinishStage,
-}) => {
-
+const RenderStage = ({ progressList, onFinishStage }) => {
   const formatDate = (date) => {
     if (!date) return "";
 
@@ -31,6 +27,7 @@ const RenderStage = ({
 
   return (
     <View style={{ flex: 1 }}>
+      <Text style={styles.titleProgress}>Etapas do Contrato</Text>
       <FlatList
         style={styles.BoxStage}
         data={progressList}
@@ -63,9 +60,9 @@ const RenderStage = ({
                   >{` ${item.description}`}</Text>
                 </View>
                 <View style={styles.progressDate}>
-                <Icon_Date name="date" size={25} color="#007B8F" />
+                  <Icon_Date name="date" size={25} color="#007B8F" />
                   <Text style={styles.dataFormatada}>
-                      {` ${formatDate(item.dateHour)}`}
+                    {` ${formatDate(item.dateHour)}`}
                   </Text>
                 </View>
               </View>

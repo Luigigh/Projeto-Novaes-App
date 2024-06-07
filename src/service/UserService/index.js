@@ -21,7 +21,7 @@ export async function serviceLoginMethod(username, password) {
       console.log("response: ", response.data);
         const user = await findUserById(response.data);
         await setUserLogged(user);
-      return true;
+        return true;
     } else {
       console.log("response: ", response);
       return false;

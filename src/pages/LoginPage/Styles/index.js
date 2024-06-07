@@ -1,4 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
+import colors from '../../../color';
 
 const styles = StyleSheet.create({
   container: {
@@ -69,10 +70,10 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   },
   texto_login: {
-    color: "#007B8F",
-    fontSize: 25,
-    marginBottom: 8,
-    fontWeight: '500'
+    color: colors.primary,
+    fontSize: 26,
+    marginBottom: 15,
+    fontWeight: '600'
   },
   input_login: {
     ...Platform.select({
@@ -90,10 +91,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginVertical: 6,
-    fontSize: 17
+    fontSize: 17,
+    borderWidth: 1
   },
   btn_login: {
-    backgroundColor: "#007B8F",
+    backgroundColor: colors.primary,
     padding: 10,
     borderRadius: 10,
     width: 130,
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 35
   },
   text_entrar: {
-    color: 'white',
+    color: '#FFF',
     fontSize: 18
   },
   text_descricao: {

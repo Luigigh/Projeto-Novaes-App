@@ -5,6 +5,7 @@ import styles from "./Styles";
 import { serviceLoginMethod } from "../../service/UserService";
 import { LinearGradient } from "expo-linear-gradient";
 import { userLogged } from "../../service/UserService";
+import colors from '../../color'
 
 export default function LoginScreen() {
     const navigation = useNavigation();
@@ -45,7 +46,7 @@ export default function LoginScreen() {
             <View style={styles.main}>
                 <LinearGradient
                     style={styles.linear}
-                    colors={["#B3DFE7", "#EEEEEE", "#FFFFFF"]}
+                    colors={["#B3DFE7", "#FFF", "#FFF"]}
                 >
                     <Text style={styles.texto_login}>Faça login na Novaes</Text>
 

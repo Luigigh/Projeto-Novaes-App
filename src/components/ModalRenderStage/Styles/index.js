@@ -6,20 +6,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "white",
-    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  titleProgress: {
+    color: colors.primary,
+    fontWeight: '600',
+    fontSize: 30,
+    marginTop: 10
   },
 
   BoxStage: {
     width: "100%",
   },
 
+  progressWrapper:{
+    alignItems: 'center',
+    width: "100%",
+  },
+
   progressContainer: {
     maxHeight: 250,
-    width: "100%",
+    width: "95%",
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 5,
+    borderColor: colors.primary,
+    borderRadius: 10,
+  },
+
+  selectedStage:{
+    backgroundColor: "#E0E0E0",
   },
 
   btnClock: {

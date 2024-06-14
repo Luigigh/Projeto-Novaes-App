@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     colorIcon: {
         color: 'white'
     }
-    
 });
 
 export default styles;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, Modal, TextInput, TouchableOpacity } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { View, Text, Modal, TextInput, TouchableOpacity, Alert } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import ContratoService from "../../service/ContratoService";
 import styles from "./Styles";
-import {UserService} from '../../service/UserService';
+import { UserService } from '../../service/UserService';
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 const ModalAddContract = ({
   visible,
@@ -18,23 +18,22 @@ const ModalAddContract = ({
   setEmail,
   contract,
 }) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [time, setTime] = useState(null);
   const [status, setStatus] = useState(
     contract?.concluded ? "Concluído" : "Em andamento"
   );
 
   const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirmDate = (selectedDate) => {
-    setTime(selectedDate);
-    hideDatePicker();
+    DateTimePickerAndroid.open({
+      value: new Date(),
+      onChange: (event, selectedDate) => {
+        if (event.type === "set" && selectedDate) {
+          setTime(new Date(selectedDate));
+        }
+      },
+      mode: "date",
+      is24Hour: true,
+    });
   };
 
   const handleAction = async () => {
@@ -51,13 +50,19 @@ const ModalAddContract = ({
       if (isEditing) {
         await ContratoService.editContractById(contract.id, contractData);
       } else {
-        await ContratoService.addContract(contractData);
+        const response = await ContratoService.addContract(contractData);
+        if(title == "" || time == null){
+          console.log("teste")
+          Alert.alert("Alguns campos podem não estar preenchidos corretamente", "");
+        }else if(!response){
+          Alert.alert("Cliente não existe!","");
+        }
       }
 
       onSave();
       setTitle("");
       setEmail("");
-      setTime("Duração do Contrato");
+      setTime(null);
       setStatus("");
     } catch (error) {
       console.error("Erro ao salvar contrato:", error);
@@ -95,19 +100,12 @@ const ModalAddContract = ({
             <TextInput
               style={styles.inputDataHora}
               placeholder="Ultimo dia do contrato"
-              value={time !== null ? time.toString() : ""}
+              value={time ? time.toLocaleDateString() : ""}
               editable={false}
               placeholderTextColor={"#6B6D71"}
               fontSize={15}
             />
           </TouchableOpacity>
-
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="datetime"
-            onConfirm={handleConfirmDate}
-            onCancel={hideDatePicker}
-          />
 
           <View style={styles.inputStatus}>
             <RNPickerSelect

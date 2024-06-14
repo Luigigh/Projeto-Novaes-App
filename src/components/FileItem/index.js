@@ -74,8 +74,28 @@ export default function FileItem({ file, onFilePress }) {
         >
           <Text style={styles.Text} onPress={handleDownload}>{file.name}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleDeleteFile}>
-          <Icon_Trash name="trash" size={35} color={colors.azul_claro} />
+        <TouchableOpacity  
+          onPress={() =>
+            Alert.alert(
+              "Deseja Excluir este Arquivo?",
+              "AVISO: Será excluído permanentemente!",
+              [
+                {
+                  text: "Cancelar",
+                  style: "cancel",
+                },
+                {
+                  text: "Excluir",
+                  onPress: () => {
+                    handleDeleteFile();
+                  },
+                  style: "destructive",
+                },
+              ]
+            )
+          }
+        >
+          <Icon_Trash name="trash" size={30} color={colors.azul_claro} />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>

@@ -40,7 +40,7 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[2]);
         }}
       >
-        <Icon_List name="users" size={35} color={colors.secondary} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
+        <Icon_List name="users" size={30} color={colors.secondary} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
       </TouchableOpacity>
 
       <TouchableOpacity

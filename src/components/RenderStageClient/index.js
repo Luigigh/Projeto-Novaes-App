@@ -27,7 +27,6 @@ const RenderStage = ({ progressList, onFinishStage }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text style={styles.titleProgress}>Etapas do Contrato</Text>
       <FlatList
         style={styles.BoxStage}
         data={progressList}

@@ -31,8 +31,7 @@ import { id } from "date-fns/locale";
 
 const ListContractEmployee = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModalAddProgressVisible, setIsModalAddProgressVisible] =
-    useState(false);
+  const [isModalAddProgressVisible, setIsModalAddProgressVisible] = useState(false);
   const [progressList, setProgressList] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [editingContract, setEditingContract] = useState(null);

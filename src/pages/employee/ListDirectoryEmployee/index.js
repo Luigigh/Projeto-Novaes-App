@@ -81,7 +81,7 @@ const ContractList = () => {
   };
 
   const handleFilePress = () => {
-    fetchFiles(currentDirectory.id_Directory);
+    handleNavigateBack();
   };
 
   const handleAddFolder = () => {
@@ -92,12 +92,38 @@ const ContractList = () => {
   const handleConfirmAddFolder = async () => {
     try {
       if (currentDirectory) {
-        await ContractService.addFolder(
-          newFolderName,
-          currentDirectory.id_Directory
-        );
+        if (newFolderName == "") {
+          Alert.alert(
+            "Erro ao adicionar!",
+            `O nome da pasta não deve ser vazio.`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          );
+        } else {
+          await ContractService.addFolder(
+            newFolderName,
+            currentDirectory.id_Directory
+          );
+        }
       } else {
-        await ContractService.addFolder(newFolderName, 1);
+        if (newFolderName == "") {
+          Alert.alert(
+            "Erro ao adicionar!",
+            `O nome da pasta não deve ser vazio.`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          );
+        } else {
+          await ContractService.addFolder(newFolderName, 1);
+        }
       }
       setModalVisible(false);
       console.log("Pasta adicionada:", newFolderName);
@@ -152,10 +178,8 @@ const ContractList = () => {
     setModalVisible(true);
   };
 
-
   const handleAddArchive = async () => {
-
-    if(!currentDirectory == ""){
+    if (!currentDirectory == "") {
       try {
         const file = await getDocumentAsync({
           type: "*/*",
@@ -163,19 +187,27 @@ const ContractList = () => {
         });
         console.log(currentDirectory.id_Directory);
         if (!file.canceled) {
-  
-          const response = await ContractService.uploadFile(file,currentDirectory.id_Directory);
+          const response = ContractService.uploadFile(
+            file,
+            currentDirectory.id_Directory
+          );
         } else {
           console.log("Seleção de arquivo cancelada");
         }
-  
+
         handleNavigateBack();
       } catch (error) {
         console.error("Erro durante o envio do arquivo:", error);
-        Alert.alert("Erro", "Não foi possível enviar o arquivo. Tente novamente mais tarde");
+        Alert.alert(
+          "Erro",
+          "Não foi possível enviar o arquivo. Tente novamente mais tarde"
+        );
       }
-    }else{
-      Alert.alert("Voce não pode adicionar um arquivo aqui", "Entre em uma pasta já existente primeiro ou crie uma nova.");
+    } else {
+      Alert.alert(
+        "Voce não pode adicionar um arquivo aqui",
+        "Entre em uma pasta já existente primeiro ou crie uma nova."
+      );
     }
   };
 
@@ -261,7 +293,10 @@ const ContractList = () => {
                   <Icon_Back name="arrow-back" size={40} color={"#000"} />
                 </TouchableOpacity>
               )}
-              <TouchableOpacity style={styles.btnPlus} onPress={handleAddArchive}>
+              <TouchableOpacity
+                style={styles.btnPlus}
+                onPress={handleAddArchive}
+              >
                 <Icon_UploadFile name="file-plus" size={40} color={"#F5665E"} />
               </TouchableOpacity>
             </View>

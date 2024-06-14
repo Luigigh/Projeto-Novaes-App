@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
   titleInfoContact: {
     fontSize: 22,
     textAlign: 'center',
-    marginVertical: 20,
+    marginTop: 14,
+    marginBottom: 14,
     color: '#083C52',
     fontWeight: "500",
     borderBottomWidth: 1,

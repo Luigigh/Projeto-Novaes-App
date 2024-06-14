@@ -25,9 +25,9 @@ export default function Register() {
   const [idReferences, setIdReferences] = useState(null);
 
   const createPickerItems = (directoryNames) => {
-    return directoryNames.map(directory => ({
+    return directoryNames.map((directory) => ({
       label: directory.nameDirectory,
-      value: directory.idReferencesDirectory
+      value: directory.idReferencesDirectory,
     }));
   };
 
@@ -83,29 +83,47 @@ export default function Register() {
       };
 
       try {
-        await RegisterService.createFuncionario(userData);
-        Alert.alert(
-          "Cadastrado realizado!",
-          `Funcionário ${nome} ${sobrenome} (${email}), com o cargo ${cargo} cadastrado com sucesso!`,
-          [
-            {
-              text: "Fechar",
-              style: "cancel",
-            },
-          ]
-        );
-      } catch (error) {
-        if (error == 400 || error == 'AxiosError: Request failed with status code 400') {
+        if (
+          nome == "" ||
+          sobrenome == "" ||
+          email == "" ||
+          cargo == null ||
+          senha == ""
+        ) {
           Alert.alert(
-            "Erro ao cadastrar!",
-            `O email já está cadastrado.`,
+            "Campo(s) vazio(s)!",
+            `Verifique se todos os campos estão preenchidos corretamente.`,
             [
               {
                 text: "Fechar",
                 style: "cancel",
               },
             ]
-          )
+          );
+        } else {
+          await RegisterService.createFuncionario(userData);
+          Alert.alert(
+            "Cadastro realizado!",
+            `Funcionário ${nome} ${sobrenome} (${email}), com o cargo ${cargo} cadastrado com sucesso!`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          );
+        }
+      } catch (error) {
+        if (
+          error == 400 ||
+          error == "AxiosError: Request failed with status code 400"
+        ) {
+          Alert.alert("Erro ao cadastrar!", `O email já está cadastrado.`, [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]);
         }
         console.error("Erro ao cadastrar usuário:", error);
       }
@@ -120,29 +138,47 @@ export default function Register() {
       };
 
       try {
-        await RegisterService.createCliente(userData);
-        Alert.alert(
-          "Cadastrado realizado!",
-          `Cliente ${nome} ${sobrenome} (${email}), da empresa ${nomeEmpresa} cadastrado com sucesso!`,
-          [
-            {
-              text: "Fechar",
-              style: "cancel",
-            },
-          ]
-        );
-      } catch (error) {
-        if (error == 400 || error == 'AxiosError: Request failed with status code 400') {
+        if (
+          nome == "" ||
+          sobrenome == "" ||
+          email == "" ||
+          nomeEmpresa == "" ||
+          senha == ""
+        ) {
           Alert.alert(
-            "Erro ao cadastrar!",
-            `O email já está cadastrado.`,
+            "Campo(s) vazio(s)!",
+            `Verifique se todos os campos estão preenchidos corretamente.`,
             [
               {
                 text: "Fechar",
                 style: "cancel",
               },
             ]
-          )
+          );
+        } else {
+          await RegisterService.createCliente(userData);
+          Alert.alert(
+            "Cadastrado realizado!",
+            `Cliente ${nome} ${sobrenome} (${email}), da empresa ${nomeEmpresa} cadastrado com sucesso!`,
+            [
+              {
+                text: "Fechar",
+                style: "cancel",
+              },
+            ]
+          );
+        }
+      } catch (error) {
+        if (
+          error == 400 ||
+          error == "AxiosError: Request failed with status code 400"
+        ) {
+          Alert.alert("Erro ao cadastrar!", `O email já está cadastrado.`, [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ]);
         }
         console.error("Erro ao cadastrar cliente:", error);
       }
@@ -191,7 +227,7 @@ export default function Register() {
                 placeholder="Nome"
                 value={nome}
                 onChangeText={setNome}
-                placeholderTextColor={'#6B6D71'}
+                placeholderTextColor={"#6B6D71"}
                 fontSize={15}
               />
               <TextInput
@@ -199,7 +235,7 @@ export default function Register() {
                 placeholder="Sobrenome"
                 value={sobrenome}
                 onChangeText={setSobrenome}
-                placeholderTextColor={'#6B6D71'}
+                placeholderTextColor={"#6B6D71"}
                 fontSize={15}
               />
             </View>
@@ -224,7 +260,7 @@ export default function Register() {
                   placeholder="Nome da Empresa"
                   value={nomeEmpresa}
                   onChangeText={setNomeEmpresa}
-                  placeholderTextColor={'#6B6D71'}
+                  placeholderTextColor={"#6B6D71"}
                   fontSize={15}
                 />
 
@@ -233,7 +269,10 @@ export default function Register() {
                     style={styles.input}
                     onValueChange={(value) => setSelectedValue(value)}
                     items={pickerItems}
-                    placeholder={{ label: "Selecione um Diretório:", value: null }}
+                    placeholder={{
+                      label: "Selecione um Diretório:",
+                      value: null,
+                    }}
                   />
                 </View>
               </View>
@@ -244,7 +283,7 @@ export default function Register() {
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
-              placeholderTextColor={'#6B6D71'}
+              placeholderTextColor={"#6B6D71"}
               fontSize={15}
             />
 
@@ -254,7 +293,7 @@ export default function Register() {
               secureTextEntry={true}
               value={senha}
               onChangeText={setSenha}
-              placeholderTextColor={'#6B6D71'}
+              placeholderTextColor={"#6B6D71"}
               fontSize={15}
             />
             <TextInput
@@ -263,7 +302,7 @@ export default function Register() {
               secureTextEntry={true}
               value={confirmarSenha}
               onChangeText={setConfirmarSenha}
-              placeholderTextColor={'#6B6D71'}
+              placeholderTextColor={"#6B6D71"}
               fontSize={15}
             />
 

@@ -4,7 +4,7 @@ import colors from "../../../color";
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    width: "100%",
+    width: "98.5%",
     flexDirection: "row",
     backgroundColor: colors.primary,
     borderRadius: 5,

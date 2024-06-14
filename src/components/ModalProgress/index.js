@@ -1,29 +1,42 @@
-
 import React, { useState } from 'react';
-import { View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { View, Text, Modal, TextInput, TouchableOpacity , Alert} from 'react-native';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import styles from './Styles';
 
 const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, description, setDescription, dateHour, setDateHour, currentContractId }) => { 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
   const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirmDate = (selectedDate) => {
-    setDateHour(selectedDate);
-    hideDatePicker();
+    DateTimePickerAndroid.open({
+      value: dateHour || new Date(),
+      onChange: (event, selectedDate) => {
+        if (event.type === "set" && selectedDate) {
+          setDateHour(selectedDate);
+        }
+      },
+      mode: "date",
+      is24Hour: true,
+    });
   };
 
   const handleAddProgress = () => {
     console.log("Dados a serem enviados add:", { title, description, dateHour, contract_id: currentContractId });
-    onAdd({ title, description, dateHour, contract_id: currentContractId });
+    let verify = verifyIfEmpty();
+    console.log(verify);
+    if(verify){
+      onAdd({ title, description, dateHour, contract_id: currentContractId });
+    }else{
+      Alert.alert("Alguns campos podem estar vazios...","");
+    }
   };
+
+  function verifyIfEmpty(){
+    console.log(title);
+    console.log(description);
+    console.log(dateHour);
+    if(title === "" || description == "" || dateHour == ""){
+      return false;
+    }
+    return true;
+  }
 
   return (
     <Modal
@@ -57,20 +70,13 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
           <TouchableOpacity onPress={showDatePicker}>
             <TextInput
               style={styles.inputDataHora}
-              placeholder="Data e Hora"
-              value={dateHour.toString()}
+              placeholder="Data"
+              value={dateHour ? dateHour.toLocaleDateString() : ''}
               editable={false}
               placeholderTextColor={'#6B6D71'}
               fontSize={15}
             />
           </TouchableOpacity>
-
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="datetime"
-            onConfirm={handleConfirmDate}
-            onCancel={hideDatePicker}
-          />
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity

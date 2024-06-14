@@ -2,28 +2,28 @@
   "expo": {
     "name": "novaes-app",
     "slug": "novaes-app",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/img/LogoDesenhoBranca.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#083C52"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bruno.novaes"
+      "bundleIdentifier": "com.novaes.app"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/img/LogoDesenhoBranca.png",
+        "backgroundColor": "#083C52"
       },
-      "package": "com.bruno.novaes",
+      "package": "com.novaes.app",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]

@@ -119,14 +119,10 @@ async function uploadFile(file, directoryID) {
     formdata.append("directoryID", directoryID);
     formdata.append("type", file.assets[0].mimeType); 
 
-    const response = await fetch(`${url}/archive`, {
+    const response = fetch(`${url}/archive`, {
       method: 'POST',
       body: formdata
     });
-
-    
-    console.log("response -> " + JSON.stringify(response));
-    return response;
   } catch (error) {
     console.error('Erro durante o upload do arquivo:', error);
   }

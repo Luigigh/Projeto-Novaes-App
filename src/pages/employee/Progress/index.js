@@ -232,7 +232,7 @@ const Progress = () => {
           onPress={() => handleNavigateBack()}
           style={styles.btnBack}
         >
-          <Icon_Back name={"arrow-back"} size={35} />
+          <Icon_Back name={"arrow-back"} size={40} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnAdd}

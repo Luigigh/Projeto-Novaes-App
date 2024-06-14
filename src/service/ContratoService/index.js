@@ -42,10 +42,11 @@ const ContratoService = {
   addContract: async (contractData) => {
     try{
       const response = await axios.post(`${url}/contract`, contractData);
+      console.log(JSON.stringify(response));
       return response.data;
     }catch(error){
-      console.log('Erro ao adicionar contrato requisição: ', error);
-      throw error;
+      console.log(JSON.stringify(error));
+      return false;
     }
   },
 

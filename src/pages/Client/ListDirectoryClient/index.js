@@ -93,7 +93,7 @@ const DirectoryClient = () => {
       console.log(currentDirectory.id_Directory);
       if (!file.canceled) {
         await ContractService.uploadFile(file, currentDirectory.id_Directory);
-        await fetchFiles(currentDirectory.id_Directory); // Refresh the file list after upload
+        await fetchFiles(currentDirectory.id_Directory);
       } else {
         console.log("Seleção de arquivo cancelada");
       }

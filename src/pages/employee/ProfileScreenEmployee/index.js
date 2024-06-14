@@ -45,7 +45,6 @@ function InfoManagerEmployee({ navigation }) {
         console.error("Erro ao buscar dados do usuário:", error);
       }
     }
-
     fetchData();
   }, []);
 

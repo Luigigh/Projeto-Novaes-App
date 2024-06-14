@@ -186,6 +186,16 @@ export async function deleteClient(id) {
   }
 }
 
+export async function deleteEmployee(id) {
+  try {
+    const response = await axios.delete(`${url}/employee/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar funcionário:", error);
+    throw error;
+  }
+}
+
 export async function editClient(idUser, data){
   console.log("id usuario: "+idUser);
   console.log("Data em userService: " + JSON.stringify(data))
@@ -203,6 +213,22 @@ export async function editClient(idUser, data){
   }
 }
 
+export async function editEmployee(idUser, data){
+  console.log("id usuario: "+idUser);
+  console.log("Data em userService: " + JSON.stringify(data))
+  try {
+    const response = await axios.put(`${url}/employee/${idUser}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log("Resposta:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o funcionário', error)
+    throw error;
+  }
+}
 
 export async function getAllClients() {
   try {

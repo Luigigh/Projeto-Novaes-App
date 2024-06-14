@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 5
+    marginTop: 5,
   },
   tabButton: {
     backgroundColor: '#ededed',
@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
     padding: 7,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    borderBottomWidth: 2,
-    borderColor: 'black'
+    borderBottomWidth: 1,
+    borderColor: 'black',
   },
   tabText: {
     fontSize: 20,
     fontWeight: '600'
   },
   activeTab: {
-    borderWidth: 4,
+    borderWidth: 1,
     borderColor: 'black'
   },
   clientList: {
@@ -68,9 +68,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 7,
     borderBottomRightRadius: 7,
     padding: 7,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderBottomWidth: 2,
   },
   iconcamera: {
     position: "absolute",

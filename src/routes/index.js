@@ -11,6 +11,7 @@ import ProgressClient from "../pages/Client/ProgressClient";
 import Progress from "../pages/employee/Progress";
 import Register from "../pages/employee/Register";
 import ClientList from "../pages/employee/ListClient";
+import ClientListEnginer from "../pages/employee/ListClientEnginer";
 import EmployeeList from "../pages/Client/ListEmployeeClient";
 import ListContractEmployee from "../pages/employee/ListContractEmployee";
 
@@ -53,6 +54,11 @@ const AppStack = () => {
       <Stack.Screen
         name="ClientList"
         component={ClientList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ClientListEnginer"
+        component={ClientListEnginer}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -59,6 +59,12 @@ async function setUserLogged(user) {
     pathUser[2]= "ClientList";
     pathUser[3]= "ListContractEmployee";
   }
+  if(user.role === "EMPLOYEE"){
+    pathUser[0]= "ContractList";
+    pathUser[1]= "InfoManager";
+    pathUser[2]= "ClientListEnginer";
+    pathUser[3]= "ListContractEmployee";
+  }
   else{
     pathUser[0]= "DirectoryClient";
     pathUser[1]= "InfoManager";

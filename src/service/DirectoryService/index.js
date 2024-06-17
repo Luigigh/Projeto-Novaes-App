@@ -54,7 +54,7 @@ const fetchDirectoriesClient = async (parentDirectoryId) => {
 const getDirectoryNames = async () => {
   try {
       const response = await axios.get(`${url}/archive/directory/getNameDirectoryInRoot`);
-      if (!response.ok) {
+      if (!response.status == 200) {
           console.log("Erro na requisição")
       }
       return response.data;

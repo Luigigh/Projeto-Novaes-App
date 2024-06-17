@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import RNPickerSelect from "react-native-picker-select";
+import { Picker } from '@react-native-picker/picker';
 import DirectoryService from "../../../service/DirectoryService";
 import RegisterService from "../../../service/RegisterService";
 
@@ -242,16 +242,15 @@ export default function Register() {
 
             {tipoCadastro === "funcionario" ? (
               <View style={styles.cargoPicker}>
-                <RNPickerSelect
-                  style={styles.picker}
+                <Picker
+                  style={styles.cargoPicker}
+                  selectedValue={cargo}
                   onValueChange={(value) => setCargo(value)}
-                  items={[
-                    { label: "Administrativo", value: "adm" },
-                    { label: "Gestor", value: "gestor" },
-                    { label: "Engenharia", value: "eng" },
-                  ]}
-                  placeholder={{ label: "Selecione um Cargo:", value: null }}
-                />
+                >
+                  <Picker.Item label="Administrativo" value="adm" />
+                  <Picker.Item label="Gestor" value="gestor" />
+                  <Picker.Item label="Engenharia" value="eng" />
+                </Picker>
               </View>
             ) : (
               <View style={styles.containerSelectClient}>
@@ -265,15 +264,19 @@ export default function Register() {
                 />
 
                 <View style={styles.cargoPicker}>
-                  <RNPickerSelect
-                    style={styles.input}
+                  <Picker
+                    style={styles.cargoPicker}
+                    selectedValue={selectedValue}
                     onValueChange={(value) => setSelectedValue(value)}
-                    items={pickerItems}
-                    placeholder={{
-                      label: "Selecione um Diretório:",
-                      value: null,
-                    }}
-                  />
+                  >
+                    {pickerItems.map((item) => (
+                      <Picker.Item
+                        key={item.value}
+                        label={item.label}
+                        value={item.value}
+                      />
+                    ))}
+                  </Picker>
                 </View>
               </View>
             )}

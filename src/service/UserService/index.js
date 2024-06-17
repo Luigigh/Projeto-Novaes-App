@@ -53,13 +53,14 @@ async function setUserLogged(user) {
     userLogged[0].references_directory = clientDetails.references_directory;
   }
 
+  console.log(user.role);
   if(user.role === "ADMIN"){
     pathUser[0]= "ContractList";
     pathUser[1]= "InfoManagerEmployer";
     pathUser[2]= "ClientList";
     pathUser[3]= "ListContractEmployee";
   }
-  if(user.role === "EMPLOYEE"){
+  else if(user.role === "EMPLOYEE"){
     pathUser[0]= "ContractList";
     pathUser[1]= "InfoManager";
     pathUser[2]= "ClientListEnginer";

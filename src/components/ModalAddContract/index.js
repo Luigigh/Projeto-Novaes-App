@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Modal, TextInput, TouchableOpacity, Alert, Picker } from "react-native"; // Importar Picker do React Native
+import {
+  View,
+  Text,
+  Modal,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import RNPickerSelect from "react-native-picker-select";
 import ContratoService from "../../service/ContratoService";
 import styles from "./Styles";
-import { UserService } from '../../service/UserService';
+import { UserService } from "../../service/UserService";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import {Picker} from '@react-native-picker/picker';
 
 const ModalAddContract = ({
   visible,
@@ -22,20 +31,17 @@ const ModalAddContract = ({
     contract?.concluded ? "Concluído" : "Em andamento"
   );
 
-  const showDatePicker = async () => {
-    try {
-      const { action, year, month, day } = await DateTimePickerAndroid.open({
-        value: new Date(),
-        mode: "spinner", // Change mode to spinner for Android to display date picker without time
-      });
-
-      if (action === DateTimePickerAndroid.dateSetAction) {
-        const selectedDate = new Date(year, month, day);
-        setTime(selectedDate);
-      }
-    } catch (error) {
-      console.error("Erro ao abrir o seletor de data:", error);
-    }
+  const showDatePicker = () => {
+    DateTimePickerAndroid.open({
+      value: new Date(),
+      onChange: (event, selectedDate) => {
+        if (event.type === "set" && selectedDate) {
+          setTime(new Date(selectedDate));
+        }
+      },
+      mode: "date",
+      is24Hour: true,
+    });
   };
 
   const handleAction = async () => {
@@ -48,19 +54,18 @@ const ModalAddContract = ({
           login: email,
         },
       };
-
-      if (title === "" || time === null) {
-        Alert.alert("Preenchimento obrigatório", "Por favor, preencha todos os campos.");
-        return; // Halt further execution
-      }
-
       if (isEditing) {
         await ContratoService.editContractById(contract.id, contractData);
       } else {
         const response = await ContratoService.addContract(contractData);
-        if (!response) {
-          Alert.alert("Cliente não encontrado", "Por favor, verifique o email do colaborador.");
-          return; // Halt further execution
+        if (title == "" || time == null) {
+          console.log("teste");
+          Alert.alert(
+            "Alguns campos podem não estar preenchidos corretamente",
+            ""
+          );
+        } else if (!response) {
+          Alert.alert("Cliente não existe!", "");
         }
       }
 
@@ -90,7 +95,6 @@ const ModalAddContract = ({
             placeholderTextColor={"#6B6D71"}
             fontSize={15}
           />
-
           <TextInput
             style={styles.inputDescricao}
             placeholder="Email do colaborador"
@@ -104,7 +108,7 @@ const ModalAddContract = ({
           <TouchableOpacity onPress={showDatePicker}>
             <TextInput
               style={styles.inputDataHora}
-              placeholder="Último dia do contrato"
+              placeholder="Ultimo dia do contrato"
               value={time ? time.toLocaleDateString() : ""}
               editable={false}
               placeholderTextColor={"#6B6D71"}
@@ -113,7 +117,7 @@ const ModalAddContract = ({
           </TouchableOpacity>
 
           <View style={styles.inputStatus}>
-            <Picker
+          <Picker
               selectedValue={status}
               onValueChange={(itemValue) => setStatus(itemValue)}
             >

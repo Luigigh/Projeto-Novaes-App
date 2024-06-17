@@ -243,7 +243,7 @@ export default function Register() {
             {tipoCadastro === "funcionario" ? (
               <View style={styles.cargoPicker}>
                 <Picker
-                  style={styles.cargoPicker}
+                  
                   selectedValue={cargo}
                   onValueChange={(value) => setCargo(value)}
                 >
@@ -265,7 +265,6 @@ export default function Register() {
 
                 <View style={styles.cargoPicker}>
                   <Picker
-                    style={styles.cargoPicker}
                     selectedValue={selectedValue}
                     onValueChange={(value) => setSelectedValue(value)}
                   >

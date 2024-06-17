@@ -4,12 +4,14 @@ import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import styles from './Styles';
 
 const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, description, setDescription, dateHour, setDateHour, currentContractId }) => { 
+  const [ time , setTime ] = useState(null);
+  
   const showDatePicker = () => {
     DateTimePickerAndroid.open({
-      value: dateHour || new Date(),
+      value: new Date(),
       onChange: (event, selectedDate) => {
         if (event.type === "set" && selectedDate) {
-          setDateHour(selectedDate);
+          setTime(new Date(selectedDate));
         }
       },
       mode: "date",
@@ -18,11 +20,11 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
   };
 
   const handleAddProgress = () => {
-    console.log("Dados a serem enviados add:", { title, description, dateHour, contract_id: currentContractId });
+    console.log("Dados a serem enviados add:", { title, description, time, contract_id: currentContractId });
     let verify = verifyIfEmpty();
     console.log(verify);
     if(verify){
-      onAdd({ title, description, dateHour, contract_id: currentContractId });
+      onAdd({ title, description, time, contract_id: currentContractId });
     }else{
       Alert.alert("Alguns campos podem estar vazios...","");
     }
@@ -31,8 +33,8 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
   function verifyIfEmpty(){
     console.log(title);
     console.log(description);
-    console.log(dateHour);
-    if(title === "" || description == "" || dateHour == ""){
+    console.log(time);
+    if(title === "" || description == "" || time == ""){
       return false;
     }
     return true;
@@ -71,7 +73,7 @@ const ModalProgress = ({ visible, onClose, onAdd, isEditing, title, setTitle, de
             <TextInput
               style={styles.inputDataHora}
               placeholder="Data"
-              value={dateHour ? dateHour.toLocaleDateString() : ''}
+              value={time ? time.toLocaleDateString() : ''}
               editable={false}
               placeholderTextColor={'#6B6D71'}
               fontSize={15}

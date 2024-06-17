@@ -26,7 +26,7 @@ export default function Footer({ routeSelected }) {
     setIfHomeSelected(routeSelected === "ContractList" || routeSelected === "DirectoryClient");
     setIfProgressSelected(routeSelected === "ProgressClient" || routeSelected === "ListContractEmployee" || routeSelected === "Progress");
     setIfInfoManagerEmployeeSelected(routeSelected === "InfoManagerEmployer" || routeSelected === "InfoManager");
-    setIfClientListSelected(routeSelected === "ClientList" || routeSelected === "EmployeeList" || routeSelected === "ClientListEnginer");
+    setIfClientListSelected(routeSelected === "ClientList" || routeSelected === "EmployeeList" || routeSelected === "ClientListEnginer" || routeSelected === "Register");
     setProfileScreen(userLogged[1]);
 
     console.log("Array setado para os caminhos: " + pathUser);

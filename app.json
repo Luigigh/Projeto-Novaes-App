@@ -7,9 +7,9 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/img/LogoDesenhoBranca.png",
+      "image": "./src/img/LogosGrupoNovaesApp.png",
       "resizeMode": "contain",
-      "backgroundColor": "#083C52"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,8 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/img/LogoDesenhoBranca.png",
-        "backgroundColor": "#083C52"
+        "foregroundImage": "./src/img/LogosGrupoNovaesApp.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.novaes.app",
       "permissions": [

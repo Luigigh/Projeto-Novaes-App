@@ -257,7 +257,7 @@ export async function getAllEmployee() {
 
 export async function getProfilePhotoUser(id_user) {
   try {
-    const response = await axios.get(`${url}/employee/getProfilePhoto/${id_user}`);
+    const response = await axios.get(`${url}/user/getProfilePhoto/${id_user}`);
     return response.data.base64Image;
   } catch (error) {
     console.log("erro: " + error);
@@ -274,7 +274,7 @@ export async function addNewProfilePhoto(imageUser, id_user) {
     });
 
     const reqOptions = {
-      url: `${url}/employee/addProfilePhoto/${id_user}`,
+      url: `${url}/user/addProfilePhoto/${id_user}`,
       method: "PUT",
       headers: {
         'Content-Type': 'multipart/form-data',

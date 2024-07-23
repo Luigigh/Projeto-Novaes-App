@@ -84,7 +84,8 @@ const Progress = () => {
           "dateHour",
           dateHour
         );
-        const newDateHour = new Date(dateHour).toISOString();
+        const newDateHour = new Date(dateHour);
+        console.log(JSON.stringify(newDateHour));
         const newStage = await ContratoService.addStage({
           title,
           description,

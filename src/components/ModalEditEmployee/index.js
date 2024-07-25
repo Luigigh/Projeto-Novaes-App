@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-native";
 import Icon_Edit from "react-native-vector-icons/MaterialIcons";
+import { TextInputMask } from "react-native-masked-text";
 import styles from "./Styles";
 import colors from "../../color";
 import { editEmployee, deleteEmployee } from "../../service/UserService";
@@ -150,12 +151,20 @@ const ModalEditEmployee = ({
               <View style={styles.conjuntoInputs}>
                 <View style={styles.contInput}>
                   <Text style={styles.placeInputs}>Telefone</Text>
-                  <TextInput
+                  <TextInputMask
+                    style={styles.inputs}
+                    type={'custom'}
+                    options={{
+                      mask: '(99) 99999-9999'
+                    }}
                     placeholder="Telefone"
                     value={phoneNumber}
-                    editable={editMode}
                     onChangeText={setPhoneNumber}
-                    style={styles.inputs}
+                    editable={editMode}
+                    placeholderTextColor={"#6B6D71"}
+                    fontSize={15}
+                    keyboardType="phone-pad"
+                    maxLength={15}
                   />
                 </View>
                 <TouchableOpacity style={styles.btnEdit} onPress={handleEdit}>

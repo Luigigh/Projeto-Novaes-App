@@ -28,7 +28,7 @@ const RegisterService = {
 
   createCliente: async (userData) => {
     try {
-      console.log(JSON.stringify(userData))
+      console.log(JSON.stringify(userData));
       const response = await axios.post(`${url}/client`, userData);
       
       return response.data;

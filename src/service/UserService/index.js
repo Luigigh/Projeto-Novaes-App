@@ -40,6 +40,7 @@ async function setUserLogged(user) {
     nameUser: user.name,
     lastname: user.lastname,
     login: user.login,
+    phoneNumber : user.phoneNumber,
     role: user.role,
   };
 

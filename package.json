@@ -34,6 +34,7 @@
     "react-native-document-picker": "^9.3.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.16.1",
+    "react-native-masked-text": "^1.12.5",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-picker-select": "^9.1.3",
     "react-native-popup-menu": "^0.16.1",

@@ -24,6 +24,7 @@ const ModalEditEmployee = ({
   const [name, setName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [login, setLogin] = useState(null);
+  const [phoneNumber , setPhoneNumber] = useState(null);
   const [office, setOffice] = useState(null);
   const [photo, setPhoto] = useState(null);
   const PlaceholderImage = require("../../img/IconProfile.png");
@@ -39,7 +40,7 @@ const ModalEditEmployee = ({
   const [employee, setEmployee] = useState(initialData);
 
   const handleSave = async () => {
-    const updatedData = { name, lastName, login, office, photo };
+    const updatedData = { name, lastName, login, phoneNumber, office, photo };
     try {
       const response = await editEmployee(employee.id, updatedData);
       if (response) {
@@ -62,6 +63,7 @@ const ModalEditEmployee = ({
       setName(initialData.name);
       setLastName(initialData.lastname);
       setLogin(initialData.login);
+      setPhoneNumber(initialData.phoneNumber);
       setOffice(initialData.office);
       setPhoto(initialData.photo);
     }
@@ -137,6 +139,22 @@ const ModalEditEmployee = ({
                     value={login}
                     editable={editMode}
                     onChangeText={setLogin}
+                    style={styles.inputs}
+                  />
+                </View>
+                <TouchableOpacity style={styles.btnEdit} onPress={handleEdit}>
+                  <Icon_Edit name="edit" size={27} color={"white"} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.conjuntoInputs}>
+                <View style={styles.contInput}>
+                  <Text style={styles.placeInputs}>Telefone</Text>
+                  <TextInput
+                    placeholder="Telefone"
+                    value={phoneNumber}
+                    editable={editMode}
+                    onChangeText={setPhoneNumber}
                     style={styles.inputs}
                   />
                 </View>

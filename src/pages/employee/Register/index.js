@@ -8,6 +8,7 @@ import Footer from "../../../components/Footer";
 import { Picker } from '@react-native-picker/picker';
 import DirectoryService from "../../../service/DirectoryService";
 import RegisterService from "../../../service/RegisterService";
+import { TextInputMask } from 'react-native-masked-text'; // Importando TextInputMask
 
 export default function Register() {
   const navigation = useNavigation();
@@ -20,6 +21,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [telefone, setTelefone] = useState(""); // Novo estado para telefone
   const [pickerItems, setPickerItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [idReferences, setIdReferences] = useState(null);
@@ -80,6 +82,7 @@ export default function Register() {
         office: cargo,
         admin: isAdmin,
         login: email,
+        phoneNumber: telefone, // Inclua o telefone aqui
       };
 
       try {
@@ -88,7 +91,8 @@ export default function Register() {
           sobrenome == "" ||
           email == "" ||
           cargo == null ||
-          senha == ""
+          senha == "" ||
+          telefone == "" // Verifique se o telefone está preenchido
         ) {
           Alert.alert(
             "Campo(s) vazio(s)!",
@@ -135,6 +139,7 @@ export default function Register() {
         entrerprise_name: nomeEmpresa,
         login: email,
         references_directory: idReferences,
+        phoneNumber: telefone,
       };
 
       try {
@@ -143,7 +148,8 @@ export default function Register() {
           sobrenome == "" ||
           email == "" ||
           nomeEmpresa == "" ||
-          senha == ""
+          senha == "" ||
+          telefone == ""
         ) {
           Alert.alert(
             "Campo(s) vazio(s)!",
@@ -158,7 +164,7 @@ export default function Register() {
         } else {
           await RegisterService.createCliente(userData);
           Alert.alert(
-            "Cadastrado realizado!",
+            "Cadastro realizado!",
             `Cliente ${nome} ${sobrenome} (${email}), da empresa ${nomeEmpresa} cadastrado com sucesso!`,
             [
               {
@@ -190,7 +196,11 @@ export default function Register() {
       <Header />
       <View style={styles.body}>
         <View style={styles.main}>
-          <Text style={styles.titulo_cadastro}>Cadastrar Usuários</Text>
+          <Text style={styles.texto_cadastro}>
+            {tipoCadastro === "funcionario"
+              ? "Cadastro de Funcionário"
+              : "Cadastro de Cliente"}
+          </Text>
 
           <View style={styles.abas}>
             <TouchableOpacity
@@ -215,12 +225,6 @@ export default function Register() {
           </View>
 
           <View style={styles.modal}>
-            <Text style={styles.texto_cadastro}>
-              {tipoCadastro === "funcionario"
-                ? "Cadastro de Funcionário"
-                : "Cadastro de Cliente"}
-            </Text>
-
             <View style={styles.NomeSobrenome}>
               <TextInput
                 style={styles.inputNomeSobrenome}
@@ -243,7 +247,6 @@ export default function Register() {
             {tipoCadastro === "funcionario" ? (
               <View style={styles.cargoPicker}>
                 <Picker
-                  
                   selectedValue={cargo}
                   onValueChange={(value) => setCargo(value)}
                 >
@@ -287,6 +290,21 @@ export default function Register() {
               onChangeText={setEmail}
               placeholderTextColor={"#6B6D71"}
               fontSize={15}
+            />
+
+            <TextInputMask
+              style={styles.input}
+              type={'custom'}
+              options={{
+                mask: '(99) 99999-9999'
+              }}
+              placeholder="Telefone"
+              value={telefone}
+              onChangeText={setTelefone}
+              placeholderTextColor={"#6B6D71"}
+              fontSize={15}
+              keyboardType="phone-pad"
+              maxLength={15}
             />
 
             <TextInput

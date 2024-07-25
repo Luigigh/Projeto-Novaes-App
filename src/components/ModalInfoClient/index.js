@@ -26,6 +26,7 @@ const ModalInfoClient = ({
   const [name, setName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [login, setLogin] = useState(null);
+  const [ phoneNumber , setPhoneNumber] = useState(null);
   const [enterpriseName, setEnterpriseName] = useState(null);
   const [ references_directory , setReferencesDirectory ] = useState(null);
   const [ name_directory , setNameDirectory ] = useState("");
@@ -78,6 +79,7 @@ const ModalInfoClient = ({
       setName(initialData.name);
       setLastName(initialData.lastname);
       setLogin(initialData.login);
+      setPhoneNumber(initialData.phoneNumber);
       setEnterpriseName(initialData.entrerprise_name);
       const nameDirectory = await getNameDirectory();
       setNameDirectory(nameDirectory);
@@ -168,6 +170,21 @@ const ModalInfoClient = ({
                   <TextInput
                     placeholder="Email"
                     value={login}
+                    editable={false}
+                    style={styles.inputs}
+                  />
+                </View>
+                <TouchableOpacity style={styles.btnEdit} onPress={handleEdit}>
+                  <Icon_Edit name="edit" size={27} color={"white"} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.conjuntoInputs}>
+                <View style={styles.contInput}>
+                  <Text style={styles.placeInputs}>Telefone</Text>
+                  <TextInput
+                    placeholder="Telefone"
+                    value={phoneNumber}
                     editable={false}
                     style={styles.inputs}
                   />

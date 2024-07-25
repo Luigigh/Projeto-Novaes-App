@@ -104,6 +104,7 @@ const InfoManager = ({ navigation }) => {
                 </Text>
               </View>
             </View>
+
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>Email</Text>
               <View style={styles.view_input}>
@@ -115,6 +116,19 @@ const InfoManager = ({ navigation }) => {
                 </Text>
               </View>
             </View>
+
+            <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Telefone</Text>
+              <View style={styles.view_input}>
+                <Text
+                  style={styles.input_contato}
+                  placeholderTextColor="#ABABAB"
+                >
+                  {userLogged[0].phoneNumber}
+                </Text>
+              </View>
+            </View>
+
             <View style={styles.campo_input}>
               <Text style={styles.text_input}>
                 {userLogged[0].role === "USER" ? "Empresa" : "Cargo"}

@@ -7,6 +7,7 @@ const ModalInfoEmployee = ({ visible, onClose, initialData }) => {
   const [name, setName] = useState(initialData.name);
   const [lastname, setLastName] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
+  const [phoneNumber , setPhoneNumber] = useState(initialData.phoneNumber);
   const [office, setOffice] = useState(initialData.office);
   const PlaceholderImage = require("../../img/IconProfile.png");
   const [selectedImage, setSelectedImage] = useState(null);
@@ -93,6 +94,16 @@ const ModalInfoEmployee = ({ visible, onClose, initialData }) => {
               <TextInput
                 placeholder="Email"
                 value={login}
+                editable={false}
+                style={styles.inputs}
+              />
+            </View>
+
+            <View style={styles.contInput}>
+              <Text style={styles.placeInputs}>Telefone</Text>
+              <TextInput
+                placeholder="Telefone"
+                value={phoneNumber}
                 editable={false}
                 style={styles.inputs}
               />

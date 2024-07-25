@@ -6,17 +6,19 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
   const [lastname, setLastname] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
+  const [phoneNumber , setPhoneNumber] = useState(null);
   const [office, setOffice] = useState(initialData.office);
 
   useEffect(() => {
     setName(initialData.name);
     setLastname(initialData.lastname);
     setLogin(initialData.login);
+    setPhoneNumber(initialData.phoneNumber);
     setOffice(initialData.office);
   }, [initialData]);
 
   const handleSubmit = () => {
-    onSubmit({ name, lastname, login, office });
+    onSubmit({ name, lastname, login,phoneNumber, office });
     onClose();
   };
 
@@ -42,6 +44,12 @@ const ModalEditContact = ({ visible, onClose, onSubmit, initialData }) => {
               placeholder="Email"
               value={login}
               onChangeText={setLogin}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Telefone"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
               style={styles.inputs}
             />
             <Text style={styles.inputOffice}>{office}</Text>

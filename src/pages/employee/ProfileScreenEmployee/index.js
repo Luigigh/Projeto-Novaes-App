@@ -68,9 +68,11 @@ function InfoManagerEmployee({ navigation }) {
 
   const handleSubmit = async (data) => {
     try {
+      
       const response = await updateEmployee(user.id, data);
       if (response) {
         setUser({ ...user, ...data });
+        
         console.log("Dados atualizados com sucesso!");
       } else {
         console.error("Erro ao atualizar os dados");
@@ -177,6 +179,18 @@ function InfoManagerEmployee({ navigation }) {
             </View>
 
             <View style={styles.campo_input}>
+              <Text style={styles.text_input}>Telefone</Text>
+              <View style={styles.view_input}>
+                <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
+                  {user.phoneNumber}
+                </Text>
+                <TouchableOpacity style={styles.btn_editarContato} onPress={openModal}>
+                  <IconPencil name="pencil" size={25} color={'#FFF'} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.campo_input}>
               <Text style={styles.text_input}>Cargo</Text>
               <View style={styles.view_input}>
                 <Text style={styles.input_contato} placeholderTextColor="#ABABAB">
@@ -185,11 +199,13 @@ function InfoManagerEmployee({ navigation }) {
               </View>
             </View>
 
+            
+
             <ModalEditContact
               visible={modalVisibleEdit}
               onClose={closeModal}
               onSubmit={handleSubmit}
-              initialData={{ name: userLogged[0].nameUser, lastname: userLogged[0].lastname, login: userLogged[0].login, office: userLogged[0].office }} />
+              initialData={{ name: userLogged[0].nameUser, lastname: userLogged[0].lastname, login: userLogged[0].login, phoneNumber : userLogged[0].phoneNumber, office: userLogged[0].office }} />
           </ScrollView>
         </View>
       </View>

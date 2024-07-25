@@ -8,6 +8,7 @@ const ModalEditClient = ({ visible, onClose, onSubmit, initialData }) => {
   const [name, setName] = useState(initialData.name);
   const [lastname, setLastname] = useState(initialData.lastname);
   const [login, setLogin] = useState(initialData.login);
+  const [phoneNumber , setPhoneNumber ] = useState(initialData.phoneNumber);
   const [entrerprise_name, setEntrerprise_name] = useState(initialData.entrerprise_name);
   const [references_directory, setReferencesDirectory] = useState(initialData.references_directory);
   const [pickerItems, setPickerItems] = useState([]);
@@ -42,13 +43,14 @@ const ModalEditClient = ({ visible, onClose, onSubmit, initialData }) => {
     setName(initialData.name);
     setLastname(initialData.lastname);
     setLogin(initialData.login);
+    setPhoneNumber(initialData.phoneNumber);
     setEntrerprise_name(initialData.entrerprise_name);
     setReferencesDirectory(initialData.references_directory);
     setSelectedValue(initialData.references_directory);
   }, [initialData]);
 
   const handleSubmit = () => {
-    onSubmit({ name, lastname, login, entrerprise_name, references_directory });
+    onSubmit({ name, lastname, login,phoneNumber, entrerprise_name, references_directory });
     onClose();
   };
 
@@ -74,6 +76,12 @@ const ModalEditClient = ({ visible, onClose, onSubmit, initialData }) => {
               placeholder="Email"
               value={login}
               onChangeText={setLogin}
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Telefone"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
               style={styles.inputs}
             />
             <TextInput

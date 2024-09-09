@@ -31,7 +31,7 @@ const ProgressClient = () => {
 
   const route = useRoute();
 
-  useEffect(() => {
+  useEffect(() => {date-and-time
     fetchContracts();
   }, []);
 

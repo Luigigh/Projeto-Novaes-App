@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import DirectoryService from "../../service/DirectoryService";
-import { TextInputMask } from "react-native-masked-text";
+import { MaskedTextInput } from "react-native-masked-text";
 import styles from "./Styles";
 
 const ModalEditClient = ({ visible, onClose, onSubmit, initialData }) => {
@@ -79,7 +79,7 @@ const ModalEditClient = ({ visible, onClose, onSubmit, initialData }) => {
               onChangeText={setLogin}
               style={styles.inputs}
             />
-            <TextInputMask
+            <MaskedTextInput
               style={styles.inputs}
               type={'custom'}
               options={{

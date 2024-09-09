@@ -28,12 +28,14 @@
     "expo-sharing": "~12.0.1",
     "expo-status-bar": "~1.12.1",
     "fs": "^0.0.1-security",
+    "novaes-app": "file:",
     "react": "18.2.0",
     "react-native": "0.74.3",
     "react-native-animatable": "^1.4.0",
     "react-native-document-picker": "^9.3.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.16.1",
+    "react-native-mask-text": "^0.14.2",
     "react-native-masked-text": "^1.12.5",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-picker-select": "^9.1.3",
@@ -44,7 +46,8 @@
     "react-native-vector-icons": "^10.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9"
+    "@babel/core": "^7.25.2",
+    "babel-preset-expo": "^11.0.14"
   },
   "private": true
 }

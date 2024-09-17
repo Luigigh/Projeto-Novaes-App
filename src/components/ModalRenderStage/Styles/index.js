@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: "auto",
     width: "75%",
-    borderColor: "#007B8F",
-    borderWidth: 1,
+    backgroundColor: colors.branco,
     justifyContent: "space-between",
     borderRadius: 5,
+    elevation: 8,
   },
 
   progressContent: {

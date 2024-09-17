@@ -233,7 +233,7 @@ const Progress = () => {
           onPress={() => handleNavigateBack()}
           style={styles.btnBack}
         >
-          <Icon_Back name={"arrow-back"} size={40} />
+          <Icon_Back name={"arrow-back"} size={40} color={colors.noncinza}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnAdd}
@@ -241,7 +241,7 @@ const Progress = () => {
           onPress={() => setIsModalVisible(true)}
           testID={"add-Button"}
         >
-          <Icon_Plus name="plus" size={60} color={colors.branco} />
+          <Icon_Plus name="plus" size={60} color={colors.primary} />
         </TouchableOpacity>
       </View>
       <Footer routeSelected={route.name} />

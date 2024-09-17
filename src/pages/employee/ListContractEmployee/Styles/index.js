@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   listContainer:{
-    height:600
+    maxHeight:600
   }
 });
 

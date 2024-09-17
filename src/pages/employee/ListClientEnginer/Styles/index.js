@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     padding: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    borderBottomWidth: 1,
-    borderColor: 'black',
   },
   tabText: {
     fontSize: 20,
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderWidth: 1,
-    borderColor: 'black'
+    borderColor: colors.noncinza,
   },
   clientList: {
     width: '90%',

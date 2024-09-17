@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        backgroundColor:colors.primary,
+        backgroundColor:colors.branco,
         padding:10,
+        elevation: 20,
     },
     image:{
         width:50,
         height:50,
-        tintColor: 'white',
     }
 });
 

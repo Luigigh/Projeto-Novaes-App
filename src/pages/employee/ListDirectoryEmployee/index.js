@@ -282,7 +282,7 @@ const ContractList = () => {
                 <Icon_UploadFolder
                   name="folder-plus"
                   size={40}
-                  color={"#FFE9A2"}
+                  color={"#F8D775"}
                 />
               </TouchableOpacity>
               {navigationHistory.length > 0 && (

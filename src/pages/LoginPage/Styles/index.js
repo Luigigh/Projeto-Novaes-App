@@ -17,33 +17,13 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     alignItems: "center",
-    marginTop: 30
+    paddingTop: 30,
+    backgroundColor: 'white',
   },
   header: {
     alignItems: "center",
     justifyContent: 'center',
     width: "100%",
-  },
-  linear: {
-    ...Platform.select({
-      web: {
-        height: '100%',
-        width: "100%",
-      },
-      android: {
-        height: '100%',
-        width: "100%",
-      },
-      ios: {
-
-      },
-    }),
-    alignItems: "center",
-
-    justifyContent: 'center',
-    borderRadius: 20,
-    paddingBottom: 5,
-    elevation: 15,
   },
   main: {
     ...Platform.select({
@@ -63,15 +43,16 @@ const styles = StyleSheet.create({
     }),
     justifyContent: "center",
     flexDirection: "column",
-    borderRadius: 20,
+    borderRadius: 5,
     alignItems: 'center',
     paddingBottom: 5,
     shadowColor: 'black',
-    shadowRadius: 20,
+    elevation: 8,
+    backgroundColor: colors.login,
   },
   texto_login: {
     color: colors.primary,
-    fontSize: 26,
+    fontSize: 20,
     marginBottom: 15,
     fontWeight: '600'
   },
@@ -89,16 +70,17 @@ const styles = StyleSheet.create({
     }),
     backgroundColor: 'white',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 5,
     marginVertical: 6,
     fontSize: 17,
-    borderWidth: 1
+    borderWidth: 0.5,
+    borderColor: 'grey'
   },
   btn_login: {
     backgroundColor: colors.primary,
     padding: 10,
-    borderRadius: 10,
-    width: 130,
+    borderRadius: 5,
+    width: '60%',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',

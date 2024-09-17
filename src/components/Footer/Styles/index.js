@@ -6,9 +6,10 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        backgroundColor:colors.primary,
+        backgroundColor:colors.branco,
         height:70,
         padding:10,
+        elevation: 20,
     },
     btnSelected:{
         width:65,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.folder1,
+        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.azul_claro1,
+        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -54,13 +55,18 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.verde,
+        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
     colorIcon: {
-        color: 'white'
-    }
+        color: colors.primary
+    },
+    txt:{
+        color:colors.noncinza,
+        fontSize: 12
+    },
+
 });
 
 export default styles;

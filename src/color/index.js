@@ -19,6 +19,10 @@ const colors ={
     laranja1:'#C06F26',
     folder1:'#F4CC53',
     azul_claro1: '#27A9BE',
+
+    darkblue:'#1e3050',
+    login: '#f4f4f4',
+    noncinza: '#d7d7d7'
 }
 
 export default colors;

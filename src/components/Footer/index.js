@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 // import Icon_Contacts from "react-native-vector-icons/MaterialIcons";
 import Icon_AddUser from "react-native-vector-icons/Ionicons";
 import Icon_Home from "react-native-vector-icons/Ionicons";
@@ -40,7 +40,8 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[2]);
         }}
       >
-        <Icon_List name="users" size={30} color={colors.secondary} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
+        <Icon_List name="users" size={30} color={colors.noncinza} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
+        <Text style={styles.txt}>Usuários</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -49,7 +50,8 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[0]);
         }}
       >
-        <Icon_Home name="folder-open-sharp" size={35} color={colors.folder1} style={ifHomeSelected ? styles.colorIcon : styles.colorNot}/>
+        <Icon_Home name="folder-open-sharp" size={35} color={colors.noncinza} style={ifHomeSelected ? styles.colorIcon : styles.colorNot}/>
+        <Text style={styles.txt}>Dretório</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -58,7 +60,8 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[3]);
         }}
       >
-        <Icon_Timeline name="timeline-clock" size={35} color={colors.azul_claro1} style={ifProgressSelected ? styles.colorIcon : styles.colorNot}/>
+        <Icon_Timeline name="timeline-clock" size={35} color={colors.noncinza} style={ifProgressSelected ? styles.colorIcon : styles.colorNot}/>
+        <Text style={styles.txt}>Cronograma</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={
@@ -71,7 +74,8 @@ export default function Footer({ routeSelected }) {
           navigator.navigate(pathUser[1]);
         }}
       >
-        <Icon_InfoManager name="user" size={35} color={colors.verde} style={ifInfoManagerEmployeeSelected ? styles.colorIcon : styles.colorNot}/>
+        <Icon_InfoManager name="user" size={35} color={colors.noncinza} style={ifInfoManagerEmployeeSelected ? styles.colorIcon : styles.colorNot}/>
+        <Text style={styles.txt}>Perfil</Text>
       </TouchableOpacity>
     </View>
   );

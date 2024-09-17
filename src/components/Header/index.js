@@ -37,12 +37,12 @@ export default function Header() {
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate(pathUser[0])}>
         <Image
-          source={require("../../img/LogoDesenhoBranca.png")}
+          source={require("../../img/logoStar.png")}
           style={styles.image}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={confirmLogout}>
-                 <Icon name="logout" size={35} color="#fff"/>
+                 <Icon name="logout" size={35} color="#083C52"/>
             </TouchableOpacity>
     </View>
   );

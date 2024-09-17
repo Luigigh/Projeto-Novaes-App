@@ -44,11 +44,8 @@ export default function LoginScreen() {
             </View>
 
             <View style={styles.main}>
-                <LinearGradient
-                    style={styles.linear}
-                    colors={["#B3DFE7", "#FFF", "#FFF"]}
-                >
-                    <Text style={styles.texto_login}>Faça login na Novaes</Text>
+            <Image style={styles.imagem_logo} source={require("../../img/logoStar.png")}></Image>
+                    <Text style={styles.texto_login}>Faça login no nosso App</Text>
 
                     <TextInput
                         style={styles.input_login}
@@ -68,7 +65,6 @@ export default function LoginScreen() {
                         <Text style={styles.text_entrar}>Entrar</Text>
                     </TouchableOpacity>
 
-                </LinearGradient>
             </View>
         </View>
     );

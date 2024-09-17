@@ -79,7 +79,7 @@ const FolderItem = ({
           <Icon_Options
             name="options-vertical"
             size={30}
-            color={colors.branco}
+            color={colors.primary}
           />
         </TouchableOpacity>
       </View>

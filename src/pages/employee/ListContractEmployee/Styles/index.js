@@ -50,18 +50,15 @@ const styles = StyleSheet.create({
   },
 
   btnAdd: {
-    height: 80,
-    width: 80,
-    backgroundColor: colors.primary,
-    borderRadius: 20,
+    height: 60,
+    width: 60,
+    backgroundColor: colors.branco,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 5,
-    borderColor: colors.contract,
-    position: 'absolute',
-    bottom: 80,
-    left: 10,
+    alignSelf: 'center',
+    borderRadius: 5,
     elevation: 20,
+    marginVertical: 5,
   },
 
   btnEdit: {
@@ -89,7 +86,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingRight: 10,
     justifyContent: "space-around",
-    
   },
   btnBack: {
     height: 50,
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   listContainer:{
-    height:650
+    height:600
   }
 });
 

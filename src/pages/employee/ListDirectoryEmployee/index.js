@@ -290,7 +290,7 @@ const ContractList = () => {
                   style={styles.btnBack}
                   onPress={handleNavigateBack}
                 >
-                  <Icon_Back name="arrow-back" size={40} color={"#000"} />
+                  <Icon_Back name="arrow-back" size={40} color={colors.noncinza} />
                 </TouchableOpacity>
               )}
               <TouchableOpacity

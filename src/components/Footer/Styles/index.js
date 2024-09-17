@@ -39,15 +39,13 @@ const styles = StyleSheet.create({
         width:65,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
     btnSelectedContract:{
-        width:65,
+        width:80,
         height:50,
         borderRadius:100,
-        backgroundColor: colors.branco,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -63,10 +61,13 @@ const styles = StyleSheet.create({
         color: colors.primary
     },
     txt:{
-        color:colors.noncinza,
-        fontSize: 12
+        color:colors.primary,
+        fontSize: 12,
     },
-
+    txtNon: {
+        color: colors.noncinza,
+        fontSize: 12,
+    },
 });
 
 export default styles;

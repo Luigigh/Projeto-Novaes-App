@@ -10,7 +10,6 @@ import ModalPhoto from "../../../components/ModalPhoto";
 import ModalEditContact from "../../../components/ModalEditContact";
 import * as ImagePicker from "expo-image-picker";
 import colors from "../../../color";
-import { LinearGradient } from "expo-linear-gradient";
 import { saveProfilePhoto, updateEmployee } from "../../../service/InfoManagerService";
 import { getProfilePhotoUser, addNewProfilePhoto, userLogged } from "../../../service/UserService"; 
 
@@ -109,12 +108,11 @@ function InfoManagerEmployee({ navigation }) {
     <View style={styles.container}>
       <Header />
       <View style={styles.main}>
-        <LinearGradient
+        <View
           style={styles.container_foto_user}
-          colors={[colors.primary, '#007B8F']}
         >
           <View style={styles.fotoperfil}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.btnImg} onPress={() => setModalVisible(true)}>
               {profilePhotoExist ? 
                 <Image
                   source={{ uri: selectedImage }}
@@ -137,7 +135,7 @@ function InfoManagerEmployee({ navigation }) {
               imageURL={selectedImage}
               onClose={() => setModalVisible(false)} />
           </View>
-        </LinearGradient>
+        </View>
 
         <View style={styles.container_info_user}>
           <Text style={styles.titleInfoContact}>Minhas informações</Text>

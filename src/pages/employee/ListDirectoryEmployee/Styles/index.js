@@ -70,11 +70,12 @@ const styles = StyleSheet.create({
   btnBack: {
     height: 50,
     width: 50,
-    backgroundColor: "lightgrey",
+    backgroundColor: colors.branco,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25,
+    borderRadius: 5,
     marginTop: 10,
+    elevation: 10,
   },
 
   btnPlus: {

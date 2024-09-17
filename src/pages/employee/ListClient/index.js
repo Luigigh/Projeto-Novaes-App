@@ -211,7 +211,7 @@ const ClientList = () => {
           }}
           testID={"add-Button"}
         >
-          <Icon_AddUser name="person-add" size={35} color={colors.branco} />
+          <Icon_AddUser name="person-add" size={30} color={colors.secondary} />
         </TouchableOpacity>
       </View>
       <Footer routeSelected={route.name} />

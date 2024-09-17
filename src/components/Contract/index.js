@@ -38,7 +38,7 @@ const Contract = ({ contract, onPress, onDeleteContract, onEditContract }) => {
         style={styles.icon_Contract}
         name="document-text"
         size={50}
-        color={colors.contract}
+        color={colors.primary}
       />
 
       <TouchableOpacity
@@ -104,7 +104,7 @@ const Contract = ({ contract, onPress, onDeleteContract, onEditContract }) => {
 
       <View style={styles.BtnOption}>
         <TouchableOpacity style={styles.ButtonOptions} onPress={toggleOptions}>
-          <Icon_Options name="menu" size={43} color={colors.contract} />
+          <Icon_Options name="menu" size={43} color={colors.primary} />
         </TouchableOpacity>
       </View>
     </View>

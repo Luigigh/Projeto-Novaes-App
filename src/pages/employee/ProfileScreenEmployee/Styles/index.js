@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container_foto_user: {
-    backgroundColor: "#083C52",
+    backgroundColor: colors.login,
     width: "100%",
     height: "40%",
     justifyContent: "center",
@@ -14,11 +14,18 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 70,
   },
+  btnImg: {
+    width: 160,
+    height: 160,
+    borderRadius: 100,
+    elevation: 10
+  },
   imagem_perfil: {
     width: 160,
     height: 160,
     borderRadius: 100,
     position: "relative",
+    elevation: 20,
   },
   imagem_camera: {
     borderRadius: 100,
@@ -29,6 +36,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     padding: 7,
+    elevation: 20,
   },
   main: {
     height: "82.75%",

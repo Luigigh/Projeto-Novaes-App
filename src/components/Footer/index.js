@@ -35,47 +35,43 @@ export default function Footer({ routeSelected }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={ifClientListSelected ? styles.btnSelectedList : styles.btnNotSelected}
+        style={styles.btnSelectedList}
         onPress={() => {
           navigator.navigate(pathUser[2]);
         }}
       >
         <Icon_List name="users" size={30} color={colors.noncinza} style={ifClientListSelected ? styles.colorIcon : styles.colorIconnot}/>
-        <Text style={styles.txt}>Usuários</Text>
+        <Text style={ifClientListSelected ? styles.txt : styles.txtNon}>Usuários</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={ifHomeSelected ? styles.btnSelectedDirectory : styles.btnNotSelected}
+        style={styles.btnSelectedDirectory}
         onPress={() => {
           navigator.navigate(pathUser[0]);
         }}
       >
         <Icon_Home name="folder-open-sharp" size={35} color={colors.noncinza} style={ifHomeSelected ? styles.colorIcon : styles.colorNot}/>
-        <Text style={styles.txt}>Dretório</Text>
+        <Text style={ifHomeSelected ? styles.txt : styles.txtNon}>Dretório</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={ifProgressSelected ? styles.btnSelectedContract : styles.btnNotSelected}
+        style={styles.btnSelectedContract}
         onPress={() => {
           navigator.navigate(pathUser[3]);
         }}
       >
         <Icon_Timeline name="timeline-clock" size={35} color={colors.noncinza} style={ifProgressSelected ? styles.colorIcon : styles.colorNot}/>
-        <Text style={styles.txt}>Cronograma</Text>
+        <Text style={ifProgressSelected ? styles.txt : styles.txtNon}>Cronograma</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={
-          ifInfoManagerEmployeeSelected
-            ? styles.btnSelectedProfile
-            : styles.btnNotSelected
-        }
+        style={styles.btnSelectedProfile}
         onPress={() => {
           console.log("depois de pressionado: "+pathUser[1]);
           navigator.navigate(pathUser[1]);
         }}
       >
         <Icon_InfoManager name="user" size={35} color={colors.noncinza} style={ifInfoManagerEmployeeSelected ? styles.colorIcon : styles.colorNot}/>
-        <Text style={styles.txt}>Perfil</Text>
+        <Text style={ifInfoManagerEmployeeSelected ? styles.txt : styles.txtNon}>Perfil</Text>
       </TouchableOpacity>
     </View>
   );

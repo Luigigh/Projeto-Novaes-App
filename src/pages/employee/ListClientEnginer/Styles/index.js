@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   inputsearch: {
     backgroundColor: "white",
-    borderRadius: 10,
     width: "90%",
     padding: 8,
     marginVertical: 10,
@@ -49,8 +48,8 @@ const styles = StyleSheet.create({
     width: '50%',
     alignItems: 'center',
     padding: 7,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     borderBottomWidth: 1,
     borderColor: 'black',
   },
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
   clientList: {
     width: '90%',
     backgroundColor: '#ededed',
-    borderBottomLeftRadius: 7,
-    borderBottomRightRadius: 7,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     padding: 7,
   },
   iconcamera: {

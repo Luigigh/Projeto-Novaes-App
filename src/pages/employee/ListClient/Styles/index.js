@@ -43,16 +43,17 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
+
   },
   tabButton: {
-    backgroundColor: '#ededed',
+    backgroundColor: colors.branco,
     width: '50%',
     alignItems: 'center',
     padding: 7,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomWidth: 1,
-    borderColor: 'black',
+    elevation: 15
   },
   tabText: {
     fontSize: 20,
@@ -64,10 +65,11 @@ const styles = StyleSheet.create({
   },
   clientList: {
     width: '90%',
-    backgroundColor: '#ededed',
+    backgroundColor: colors.branco,
     borderBottomLeftRadius: 7,
     borderBottomRightRadius: 7,
     padding: 7,
+    elevation: 15,
   },
   iconcamera: {
     position: "absolute",
@@ -103,14 +105,15 @@ const styles = StyleSheet.create({
     color: '#083C52',
   },
   btnAdd: {
-    backgroundColor: colors.secondary,
-    borderRadius: 50,
-    padding: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
+    height: 60,
+    width: 60,
+    backgroundColor: colors.branco,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: 'center',
+    borderRadius: 5,
+    elevation: 20,
+    marginVertical: 5
   },
 });
 

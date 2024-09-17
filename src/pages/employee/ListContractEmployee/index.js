@@ -192,7 +192,7 @@ const ListContractEmployee = () => {
         onPress={() => setIsModalAddProgressVisible(true)}
         testID={"add-Button"}
       >
-        <Icon_Plus name="plus" size={60} color={colors.azul_claro1} />
+        <Icon_Plus name="plus" size={50} color={colors.primary} />
       </TouchableOpacity>
       <Footer routeSelected={route.name} />
     </View>
